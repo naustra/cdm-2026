@@ -1,0 +1,9 @@
+.points-won-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .points-won-container {
+    position: relative;
+  }
+}

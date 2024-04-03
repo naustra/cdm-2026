@@ -1,0 +1,1338 @@
+{
+   "matches": {
+      "-Kj2zgKRUwOUbY09TiKi-0": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694200500
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40846",
+         "odds": {
+            "PA": 204,
+            "PB": 219,
+            "PN": 2365
+         },
+         "oddsUnibet": {
+            "PA": 1.85,
+            "PB": 1.99,
+            "PN": 21.5
+         },
+         "phase": "0",
+         "scores": {
+            "A": 27,
+            "B": 13
+         },
+         "streaming": "TF1",
+         "teamA": "-b3j145tij1hqfzo5d0h",
+         "teamB": "-ea5m9rzcr63k8j7brxs",
+         "ville": "Saint-Denis"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-1": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694257200
+         },
+         "display": true,
+         "finished": true,
+         "odds": {
+            "PA": 111,
+            "PB": 2200,
+            "PN": 8800
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 20,
+            "PN": 80
+         },
+         "phase": "0",
+         "scores": {
+            "A": 52,
+            "B": 8
+         },
+         "streaming": "M6",
+         "teamA": "-j862kl0yi0nfmngb1n8",
+         "teamB": "-p80u4yp27pe0yq1m8nc",
+         "ville": "Saint-Étienne"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-10": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694879100
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40853",
+         "odds": {
+            "PA": 111,
+            "PB": 2530,
+            "PN": 7370
+         },
+         "oddsUnibet": {
+            "PA": "1.01",
+            "PB": "23.00",
+            "PN": "67.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 28,
+            "B": 8
+         },
+         "streaming": "M6",
+         "teamA": "-5ltshzo1rqw0av6x5i8",
+         "teamB": "-b91330v345czod558y0",
+         "ville": "Nice"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-11": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695570300
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40860",
+         "odds": {
+            "PA": 113,
+            "PB": 1650,
+            "PN": 6710
+         },
+         "oddsUnibet": {
+            "PA": "1.03",
+            "PB": "15.00",
+            "PN": "61.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 45,
+            "B": 17
+         },
+         "streaming": "France TV",
+         "teamA": "-vo7g4zwoqc3ra4sxmxn",
+         "teamB": "-v69orwwy1vzwzi1gd7s",
+         "ville": "Nice"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-12": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694955600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40855",
+         "odds": {
+            "PA": 111,
+            "PB": 1540,
+            "PN": 11000
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 14,
+            "PN": 100
+         },
+         "phase": "0",
+         "scores": {
+            "A": 76,
+            "B": 0
+         },
+         "streaming": "France TV",
+         "teamA": "-yl5u7zxd06dh7ii6aln",
+         "teamB": "-oxh3a2vosqcx68ssmmd",
+         "ville": "Bordeaux"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-13": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694965500
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16958",
+         "odds": {
+            "PA": 163,
+            "PB": 303,
+            "PN": 2860
+         },
+         "oddsUnibet": {
+            "PA": "1.48",
+            "PB": "2.75",
+            "PN": "26.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 15,
+            "B": 22
+         },
+         "streaming": "France TV",
+         "teamA": "-15vkjrz347bb8661p2c",
+         "teamB": "-koy8srrsgmrirzki1f8",
+         "ville": "Saint-Etienne"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-14": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694977200
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "16959",
+         "odds": {
+            "PA": 118,
+            "PB": 990,
+            "PN": 5610
+         },
+         "oddsUnibet": {
+            "PA": "1.07",
+            "PB": "9.00",
+            "PN": "51.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 34,
+            "B": 12
+         },
+         "streaming": "TF1",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-lt7n3kpgzmfj487029j",
+         "ville": "Nice"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-15": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695224700
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40856",
+         "odds": {
+            "PA": 112,
+            "PB": 1760,
+            "PN": 7370
+         },
+         "oddsUnibet": {
+            "PA": "1.02",
+            "PB": "16.00",
+            "PN": "67.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 38,
+            "B": 17
+         },
+         "streaming": "M6",
+         "teamA": "-j862kl0yi0nfmngb1n8",
+         "teamB": "-0agys2jsljwl7s7x32j",
+         "ville": "Nice"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-16": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695322800
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40857",
+         "odds": {
+            "PA": 111,
+            "PB": 3850,
+            "PN": 12100
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 35,
+            "PN": 110
+         },
+         "phase": "0",
+         "scores": {
+            "A": 96,
+            "B": 0
+         },
+         "streaming": "France TV",
+         "teamA": "-b3j145tij1hqfzo5d0h",
+         "teamB": "-p80u4yp27pe0yq1m8nc",
+         "ville": "Marseille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-17": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695397500
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16960",
+         "odds": {
+            "PA": 126,
+            "PB": 660,
+            "PN": 3960
+         },
+         "oddsUnibet": {
+            "PA": "1.15",
+            "PB": "6.00",
+            "PN": "36.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 19,
+            "B": 10
+         },
+         "streaming": "M6",
+         "teamA": "-kv10juhy4xip6e0lsmn",
+         "teamB": "-3z1ybtzkm6dtyr0qv8z",
+         "ville": "Saint-Etienne"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-18": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695470400
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40858",
+         "odds": {
+            "PA": 126,
+            "PB": 616,
+            "PN": 3960
+         },
+         "oddsUnibet": {
+            "PA": "1.15",
+            "PB": "5.60",
+            "PN": "36.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 18,
+            "B": 18
+         },
+         "streaming": "M6",
+         "teamA": "-s01yam76lu79pjuwxq0",
+         "teamB": "-b91330v345czod558y0",
+         "ville": "Toulouse"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-19": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695483900
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40859",
+         "odds": {
+            "PA": 111,
+            "PB": 3300,
+            "PN": 5500
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 30,
+            "PN": 50
+         },
+         "phase": "0",
+         "scores": {
+            "A": 71,
+            "B": 0
+         },
+         "streaming": "M6",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-j9p716y3qazwd6f4m0d",
+         "ville": "Lille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-2": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694266200
+         },
+         "display": true,
+         "finished": true,
+         "odds": {
+            "PA": 111,
+            "PB": 2530,
+            "PN": 6600
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 23,
+            "PN": 60
+         },
+         "phase": "0",
+         "scores": {
+            "A": 82,
+            "B": 8
+         },
+         "streaming": "M6",
+         "teamA": "-4oa75ucoei2xqcmcw55",
+         "teamB": "-oxh3a2vosqcx68ssmmd",
+         "ville": "Bordeaux"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-20": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695495600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16961",
+         "odds": {
+            "PA": 196,
+            "PB": 235,
+            "PN": 2530
+         },
+         "oddsUnibet": {
+            "PA": "1.78",
+            "PB": "2.14",
+            "PN": "23.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 8,
+            "B": 13
+         },
+         "streaming": "TF1",
+         "teamA": "-yl5u7zxd06dh7ii6aln",
+         "teamB": "-4oa75ucoei2xqcmcw55",
+         "ville": "Saint-Denis"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-21": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695582000
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16962",
+         "odds": {
+            "PA": 202,
+            "PB": 228,
+            "PN": 2750
+         },
+         "oddsUnibet": {
+            "PA": "1.84",
+            "PB": "2.07",
+            "PN": "25.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 40,
+            "B": 6
+         },
+         "streaming": "TF1",
+         "teamA": "-5ltshzo1rqw0av6x5i8",
+         "teamB": "-15vkjrz347bb8661p2c",
+         "ville": "Lyon"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-22": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695829500
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40861",
+         "odds": {
+            "PA": 119,
+            "PB": 935,
+            "PN": 5060
+         },
+         "oddsUnibet": {
+            "PA": "1.08",
+            "PB": "8.50",
+            "PN": "46.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 36,
+            "B": 26
+         },
+         "streaming": "M6",
+         "teamA": "-0agys2jsljwl7s7x32j",
+         "teamB": "-p80u4yp27pe0yq1m8nc",
+         "ville": "Lyon"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-23": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1695927600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16963",
+         "odds": {
+            "PA": 275,
+            "PB": 174,
+            "PN": 2530
+         },
+         "oddsUnibet": {
+            "PA": "2.50",
+            "PB": "1.58",
+            "PN": "23.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 28,
+            "B": 22
+         },
+         "streaming": "M6",
+         "teamA": "-lt7n3kpgzmfj487029j",
+         "teamB": "-3z1ybtzkm6dtyr0qv8z",
+         "ville": "Toulouse"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-24": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696014000
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16964",
+         "odds": {
+            "PA": 112,
+            "PB": 1870,
+            "PN": 5610
+         },
+         "oddsUnibet": {
+            "PA": "1.02",
+            "PB": "17.00",
+            "PN": "51.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 96,
+            "B": 17
+         },
+         "streaming": "TF1",
+         "teamA": "-ea5m9rzcr63k8j7brxs",
+         "teamB": "-j862kl0yi0nfmngb1n8",
+         "ville": "Lyon"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-25": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696078800
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40862",
+         "odds": {
+            "PA": 111,
+            "PB": 1815,
+            "PN": 15400
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 16.5,
+            "PN": 140
+         },
+         "phase": "0",
+         "scores": {
+            "A": 59,
+            "B": 5
+         },
+         "streaming": "M6",
+         "teamA": "-kv10juhy4xip6e0lsmn",
+         "teamB": "-j9p716y3qazwd6f4m0d",
+         "ville": "Nantes"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-26": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696088700
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40863",
+         "odds": {
+            "PA": 118,
+            "PB": 1045,
+            "PN": 5060
+         },
+         "oddsUnibet": {
+            "PA": "1.07",
+            "PB": "9.50",
+            "PN": "46.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 17,
+            "B": 12
+         },
+         "streaming": "M6",
+         "teamA": "-koy8srrsgmrirzki1f8",
+         "teamB": "-s01yam76lu79pjuwxq0",
+         "ville": "Bordeaux"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-27": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696175100
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40865",
+         "odds": {
+            "PA": 113,
+            "PB": 1540,
+            "PN": 7370
+         },
+         "oddsUnibet": {
+            "PA": "1.03",
+            "PB": "14.00",
+            "PN": "67.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 34,
+            "B": 14
+         },
+         "streaming": "France TV",
+         "teamA": "-15vkjrz347bb8661p2c",
+         "teamB": "-b91330v345czod558y0",
+         "ville": "Saint-Etienne"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-28": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696186800
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40866",
+         "odds": {
+            "PA": 111,
+            "PB": 1815,
+            "PN": 9900
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 16.5,
+            "PN": 90
+         },
+         "phase": "0",
+         "scores": {
+            "A": 49,
+            "B": 18
+         },
+         "streaming": "TF1",
+         "teamA": "-yl5u7zxd06dh7ii6aln",
+         "teamB": "-v69orwwy1vzwzi1gd7s",
+         "ville": "Marseille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-29": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696532400
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40867",
+         "odds": {
+            "PA": 111,
+            "PB": 3850,
+            "PN": 12100
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 35,
+            "PN": 110
+         },
+         "phase": "0",
+         "scores": {
+            "A": 73,
+            "B": 0
+         },
+         "streaming": "TF1",
+         "teamA": "-ea5m9rzcr63k8j7brxs",
+         "teamB": "-0agys2jsljwl7s7x32j",
+         "ville": "Lyon"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-3": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694275200
+         },
+         "display": true,
+         "finished": true,
+         "odds": {
+            "PA": 113,
+            "PB": 1155,
+            "PN": 4400
+         },
+         "oddsUnibet": {
+            "PA": 1.03,
+            "PB": 10.5,
+            "PN": 40
+         },
+         "phase": "0",
+         "scores": {
+            "A": 35,
+            "B": 15
+         },
+         "streaming": "M6",
+         "teamA": "-15vkjrz347bb8661p2c",
+         "teamB": "-s01yam76lu79pjuwxq0",
+         "ville": "Saint-Denis"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-30": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696618800
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16965",
+         "odds": {
+            "PA": 111,
+            "PB": 2090,
+            "PN": 7810
+         },
+         "oddsUnibet": {
+            "PA": "1.01",
+            "PB": "19.00",
+            "PN": "71.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 60,
+            "B": 7
+         },
+         "streaming": "TF1",
+         "teamA": "-b3j145tij1hqfzo5d0h",
+         "teamB": "-j862kl0yi0nfmngb1n8",
+         "ville": "Lyon"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-31": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696762800
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16968",
+         "odds": {
+            "PA": 517,
+            "PB": 132,
+            "PN": 3740
+         },
+         "oddsUnibet": {
+            "PA": "4.70",
+            "PB": "1.20",
+            "PN": "34.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 27,
+            "B": 39
+         },
+         "streaming": "M6",
+         "teamA": "-lt7n3kpgzmfj487029j",
+         "teamB": "-kv10juhy4xip6e0lsmn",
+         "ville": "Nantes"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-32": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696683600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40868",
+         "odds": {
+            "PA": 117,
+            "PB": 1100,
+            "PN": 4510
+         },
+         "oddsUnibet": {
+            "PA": "1.06",
+            "PB": "10.00",
+            "PN": "41.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 43,
+            "B": 19
+         },
+         "streaming": "France TV",
+         "teamA": "-5ltshzo1rqw0av6x5i8",
+         "teamB": "-s01yam76lu79pjuwxq0",
+         "ville": "Nantes"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-33": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696693500
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16966",
+         "odds": {
+            "PA": 116,
+            "PB": 1265,
+            "PN": 5610
+         },
+         "oddsUnibet": {
+            "PA": "1.05",
+            "PB": "11.50",
+            "PN": "51.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 18,
+            "B": 17
+         },
+         "streaming": "France TV",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-3z1ybtzkm6dtyr0qv8z",
+         "ville": "Lille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-34": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696779900
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40869",
+         "odds": {
+            "PA": 111,
+            "PB": 2860,
+            "PN": 7810
+         },
+         "oddsUnibet": {
+            "PA": "1.01",
+            "PB": "26.00",
+            "PN": "71.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 45,
+            "B": 24
+         },
+         "streaming": "M6",
+         "teamA": "-v69orwwy1vzwzi1gd7s",
+         "teamB": "-oxh3a2vosqcx68ssmmd",
+         "ville": "Lille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-35": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696791600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40870",
+         "odds": {
+            "PA": 117,
+            "PB": 1100,
+            "PN": 5610
+         },
+         "oddsUnibet": {
+            "PA": "1.06",
+            "PB": "10.00",
+            "PN": "51.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 23,
+            "B": 24
+         },
+         "streaming": "M6",
+         "teamA": "-koy8srrsgmrirzki1f8",
+         "teamB": "-b91330v345czod558y0",
+         "ville": "Toulouse"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-4": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694286000
+         },
+         "display": true,
+         "finished": true,
+         "odds": {
+            "PA": 215,
+            "PB": 209,
+            "PN": 3850
+         },
+         "oddsUnibet": {
+            "PA": 1.95,
+            "PB": 1.9,
+            "PN": 35
+         },
+         "phase": "0",
+         "scores": {
+            "A": 27,
+            "B": 10
+         },
+         "streaming": "TF1",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-kv10juhy4xip6e0lsmn",
+         "ville": "Marseille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-5": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694343600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40849",
+         "odds": {
+            "PA": 111,
+            "PB": 4950,
+            "PN": 1518
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 45,
+            "PN": 13.8
+         },
+         "phase": "0",
+         "scores": {
+            "A": 42,
+            "B": 12
+         },
+         "streaming": "France TV",
+         "teamA": "-lt7n3kpgzmfj487029j",
+         "teamB": "-j9p716y3qazwd6f4m0d",
+         "ville": "Toulouse"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-6": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694372400
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16957",
+         "odds": {
+            "PA": 167,
+            "PB": 292,
+            "PN": 2475
+         },
+         "oddsUnibet": {
+            "PA": 1.52,
+            "PB": 2.65,
+            "PN": 22.5
+         },
+         "phase": "0",
+         "scores": {
+            "A": 32,
+            "B": 26
+         },
+         "streaming": "TF1",
+         "teamA": "-5ltshzo1rqw0av6x5i8",
+         "teamB": "-koy8srrsgmrirzki1f8",
+         "ville": "Bordeaux"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-7": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694718000
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40850",
+         "odds": {
+            "PA": 111,
+            "PB": 1408,
+            "PN": 9900
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 12.8,
+            "PN": 90
+         },
+         "phase": "0",
+         "scores": {
+            "A": 27,
+            "B": 12
+         },
+         "streaming": "TF1",
+         "teamA": "-b3j145tij1hqfzo5d0h",
+         "teamB": "-0agys2jsljwl7s7x32j",
+         "ville": "Lille"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-8": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694804400
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40851",
+         "odds": {
+            "PA": 111,
+            "PB": 1375,
+            "PN": 9900
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 12.5,
+            "PN": 90
+         },
+         "phase": "0",
+         "scores": {
+            "A": 71,
+            "B": 3
+         },
+         "streaming": "TF1",
+         "teamA": "-ea5m9rzcr63k8j7brxs",
+         "teamB": "-p80u4yp27pe0yq1m8nc",
+         "ville": "Toulouse"
+      },
+      "-Kj2zgKRUwOUbY09TiKi-9": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694869200
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "40852",
+         "odds": {
+            "PA": 111,
+            "PB": 2200,
+            "PN": 8910
+         },
+         "oddsUnibet": {
+            "PA": "1.01",
+            "PB": "20.00",
+            "PN": "81.00"
+         },
+         "phase": "0",
+         "scores": {
+            "A": 43,
+            "B": 10
+         },
+         "streaming": "M6",
+         "teamA": "-3z1ybtzkm6dtyr0qv8z",
+         "teamB": "-j9p716y3qazwd6f4m0d",
+         "ville": "Bordeaux"
+      },
+      "X7eB6Gf72nTsRnqiyYEH": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694890800
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "40854",
+         "odds": {
+            "PA": 111,
+            "PB": 2750,
+            "PN": 1650
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 25,
+            "PN": 15
+         },
+         "phase": "0",
+         "scores": {
+            "A": 59,
+            "B": 16
+         },
+         "streaming": "TF1",
+         "teamA": "-4oa75ucoei2xqcmcw55",
+         "teamB": "-v69orwwy1vzwzi1gd7s",
+         "ville": "Nantes"
+      },
+      "X7eB6Gf72nTsRnqiyYEJ": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1694360700
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "16956",
+         "odds": {
+            "PA": 132,
+            "PB": 528,
+            "PN": 3300
+         },
+         "oddsUnibet": {
+            "PA": 1.2,
+            "PB": 4.8,
+            "PN": 30
+         },
+         "phase": "0",
+         "scores": {
+            "A": 18,
+            "B": 3
+         },
+         "streaming": "France TV",
+         "teamA": "-yl5u7zxd06dh7ii6aln",
+         "teamB": "-vo7g4zwoqc3ra4sxmxn",
+         "ville": "Marseille"
+      },
+      "X7eB6Gf72nTsRnqiyYFJ": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696100400
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "40864",
+         "odds": {
+            "PA": 111,
+            "PB": 2750,
+            "PN": 12100
+         },
+         "oddsUnibet": {
+            "PA": 1.01,
+            "PB": 25,
+            "PN": 110
+         },
+         "phase": "0",
+         "scores": {
+            "A": 84,
+            "B": 0
+         },
+         "streaming": "M6",
+         "teamA": "-vo7g4zwoqc3ra4sxmxn",
+         "teamB": "-oxh3a2vosqcx68ssmmd",
+         "ville": "Lille"
+      },
+      "Y7eB6Gf72nTsRnqiyYEJ": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1696705200
+         },
+         "display": true,
+         "odds": {
+            "PA": 129,
+            "PB": 583,
+            "PN": 3410
+         },
+         "oddsUnibet": {
+            "PA": 15.8,
+            "PB": 26.5,
+            "PN": 18.2
+         },
+         "phase": "0",
+         "scores": {
+            "A": 36,
+            "B": 14
+         },
+         "streaming": "TF1",
+         "teamA": "-4oa75ucoei2xqcmcw55",
+         "teamB": "-vo7g4zwoqc3ra4sxmxn",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEK": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697295600
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "43555",
+         "odds": {
+            "PA": 167,
+            "PB": 308,
+            "PN": 2420
+         },
+         "oddsUnibet": {
+            "PA": "1.52",
+            "PB": "22",
+            "PN": "2.8"
+         },
+         "phase": "4",
+         "scores": {
+            "A": 17,
+            "B": 29
+         },
+         "streaming": "France TV",
+         "teamA": "-5ltshzo1rqw0av6x5i8",
+         "teamB": "-kv10juhy4xip6e0lsmn",
+         "ville": "Marseille"
+      },
+      "Y7eB6Gf72nTsRnqiyYEL": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697310000
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43551",
+         "odds": {
+            "PA": 193,
+            "PB": 248,
+            "PN": 2475
+         },
+         "oddsUnibet": {
+            "PA": "1.75",
+            "PB": "22.50",
+            "PN": "2.25"
+         },
+         "phase": "4",
+         "scores": {
+            "A": 24,
+            "B": 28
+         },
+         "streaming": "TF1",
+         "teamA": "-4oa75ucoei2xqcmcw55",
+         "teamB": "-ea5m9rzcr63k8j7brxs",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEM": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697382000
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43556",
+         "odds": {
+            "PA": 149,
+            "PB": 407,
+            "PN": 2805
+         },
+         "oddsUnibet": {
+            "PA": "1.35",
+            "PB": "25.50",
+            "PN": "3.70"
+         },
+         "phase": "4",
+         "scores": {
+            "A": 30,
+            "B": 24
+         },
+         "streaming": "M6",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-koy8srrsgmrirzki1f8",
+         "ville": "Marseille"
+      },
+      "Y7eB6Gf72nTsRnqiyYEN": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697396400
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43552",
+         "odds": {
+            "PA": 193,
+            "PB": 248,
+            "PN": 2475
+         },
+         "oddsUnibet": {
+            "PA": "1.75",
+            "PB": "22.50",
+            "PN": "2.25"
+         },
+         "phase": "4",
+         "scores": {
+            "A": 28,
+            "B": 29
+         },
+         "streaming": "TF1",
+         "teamA": "-b3j145tij1hqfzo5d0h",
+         "teamB": "-yl5u7zxd06dh7ii6aln",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEP": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697828400
+         },
+         "display": true,
+         "finished": true,
+         "idApiRugby": "43566",
+         "odds": {
+            "PA": 1110,
+            "PB": 120,
+            "PN": 4950
+         },
+         "oddsUnibet": {
+            "PA": "10",
+            "PB": "45",
+            "PN": "1.09"
+         },
+         "phase": "2",
+         "scores": {
+            "A": 6,
+            "B": 44
+         },
+         "streaming": "TF1",
+         "teamA": "-kv10juhy4xip6e0lsmn",
+         "teamB": "-ea5m9rzcr63k8j7brxs",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEQ": {
+         "dateTime": {
+            "_nanoseconds": 0,
+            "_seconds": 1697914800
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43567",
+         "odds": {
+            "PA": 647,
+            "PB": 127,
+            "PN": 3850
+         },
+         "oddsUnibet": {
+            "PA": "5.88",
+            "PB": "1.15",
+            "PN": "35"
+         },
+         "phase": "2",
+         "scores": {
+            "A": 15,
+            "B": 16
+         },
+         "streaming": "TF1",
+         "teamA": "-tbgtcmmvw8bwex4piti",
+         "teamB": "-yl5u7zxd06dh7ii6aln",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEX": {
+         "dateTime": {
+            "_nanoseconds": 426000000,
+            "_seconds": 1698433200
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43598",
+         "odds": {
+            "PA": 374,
+            "PB": 150,
+            "PN": 3300
+         },
+         "oddsUnibet": {
+            "PA": "3.4",
+            "PB": "1.36",
+            "PN": "30"
+         },
+         "phase": "3",
+         "scores": {
+         },
+         "streaming": "TF1",
+         "teamA": "-yl5u7zxd06dh7ii6aln",
+         "teamB": "-tbgtcmmvw8bwex4piti",
+         "ville": "Saint-Denis"
+      },
+      "Y7eB6Gf72nTsRnqiyYEY": {
+         "dateTime": {
+            "_nanoseconds": 412000000,
+            "_seconds": 1698519600
+         },
+         "display": true,
+         "finished": false,
+         "idApiRugby": "43599",
+         "odds": {
+            "PA": 198,
+            "PB": 242,
+            "PN": 2200
+         },
+         "oddsUnibet": {
+            "PA": "1.8",
+            "PB": "2.2",
+            "PN": "20"
+         },
+         "phase": "1",
+         "scores": {
+         },
+         "streaming": "TF1",
+         "teamA": "-ea5m9rzcr63k8j7brxs",
+         "teamB": "-yl5u7zxd06dh7ii6aln",
+         "ville": "Saint-Denis"
+      }
+   }
+}

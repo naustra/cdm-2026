@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "request": "attach",
+            "type": "pwa-chrome",
+            "urlFilter": "https://localhost:3000/*",
+            "webRoot": "${workspaceFolder}/src"
+        },
+        {
+            "name": "Launch Program",
+            "program": "${fileBasename}",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/${relativeFileDirname}",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+    ]
+}

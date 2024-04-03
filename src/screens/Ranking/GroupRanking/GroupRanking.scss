@@ -1,0 +1,26 @@
+.group-ranking-card {
+  margin-bottom: 10px;
+  margin: auto;
+  max-width: 800px;
+
+  .own-ranking-row {
+    background: #feefc4;
+  }
+
+  .bet-winner-beaten {
+    width: 3em;
+    opacity: 0.6;
+  }
+
+  .bet-winner-unveiled {
+    border-radius: 50%;
+    width: 3em;
+    background-color: #fff;
+    box-shadow: 0 0 6px 3px #fff, /* inner white */ 0 0 9px 6px #ed0,
+      0 0 12px 9px #fca;
+  }
+
+  .bet-winner-unknown {
+    width: 3em;
+  }
+}

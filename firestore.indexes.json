@@ -1,0 +1,13 @@
+{
+  "indexes": [{
+    "collectionGroup": "bets",
+    "queryScope": "COLLECTION",
+    "fields": [{
+      "fieldPath": "match",
+      "order": "ASCENDING"
+    }, {
+      "fieldPath": "user",
+      "order": "ASCENDING"
+    }]
+  }]
+}
