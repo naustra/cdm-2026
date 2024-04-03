@@ -1,8 +1,8 @@
 const stagingConfig = {
   apiKey: 'AIzaSyBzlTB9UjDQDpFMoDnAmo2m4Z6fqNUTvVE',
-  authDomain: 'rugby-2023-e5f84.firebaseapp.com',
-  projectId: 'rugby-2023-e5f84',
-  storageBucket: 'rugby-2023-e5f84.appspot.com',
+  authDomain: 'euro-2024-e5f84.firebaseapp.com',
+  projectId: 'euro-2024-e5f84',
+  storageBucket: 'euro-2024-e5f84.appspot.com',
   messagingSenderId: '903319843295',
   appId: '1:903319843295:web:d2ecdc7fe03ec8a523546a',
   vapidKey:
@@ -13,9 +13,9 @@ const productionConfig = {
   apiKey: 'AIzaSyCSRoHM86m0HqvpYxXoOd7gg6raFlvK9nc',
   authDomain: 'paris-entre-potos.fun',
   databaseURL:
-    'https://rugby-2023-prod-4fa68-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'rugby-2023-prod-4fa68',
-  storageBucket: 'rugby-2023-prod-4fa68.appspot.com',
+    'https://euro-2024-prod-4fa68-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'euro-2024-prod-4fa68',
+  storageBucket: 'euro-2024-prod-4fa68.appspot.com',
   messagingSenderId: '239202981493',
   appId: '1:239202981493:web:5591e1ba83e749b3854a3c',
   vapidKey:

@@ -7,7 +7,7 @@ const admin = require('firebase-admin')
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL:
-    'https://rugby-2023-prod-4fa68-default-rtdb.europe-west1.firebasedatabase.app',
+    'https://euro-2024-prod-4fa68-default-rtdb.europe-west1.firebasedatabase.app',
 })
 
 /**

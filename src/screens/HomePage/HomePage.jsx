@@ -63,11 +63,10 @@ const HomePage = ({ beforeInstallPrompt }) => {
         </div>
       ) : null}
       <p className="text-center">
-        Bienvenue sur Paris Entre Potos, le site de pronostics de la Coupe du
-        monde de rugby 2023. Jouez en famille ou entre amis et affrontez
-        d&apos;autres tribus ! Le but ? Pariez au plus proche de la réalité les
-        résultats des équipes, marquez des points, et tentez de gagner la
-        première place.
+        Bienvenue sur Paris Entre Potos, le site de pronostics de l'EURO 2024.
+        Jouez en famille ou entre amis et affrontez d&apos;autres tribus ! Le
+        but ? Pariez au plus proche de la réalité les résultats des équipes,
+        marquez des points, et tentez de gagner la première place.
       </p>
 
       <div className="mx-auto flex justify-center flex-wrap p-2">

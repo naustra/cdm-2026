@@ -14,13 +14,13 @@ const db = admin.firestore()
 
 const headers = {
   'x-rapidapi-key': apiKeyRugby,
-  'x-rapidapi-host': 'api-rugby.p.rapidapi.com',
+  'x-rapidapi-host': 'api-foot.p.rapidapi.com',
 }
 
 const getGame = async (id: string) => {
   const options = {
     method: 'GET',
-    url: 'https://api-rugby.p.rapidapi.com/games/',
+    url: 'https://api-foot.p.rapidapi.com/games/',
     params: {
       id: id,
     },

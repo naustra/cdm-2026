@@ -14,7 +14,7 @@ function FAQPage() {
       </p>
       <FaqEntry
         question="Qu'est-ce que c'est ?"
-        answer="Un site qui vous permet de jouer avec les pronostics de la Coupe du monde de rugby 2023, entre amis ou en famille.
+        answer="Un site qui vous permet de jouer avec les pronostics de l'EURO 2024, entre amis ou en famille.
           À chaque bon pronostic, vous marquez un certain nombre de points, qui cumulés au fur et à mesure
           détermineront votre place dans le classement de votre tribu."
       />
@@ -122,7 +122,7 @@ function FAQPage() {
             Les côtes de vainqueur final sont figées au démarrage de la compétition."
       />
       <FaqEntry
-        question="Pourquoi ne puis-je pas pronostiquer sur le gagnant de la coupe-du-monde ?"
+        question="Pourquoi ne puis-je pas pronostiquer sur le gagnant de l'euro ?"
         answer="Si vous avez émis ce pronostic après le 08 septembre 2023 à 21h, il est en effet trop tard (cf. règlement).
           Si ce n'est pas le cas, merci de nous envoyer un mail à pierre@le-bihan.eu avant la date du
           premier match de la coupe."
@@ -152,7 +152,7 @@ function FAQPage() {
             <br />
             Vous pouvez consulter la politique de confidentialité complète{' '}
             <a
-              href="https://github.com/naustra/rugby-2023/blob/master/confidentialite.md"
+              href="https://github.com/naustra/euro-2024/blob/master/confidentialite.md"
               target="_blank"
               rel="noreferrer"
             >

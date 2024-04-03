@@ -14,13 +14,13 @@ const db = admin.firestore()
 
 const headers = {
   'X-RapidAPI-Key': process.env.API_RUGBY_KEY,
-  'X-RapidAPI-Host': 'api-rugby.p.rapidapi.com',
+  'X-RapidAPI-Host': 'api-foot.p.rapidapi.com',
 }
 
 const getLeagues = async () => {
   const options = {
     method: 'GET',
-    url: 'https://api-rugby.p.rapidapi.com/leagues',
+    url: 'https://api-foot.p.rapidapi.com/leagues',
     headers,
   }
   const response = await axios.request(options)
@@ -30,7 +30,7 @@ const getLeagues = async () => {
 const getGames = async () => {
   const options = {
     method: 'GET',
-    url: 'https://api-rugby.p.rapidapi.com/games',
+    url: 'https://api-foot.p.rapidapi.com/games',
     params: {
       league: '69',
       season: '2023',
@@ -57,7 +57,7 @@ const getGames = async () => {
 const getGame = async (id) => {
   const options = {
     method: 'GET',
-    url: 'https://api-rugby.p.rapidapi.com/games/',
+    url: 'https://api-foot.p.rapidapi.com/games/',
     params: {
       id: id,
     },

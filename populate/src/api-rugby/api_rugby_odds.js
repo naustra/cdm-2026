@@ -14,13 +14,13 @@ const db = admin.firestore()
 
 const headers = {
   'X-RapidAPI-Key': process.env.API_RUGBY_KEY,
-  'X-RapidAPI-Host': 'api-rugby.p.rapidapi.com',
+  'X-RapidAPI-Host': 'api-foot.p.rapidapi.com',
 }
 
 const getOddsGames = async () => {
   const options = {
     method: 'GET',
-    url: 'https://api-rugby.p.rapidapi.com/odds',
+    url: 'https://api-foot.p.rapidapi.com/odds',
     params: {
       league: '69',
       season: '2023',
