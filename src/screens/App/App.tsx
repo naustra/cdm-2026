@@ -7,17 +7,17 @@ import UserPage from '../User'
 import MatchesPage from '../Matches'
 import NotFoundPage from '../NotFoundPage'
 
-const AnalyticsPage = lazy(() => import('../Analytics/Analytics'))
+const AnalyticsPage = lazy(() => import('../Analytics'))
 const FAQPage = lazy(() => import('../FAQ/FAQ'))
 const GroupsPage = lazy(() => import('../Groups/Groups'))
 const Profile = lazy(() => import('../Profile/Profile'))
 const RankingPage = lazy(() => import('../Ranking/Ranking'))
 const RulesPage = lazy(() => import('../Rules/rules'))
 import ConnectionWidget from './ConnectionWidget/ConnectionWidget'
-import NavigationMenu from './NavigationMenu/NavigationMenu'
-import InstallPrompt from 'components/InstallPrompt/InstallPrompt'
+import NavigationMenu from './NavigationMenu'
+import InstallPrompt from 'components/InstallPrompt'
 
-const AdminPage = lazy(() => import('../Admin/Admin'))
+const AdminPage = lazy(() => import('../Admin'))
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)

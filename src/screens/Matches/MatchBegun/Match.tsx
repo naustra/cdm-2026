@@ -1,9 +1,9 @@
 import { useBet } from '../../../hooks/bets'
 import Flag from '../../../components/Flag'
-import PointsWon from './PointsWon/PointsWon'
+import PointsWon from './PointsWon'
 import { isNumber } from 'lodash'
 import { useNavigate } from 'react-router-dom'
-import InformationMatch from '../MatchToBet/InformationMatch/InformationMatch'
+import InformationMatch from '../MatchToBet/InformationMatch'
 
 const facteurMultiplicateurPhase = {
   0: 1,

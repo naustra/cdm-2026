@@ -2,7 +2,7 @@ import { useBetFromUser } from '../../../hooks/bets'
 import Flag from '../../../components/Flag'
 import { isNumber } from 'lodash'
 import { useNavigate, useParams } from 'react-router-dom'
-import InformationMatch from '../../Matches/MatchToBet/InformationMatch/InformationMatch'
+import InformationMatch from '../../Matches/MatchToBet/InformationMatch'
 
 const facteurMultiplicateurPhase: Record<number, number> = {
   0: 1,

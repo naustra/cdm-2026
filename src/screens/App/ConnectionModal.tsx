@@ -1,4 +1,4 @@
-import { useGoogleLogin } from '../../../hooks/user'
+import { useGoogleLogin } from '../../hooks/user'
 
 const GoogleIcon = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">

@@ -1,8 +1,8 @@
 import orderBy from 'lodash/orderBy'
 import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../contexts/AuthContext'
-import InlineAvatar from 'components/Avatar/Avatar'
+import { useAuth } from '../../../contexts/AuthContext'
+import InlineAvatar from 'components/Avatar'
 import { useBetsFromGame } from 'hooks/bets'
 
 interface GroupMatchDetailsProps {

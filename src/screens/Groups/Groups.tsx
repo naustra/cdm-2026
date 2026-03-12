@@ -1,5 +1,5 @@
 import CreateGroup from './CreateGroup/CreateGroup'
-import JoinGroup from './JoinGroup/JoinGroup'
+import JoinGroup from './JoinGroup'
 import MyGroups from './MyGroups/MyGroups'
 
 const Groups = () => {

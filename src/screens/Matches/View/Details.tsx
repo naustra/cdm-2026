@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGroupsForUserMember } from '../../../hooks/groups'
-import GroupMatchDetails from './GroupMatchDetails/GroupMatchDetails'
+import GroupMatchDetails from './GroupMatchDetails'
 import { useAllOpponents } from '../../../hooks/opponents'
 import { useMatch } from 'hooks/matches'
 import MatchBegun from '../MatchBegun/Match'

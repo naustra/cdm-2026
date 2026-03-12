@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 import { Suspense, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useIsUserConnected, useIsUserAdmin } from '../../../hooks/user'
+import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
   <svg

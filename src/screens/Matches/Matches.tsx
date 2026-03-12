@@ -9,7 +9,7 @@ import { useAllUserBets } from '../../hooks/bets'
 import { useIsUserAdmin, useIsUserConnected } from '../../hooks/user'
 import MatchToBet from './MatchToBet/Match'
 import MatchBegun from './MatchBegun/Match'
-import AiBetModal from './AiBetModal/AiBetModal'
+import AiBetModal from './AiBetModal'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 function groupMatchesByDate(matches: NormalizedMatch[]) {

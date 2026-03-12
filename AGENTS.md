@@ -49,8 +49,8 @@ populate/            # Scripts admin
 - **Tables/colonnes DB** : snake_case (`bet_team_a`, `display_name`)
 
 ### Organisation des fichiers
-- **Composants** : `components/NomComposant/NomComposant.tsx` + `index.ts` (re-export)
-- **Screens** : `screens/NomScreen/` avec `index.js` re-exportant le composant principal
+- **Composants** : Les composants simples sont placés directement à la racine de `components/` (ex: `InstallPrompt.tsx`). S'il y a des sous-composants, ils peuvent avoir leur propre dossier.
+- **Screens** : Les écrans simples sont placés directement à la racine de `screens/` (ex: `Analytics.tsx`). Les dossiers sont réservés aux écrans complexes. Plus de fichiers `index.js` ou `index.ts` pour les ré-exports de composants.
 - **Hooks** : fichiers plats dans `hooks/`
 - **Contexts** : fichiers plats dans `contexts/`
 
@@ -137,7 +137,6 @@ Push sur `main` declenche le workflow `.github/workflows/deploy.yml` :
 ## Points d'attention
 
 - Les types DB sont generes dans `src/lib/database.types.ts` — les regenerer apres toute modification de schema
-- Le dossier `functions/` (racine) est du legacy Firebase, ne pas le modifier
 - Le dossier `populate/` contient des scripts de reference pour la migration vers Supabase
 - L'app est une PWA avec Service Worker (vite-plugin-pwa), manifest genere dans `vite.config.ts`
 - Theme couleur : `#19194b` (fond sombre), `#bcffff` (fond clair)

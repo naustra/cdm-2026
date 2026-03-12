@@ -1,6 +1,6 @@
 import find from 'lodash/find'
-import Flag from '../../../../components/Flag'
-import { useTeams } from '../../../../hooks/teams'
+import Flag from '../../../components/Flag'
+import { useTeams } from '../../../hooks/teams'
 
 interface FinalWinnerChoiceProps {
   userTeam: string | null | undefined

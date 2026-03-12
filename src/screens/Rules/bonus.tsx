@@ -1,5 +1,5 @@
-import Section from '../component/section/rulesSection'
-import Table from '../component/table/table'
+import Section from './component/rulesSection'
+import Table from './component/table'
 
 const Bonus = () => (
   <Section>

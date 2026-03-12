@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../../contexts/AuthContext'
-import { useLogout } from '../../../../hooks/user'
+import { useAuth } from '../../../contexts/AuthContext'
+import { useLogout } from '../../../hooks/user'
 
 const User = () => {
   const { user, profile } = useAuth()

@@ -5,7 +5,7 @@ import forgotBetImgUrl from '../../../assets/icons/ForgotBet.png'
 import imgUrl from '../../../assets/icons/mask6.png'
 import { useOpponents } from '../../../hooks/opponents'
 import { useTeams } from '../../../hooks/teams'
-import OwnRank from './OwnRank/OwnRank'
+import OwnRank from './OwnRank'
 import { useNavigate } from 'react-router-dom'
 import Flag from 'components/Flag'
 

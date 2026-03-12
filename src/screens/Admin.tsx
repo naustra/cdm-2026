@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../../lib/supabase'
-import { useIsUserAdmin } from '../../hooks/user'
-import { useMatches, type NormalizedMatch } from '../../hooks/matches'
+import { supabase } from '../lib/supabase'
+import { useIsUserAdmin } from '../hooks/user'
+import { useMatches, type NormalizedMatch } from '../hooks/matches'
 import Flag from 'components/Flag'
 
 type MatchScoreEdit = {

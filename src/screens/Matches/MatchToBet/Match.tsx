@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { useBet } from '../../../hooks/bets'
-import InformationMatch from './InformationMatch/InformationMatch'
-import Odds from '../components/Odds/Odds'
-import ValidIcon from './ValidIcon/ValidIcon'
+import InformationMatch from './InformationMatch'
+import Odds from '../components/Odds'
+import ValidIcon from './ValidIcon'
 import Flag from '../../../components/Flag'
 
 const Match = ({ match }) => {

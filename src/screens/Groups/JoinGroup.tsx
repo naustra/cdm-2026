@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useApplyInGroup } from '../../../hooks/groups'
+import { useApplyInGroup } from '../../hooks/groups'
 
 const JoinGroup = () => {
   const [code, setCode] = useState('')

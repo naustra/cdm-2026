@@ -2,7 +2,7 @@ import { isPast } from 'date-fns'
 import { Suspense, useCallback, useMemo, type ChangeEvent } from 'react'
 import { useSelectedWinner } from '../../../hooks/winner'
 import { useCompetitionData } from '../../../hooks/competition'
-import FinalWinnerChoice from './FinalWinnerChoice/FinalWinnerChoice'
+import FinalWinnerChoice from './FinalWinnerChoice'
 
 const FinalWinner = () => {
   const [team, saveWinner] = useSelectedWinner()

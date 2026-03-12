@@ -1,6 +1,6 @@
 import findIndex from 'lodash/findIndex'
 import size from 'lodash/size'
-import { useAuth } from '../../../../contexts/AuthContext'
+import { useAuth } from '../../../contexts/AuthContext'
 
 interface OwnRankProps {
   opponents: Array<{ id: string; score?: number | null }>

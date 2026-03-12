@@ -2,13 +2,13 @@ import { createPortal } from 'react-dom'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import toast from 'react-hot-toast'
-import { useAuth } from '../../../contexts/AuthContext'
-import { saveBatchBets } from '../../../hooks/bets'
+import { useAuth } from '../../contexts/AuthContext'
+import { saveBatchBets } from '../../hooks/bets'
 import {
   generatePredictions,
   type AiProvider,
-} from '../../../lib/openrouter'
-import type { NormalizedMatch } from '../../../hooks/matches'
+} from '../../lib/openrouter'
+import type { NormalizedMatch } from '../../hooks/matches'
 
 type ModalStep = 'prompt' | 'choose' | 'loading' | 'error'
 
