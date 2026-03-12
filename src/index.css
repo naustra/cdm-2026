@@ -1114,3 +1114,156 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
   height: calc(100vh - 60px);
   overflow: hidden;
 }
+
+/* ═══════════════════════════ Admin ═══════════════════════════ */
+
+.admin-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 16px 60px;
+}
+
+.admin-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #19194B;
+  margin: 0 0 4px;
+}
+
+.admin-subtitle {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin: 0 0 16px;
+}
+
+.admin-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-phase-group {
+  margin-bottom: 24px;
+}
+
+.admin-phase-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #19194B;
+  padding: 6px 0;
+  border-bottom: 2px solid #19194B;
+  margin-bottom: 8px;
+}
+
+.admin-match-row {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: box-shadow 0.15s;
+}
+.admin-match-row:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+.admin-match-row--finished { opacity: 0.65; }
+
+.admin-match-teams {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.admin-match-team {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex: 1;
+}
+.admin-match-team:last-of-type { justify-content: flex-end; }
+
+.admin-match-vs {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  font-weight: 600;
+}
+
+.admin-match-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.admin-match-phase {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+.admin-match-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #059669;
+  background: #d1fae5;
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+
+.admin-match-scores {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.admin-score-input {
+  width: 48px;
+  padding: 6px 4px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fafaf5;
+  color: #19194B;
+  transition: border-color 0.15s;
+}
+.admin-score-input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+.admin-score-input::-webkit-inner-spin-button,
+.admin-score-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.admin-score-separator {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #9ca3af;
+}
+
+.admin-save-btn {
+  padding: 6px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e5e7eb;
+  color: #9ca3af;
+  transition: all 0.15s;
+}
+.admin-save-btn--active {
+  background: #19194B;
+  color: #fff;
+}
+.admin-save-btn--active:hover {
+  background: #2d2d7a;
+}
+.admin-save-btn:disabled {
+  cursor: not-allowed;
+}

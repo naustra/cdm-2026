@@ -5,11 +5,12 @@ import {
   HelpCircle,
   MessageCircleQuestion,
   BarChart3,
+  ShieldCheck,
   type LucideProps,
 } from 'lucide-react'
 import { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useIsUserConnected } from '../../../hooks/user'
+import { useIsUserConnected, useIsUserAdmin } from '../../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
   <svg
@@ -37,13 +38,14 @@ const FootballIcon = (props: LucideProps) => (
 )
 
 const menuItems = [
-  { label: 'Accueil', icon: Home, path: '/', auth: false },
-  { label: 'Pronostics', icon: FootballIcon, path: '/matches', auth: true },
-  { label: 'Classement', icon: Trophy, path: '/ranking', auth: true },
-  { label: 'Tribus', icon: Users, path: '/groups', auth: true },
-  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: false },
-  { label: 'Règles', icon: HelpCircle, path: '/rules', auth: false },
-  { label: 'FAQ', icon: MessageCircleQuestion, path: '/faq', auth: false },
+  { label: 'Accueil', icon: Home, path: '/', auth: false, admin: false },
+  { label: 'Pronostics', icon: FootballIcon, path: '/matches', auth: true, admin: false },
+  { label: 'Classement', icon: Trophy, path: '/ranking', auth: true, admin: false },
+  { label: 'Tribus', icon: Users, path: '/groups', auth: true, admin: false },
+  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: false, admin: false },
+  { label: 'Règles', icon: HelpCircle, path: '/rules', auth: false, admin: false },
+  { label: 'FAQ', icon: MessageCircleQuestion, path: '/faq', auth: false, admin: false },
+  { label: 'Admin', icon: ShieldCheck, path: '/admin', auth: true, admin: true },
 ]
 
 interface NavigationMenuProps {
@@ -53,6 +55,7 @@ interface NavigationMenuProps {
 
 const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   const isConnected = useIsUserConnected()
+  const isAdmin = useIsUserAdmin()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -72,7 +75,7 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   }
 
   const visibleItems = menuItems.filter(
-    (item) => !item.auth || isConnected,
+    (item) => (!item.auth || isConnected) && (!item.admin || isAdmin),
   )
 
   return (

@@ -55,7 +55,7 @@ BEGIN
       goals_diff := ABS(NEW.score_a - bet_row.bet_team_a)
                   + ABS(NEW.score_b - bet_row.bet_team_b);
 
-      points := ROUND((odd_bet - goals_diff) * phase_mult);
+      points := GREATEST(ROUND((odd_bet - goals_diff) * phase_mult), 0);
     END IF;
 
     UPDATE bets SET points_won = points WHERE id = bet_row.id;

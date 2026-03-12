@@ -1,5 +1,5 @@
 import { Menu, X } from 'lucide-react'
-import { Suspense, useState } from 'react'
+import { Suspense, lazy, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
 import AnalyticsPage from '../Analytics'
@@ -15,6 +15,8 @@ import RulesPage from '../Rules'
 import ConnectionWidget from './ConnectionWidget'
 import NavigationMenu from './NavigationMenu'
 import InstallPrompt from 'components/InstallPrompt'
+
+const AdminPage = lazy(() => import('../Admin'))
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -60,7 +62,9 @@ const App = () => {
                 <Route path="/groups" element={<GroupsPage />} />
                 <Route path="/profile" element={<Profile />} />
 
-                {adminUser && <></>}
+                {adminUser && (
+                  <Route path="/admin" element={<AdminPage />} />
+                )}
               </>
             )}
 
