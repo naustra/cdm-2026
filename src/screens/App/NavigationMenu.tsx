@@ -170,7 +170,7 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
 
           <div className="px-5 py-4 border-t border-gray-100">
             <p className="text-[0.6rem] text-gray-400 text-center">
-              Made with ❤️ by LeBihanCorporation
+              Fait avec ❤️ par la B-IA-N Corporation
             </p>
           </div>
         </div>
