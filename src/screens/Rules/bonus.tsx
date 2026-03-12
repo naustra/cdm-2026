@@ -12,7 +12,7 @@ const Bonus = () => (
       associée est ajoutée au total de points.
     </p>
     <div>
-      <h3 className="rules-subheading">Répartition des points</h3>
+      <h3 className="text-lg font-bold text-navy">Répartition des points</h3>
       <p>
         Les points sont répartis de façon équilibrée pour que les retournements
         de situation restent possibles jusqu&apos;au bout !

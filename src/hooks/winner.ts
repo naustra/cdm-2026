@@ -1,10 +1,11 @@
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
-import { useUserProfile } from './user'
+import { useUserProfile, useUpdateProfile } from './user'
 
 export function useSelectedWinner(): [string | null | undefined, (team: string) => Promise<void>] {
   const profile = useUserProfile()
+  const updateProfile = useUpdateProfile()
 
   const updater = useCallback(
     async (team: string) => {
@@ -18,9 +19,10 @@ export function useSelectedWinner(): [string | null | undefined, (team: string) 
         toast.error('Mise à jour échouée :(')
         return
       }
+      updateProfile({ winner_team: team })
       toast.success('Équipe mise à jour')
     },
-    [profile?.id],
+    [profile?.id, updateProfile],
   )
 
   return [profile?.winner_team, updater]

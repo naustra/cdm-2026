@@ -1,6 +1,6 @@
 import conformsTo from 'lodash/conformsTo'
 import isNumber from 'lodash/isNumber'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { useBet } from '../../../hooks/bets'
@@ -12,6 +12,12 @@ import Flag from '../../../components/Flag'
 const Match = ({ match }) => {
   const [bet, saveBet] = useBet(match.id)
   const [currentBet, setCurrentBet] = useState(bet)
+
+  useEffect(() => {
+    if (bet !== undefined) {
+      setCurrentBet(bet)
+    }
+  }, [bet])
 
   const isBetValid = (updatedBet) => {
     const scoreValidator = (score) => isNumber(score) && score >= 0

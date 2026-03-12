@@ -65,30 +65,59 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   return (
     <>
       {menuOpen && (
-        <div className="fixed inset-0 z-[1050] bg-black/30" onClick={closeMenu} />
+        <div
+          className="fixed inset-0 z-[1050] bg-black/40 backdrop-blur-[2px] transition-opacity"
+          onClick={closeMenu}
+        />
       )}
-      <aside className={`fixed top-0 left-0 bottom-0 z-[1100] w-64 bg-cream shadow-xl transform transition-transform duration-200 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-4 flex flex-col gap-6">
-          <button onClick={goTo('/')} className="flex items-center gap-2.5 py-2 px-1 hover:opacity-80 transition-opacity text-left cursor-pointer border-none bg-transparent">
+      <aside
+        className={`fixed top-0 left-0 bottom-0 z-[1100] w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-out ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      >
+        <div className="flex flex-col h-full">
+          <div className="flex items-center gap-3 px-5 pt-5 pb-4 border-b border-gray-100">
             <span className="text-2xl">🏆</span>
-            <span className="text-base font-extrabold text-navy">Paris Entre Potos</span>
-          </button>
+            <div>
+              <span className="block text-base font-extrabold text-navy leading-tight">
+                Paris Entre Potos
+              </span>
+              <span className="block text-[0.65rem] text-gray-400 mt-0.5">
+                Coupe du Monde 2026
+              </span>
+            </div>
+          </div>
 
-          <nav className="flex flex-col gap-0.5">
+          <nav className="flex-1 py-3 px-3 overflow-y-auto">
             {visibleItems.map((item) => {
-              const isActive = item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path)
+              const isActive =
+                item.path === '/'
+                  ? location.pathname === '/'
+                  : location.pathname.startsWith(item.path)
+
               return (
                 <button
                   key={item.path}
-                  className={`flex items-center gap-3 py-2.5 px-3 rounded-[10px] border-none bg-transparent text-sm font-medium cursor-pointer text-left w-full transition-colors ${isActive ? 'bg-navy/[0.08] text-navy font-semibold' : 'text-gray-700 hover:bg-navy/[0.06]'}`}
+                  className={`flex items-center gap-3 w-full py-3 px-3 rounded-xl border-none text-sm font-medium cursor-pointer text-left transition-all duration-150 mb-0.5 ${
+                    isActive
+                      ? 'bg-navy text-white font-semibold shadow-sm'
+                      : 'bg-transparent text-gray-600 hover:bg-gray-50 hover:text-navy'
+                  }`}
                   onClick={goTo(item.path)}
                 >
-                  <item.icon size={20} className="text-gray-400" />
+                  <item.icon
+                    size={20}
+                    className={isActive ? 'text-white' : 'text-gray-400'}
+                  />
                   <span>{item.label}</span>
                 </button>
               )
             })}
           </nav>
+
+          <div className="px-5 py-4 border-t border-gray-100">
+            <p className="text-[0.6rem] text-gray-300 text-center">
+              v0.2.0 &bull; Made with ❤️
+            </p>
+          </div>
         </div>
       </aside>
     </>

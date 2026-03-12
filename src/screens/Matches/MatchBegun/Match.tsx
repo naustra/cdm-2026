@@ -15,7 +15,7 @@ const facteurMultiplicateurPhase = {
   1: 10,
 }
 
-const Match = ({ match }) => {
+const Match = ({ match, clickable = true }: { match: any; clickable?: boolean }) => {
   const [currentBet] = useBet(match.id)
   const navigate = useNavigate()
 
@@ -38,9 +38,10 @@ const Match = ({ match }) => {
   if (!match.display) return null
 
   return (
-    <button
-      className="w-full bg-white rounded-[14px] py-3.5 px-4 shadow-card border-none text-left flex flex-col gap-2.5 transition-all duration-150 cursor-pointer hover:shadow-card-hover hover:-translate-y-px"
-      onClick={() => navigate(`/matches/${match.id}`)}
+    <div
+      className={`w-full bg-white rounded-[14px] py-3.5 px-4 shadow-card border-none text-left flex flex-col gap-2.5 transition-all duration-150 ${clickable ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-px' : ''}`}
+      onClick={clickable ? () => navigate(`/matches/${match.id}`) : undefined}
+      role={clickable ? 'button' : undefined}
     >
       <div className="flex justify-between items-center">
         <InformationMatch phase={match.phase} groupName={match.groupName} />
@@ -91,7 +92,7 @@ const Match = ({ match }) => {
         </div>
         <PointsWon {...match} {...currentBet} />
       </div>
-    </button>
+    </div>
   )
 }
 

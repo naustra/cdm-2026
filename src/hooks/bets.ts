@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
 import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
@@ -116,7 +116,9 @@ export function useBet(matchId: string | undefined): [NormalizedBet | undefined,
     [matchId, uid],
   )
 
-  return [normalizeBet(bet), setBet]
+  const normalizedBet = useMemo(() => normalizeBet(bet), [bet])
+
+  return [normalizedBet, setBet]
 }
 
 export function useAllUserBets() {
