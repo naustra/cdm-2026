@@ -8,6 +8,7 @@ import { useTeams } from '../../../hooks/teams'
 import OwnRank from './OwnRank'
 import { useNavigate } from 'react-router-dom'
 import Flag from 'components/Flag'
+import Tooltip from 'components/Tooltip'
 
 interface GroupRankingProps {
   name?: string
@@ -108,20 +109,22 @@ const GroupRanking = ({
                       style={{ width: 28, height: 28 }}
                     />
                   ) : (
-                    <img
-                      src={imgUrl}
-                      style={{ width: 28, height: 28 }}
-                      alt="Mystère"
-                      title="Vainqueur mystère"
-                    />
+                    <Tooltip content="Vainqueur mystère">
+                      <img
+                        src={imgUrl}
+                        style={{ width: 28, height: 28 }}
+                        alt="Mystère"
+                      />
+                    </Tooltip>
                   )
                 ) : (
-                  <img
-                    src={forgotBetImgUrl}
-                    style={{ width: 28, height: 28, opacity: 0.4 }}
-                    alt="Aucun"
-                    title="Pas de vainqueur sélectionné"
-                  />
+                  <Tooltip content="Pas de vainqueur sélectionné">
+                    <img
+                      src={forgotBetImgUrl}
+                      style={{ width: 28, height: 28, opacity: 0.4 }}
+                      alt="Aucun"
+                    />
+                  </Tooltip>
                 )}
               </div>
             </div>

@@ -96,18 +96,25 @@ const FinalWinnerChoice = ({
                 <button
                   key={team.id}
                   type="button"
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-sm text-left transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-3 py-2 text-sm text-left transition-colors cursor-pointer ${
                     team.id === userTeam
                       ? 'bg-indigo-50 text-indigo-700 font-semibold'
                       : 'text-gray-700 hover:bg-gray-50'
                   }`}
                   onClick={() => handleSelect(team.id)}
                 >
-                  <Flag
-                    country={team.code}
-                    className="w-5 h-4 object-contain rounded-sm shrink-0"
-                  />
-                  <span>{team.name}</span>
+                  <div className="flex items-center gap-2.5">
+                    <Flag
+                      country={team.code}
+                      className="w-5 h-4 object-contain rounded-sm shrink-0"
+                    />
+                    <span>{team.name}</span>
+                  </div>
+                  {team.winOdd && (
+                    <span className={`text-xs ${team.id === userTeam ? 'text-indigo-600' : 'text-gray-400'}`}>
+                      {team.winOdd}
+                    </span>
+                  )}
                 </button>
               ))}
               {filteredTeams.length === 0 && (

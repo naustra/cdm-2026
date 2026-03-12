@@ -1,4 +1,5 @@
 import { memo, type CSSProperties } from 'react'
+import Tooltip from './Tooltip'
 
 interface FlagProps {
   country?: string
@@ -22,15 +23,24 @@ const Flag = memo<FlagProps>(({ country, tooltipText, className, style }) => {
   const flag = getFlagSrc(country)
   if (!flag) return <FlagPlaceholder className={className} style={style} />
 
-  return (
+  const imgElement = (
     <img
       src={flag}
       alt={country}
       className={className}
       style={style}
-      title={tooltipText ?? ''}
     />
   )
+
+  if (tooltipText) {
+    return (
+      <Tooltip content={tooltipText}>
+        {imgElement}
+      </Tooltip>
+    )
+  }
+
+  return imgElement
 })
 
 const FlagPlaceholder = memo<{ className?: string; style?: CSSProperties }>(
