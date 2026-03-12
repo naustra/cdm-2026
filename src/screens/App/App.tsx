@@ -33,7 +33,9 @@ const App = () => {
 
         <span className="site-header__logo">Paris Entre Potos</span>
 
-        <ConnectionWidget />
+        <div style={{ flexShrink: 0 }}>
+          <ConnectionWidget />
+        </div>
       </header>
 
       <NavigationMenu
@@ -47,10 +49,10 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/rules" element={<RulesPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
 
             {signedIn && (
               <>
-                <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/matches/*" element={<MatchesPage />} />
                 <Route path="/user/*" element={<UserPage />} />
                 <Route path="/ranking" element={<RankingPage />} />

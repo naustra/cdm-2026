@@ -41,7 +41,7 @@ const menuItems = [
   { label: 'Pronostics', icon: FootballIcon, path: '/matches', auth: true },
   { label: 'Classement', icon: Trophy, path: '/ranking', auth: true },
   { label: 'Tribus', icon: Users, path: '/groups', auth: true },
-  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: true },
+  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: false },
   { label: 'Règles', icon: HelpCircle, path: '/rules', auth: false },
   { label: 'FAQ', icon: MessageCircleQuestion, path: '/faq', auth: false },
 ]

@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useIsUserConnected } from '../../../hooks/user'
 import ConnectionModal from '../ConnectionModal'
@@ -27,16 +28,19 @@ const ConnectionWidget = () => {
 
   return (
     <>
-      <dialog
-        ref={dialogRef}
-        className="modal-dialog"
-        onClose={() => setModalOpened(false)}
-        onClick={(e) => {
-          if (e.target === e.currentTarget) setModalOpened(false)
-        }}
-      >
-        <ConnectionModal />
-      </dialog>
+      {createPortal(
+        <dialog
+          ref={dialogRef}
+          className="modal-dialog"
+          onClose={() => setModalOpened(false)}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setModalOpened(false)
+          }}
+        >
+          <ConnectionModal />
+        </dialog>,
+        document.body,
+      )}
 
       {isConnected ? (
         <User />

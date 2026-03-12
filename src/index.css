@@ -23,12 +23,13 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
-  gap: 8px;
+  padding: 0 10px;
+  gap: 6px;
   background: rgba(249, 246, 237, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(0,0,0,0.06);
+  overflow: visible;
 }
 
 .site-header__logo {
@@ -44,9 +45,10 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
   text-overflow: ellipsis;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 420px) {
   .site-header__logo { font-size: 0.85rem; }
-  .btn--sm { padding: 6px 12px; font-size: 0.75rem; }
+  .btn--sm { padding: 5px 10px; font-size: 0.72rem; }
+  .site-header { padding: 0 8px; }
 }
 
 .header-icon-btn {
@@ -61,6 +63,8 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
   color: #19194B;
   cursor: pointer;
   transition: background 0.15s;
+  flex-shrink: 0;
+  padding: 0;
 }
 .header-icon-btn:hover { background: rgba(25, 25, 75, 0.06); }
 
@@ -220,7 +224,7 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
   align-items: center;
   gap: 8px;
   font-weight: 600;
-  border-radius: 9999px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -236,7 +240,7 @@ body { font-family: 'Inter', system-ui, sans-serif; color: #1e1e2f; }
 }
 .btn--primary:hover { background: #2a2a6b; }
 
-.btn--sm { padding: 6px 16px; font-size: 0.8rem; }
+.btn--sm { padding: 8px 12px; font-size: 0.85rem; }
 
 .btn--outline {
   background: transparent;

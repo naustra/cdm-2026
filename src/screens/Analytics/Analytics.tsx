@@ -5,7 +5,7 @@ const Analytics = () => {
   return (
     <div className="analytics-page">
       <iframe
-        src={`${DASHBOARD_URL}#bordered=false&titled=true&theme=night&downloads=false`}
+        src={`${DASHBOARD_URL}#bordered=false&titled=true&theme=light`}
         width="100%"
         height="100%"
         style={{ border: 'none', minHeight: 'calc(100vh - 60px)' }}

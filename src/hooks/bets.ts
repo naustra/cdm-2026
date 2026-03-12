@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import type { Tables } from '../lib/database.types'
@@ -94,12 +95,19 @@ export function useBet(matchId: string | undefined) {
         bet_team_b: betData.betTeamB,
         updated_at: new Date().toISOString(),
       }
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from('bets')
         .upsert(row, { onConflict: 'id' })
         .select()
         .single()
-      if (data) setBetState(data)
+      
+      if (error) {
+        console.error('Erreur upsert bet:', error)
+        toast.error('Erreur lors de la sauvegarde du pronostic')
+      } else if (data) {
+        setBetState(data)
+        toast.success('Pronostic sauvegardé')
+      }
     },
     [matchId, uid],
   )
