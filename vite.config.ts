@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       includeAssets: ['favicon.ico', 'icon-192x192.png', 'icon-256x256.png', 'icon-384x384.png', 'icon-512x512.png'],
       manifest: {
         short_name: 'Make Prono Great Again',

@@ -11,6 +11,7 @@ import NotFoundPage from '../NotFoundPage'
 import ConnectionWidget from './ConnectionWidget/ConnectionWidget'
 import NavigationMenu from './NavigationMenu'
 import InstallPrompt from 'components/InstallPrompt'
+import PwaUpdatePrompt from 'components/PwaUpdatePrompt'
 
 const AnalyticsPage = lazy(() => import('../Analytics'))
 const FAQPage = lazy(() => import('../FAQ/FAQ'))
@@ -64,6 +65,7 @@ const App = () => {
         </Suspense>
       </main>
       <InstallPrompt />
+      <PwaUpdatePrompt />
       <Toaster position="bottom-center" />
     </>
   )
