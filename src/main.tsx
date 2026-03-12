@@ -2,11 +2,15 @@ import React, { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Toaster } from 'react-hot-toast'
 import { BrowserRouter } from 'react-router-dom'
+import { registerSW } from 'virtual:pwa-register'
 
 import App from './screens/App'
 import { AuthProvider } from './contexts/AuthContext'
 
 import './index.css'
+
+// Register Service Worker
+registerSW({ immediate: true })
 
 const root = createRoot(document.getElementById('root')!)
 

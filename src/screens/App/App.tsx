@@ -14,6 +14,7 @@ import RankingPage from '../Ranking'
 import RulesPage from '../Rules'
 import ConnectionWidget from './ConnectionWidget'
 import NavigationMenu from './NavigationMenu'
+import InstallPrompt from 'components/InstallPrompt'
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -67,6 +68,8 @@ const App = () => {
           </Routes>
         </Suspense>
       </main>
+
+      <InstallPrompt />
     </>
   )
 }
