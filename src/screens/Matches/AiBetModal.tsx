@@ -4,10 +4,7 @@ import { ArrowRight, X } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useAuth } from '../../contexts/AuthContext'
 import { saveBatchBets } from '../../hooks/bets'
-import {
-  generatePredictions,
-  type AiProvider,
-} from '../../lib/openrouter'
+import { generatePredictions, type AiProvider } from '../../lib/openrouter'
 import type { NormalizedMatch } from '../../hooks/matches'
 
 type ModalStep = 'prompt' | 'choose' | 'loading' | 'error'
@@ -23,10 +20,10 @@ interface AiBetModalProps {
 
 const PROMPT_SUGGESTIONS = [
   'Mbappé va tout casser cette année',
-  'La France gagne, c\'est écrit',
   'Que des buts et du spectacle !',
   'Je connais rien au foot, surprise-moi',
   'Les outsiders vont créer la surprise',
+  "Cette année, c'est pour Haïti, c'est sûr !",
 ]
 
 const AI_PROVIDERS: {
@@ -164,7 +161,9 @@ const AiBetModal = ({
         }
 
         const count = await saveBatchBets(user.id, predictions)
-        toast.success(`${count} pronostic${count > 1 ? 's' : ''} rempli${count > 1 ? 's' : ''} par l'IA !`)
+        toast.success(
+          `${count} pronostic${count > 1 ? 's' : ''} rempli${count > 1 ? 's' : ''} par l'IA !`,
+        )
         onComplete()
         onClose()
       } catch (err: any) {
@@ -230,7 +229,7 @@ const AiBetModal = ({
                   onChange={handleOverwriteChange}
                   className="accent-indigo-500"
                 />
-                <span>Réécrire aussi mes pronostics existants</span>
+                <span>Écraser mes pronostics existants</span>
               </label>
             )}
 

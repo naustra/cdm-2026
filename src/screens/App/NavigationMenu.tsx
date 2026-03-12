@@ -13,24 +13,79 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
     <circle cx="12" cy="12" r="10" />
-    <polygon points="12 12 9.5 8.5 14.5 8.5" fill="currentColor" stroke="currentColor" />
-    <path d="M9.5 8.5L6 7" /><path d="M14.5 8.5L18 7" /><path d="M12 12v4.5" />
-    <path d="M12 16.5L8.5 19" /><path d="M12 16.5L15.5 19" />
-    <path d="M6 7l-2 3" /><path d="M18 7l2 3" />
+    <polygon
+      points="12 12 9.5 8.5 14.5 8.5"
+      fill="currentColor"
+      stroke="currentColor"
+    />
+    <path d="M9.5 8.5L6 7" />
+    <path d="M14.5 8.5L18 7" />
+    <path d="M12 12v4.5" />
+    <path d="M12 16.5L8.5 19" />
+    <path d="M12 16.5L15.5 19" />
+    <path d="M6 7l-2 3" />
+    <path d="M18 7l2 3" />
   </svg>
 )
 
 const menuItems = [
   { label: 'Accueil', icon: Home, path: '/', auth: false, admin: false },
-  { label: 'Pronostics', icon: FootballIcon, path: '/matches', auth: true, admin: false },
-  { label: 'Classement', icon: Trophy, path: '/ranking', auth: true, admin: false },
+  {
+    label: 'Pronostics',
+    icon: FootballIcon,
+    path: '/matches',
+    auth: true,
+    admin: false,
+  },
+  {
+    label: 'Classement',
+    icon: Trophy,
+    path: '/ranking',
+    auth: true,
+    admin: false,
+  },
   { label: 'Tribus', icon: Users, path: '/groups', auth: true, admin: false },
-  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: false, admin: false },
-  { label: 'Règles', icon: HelpCircle, path: '/rules', auth: false, admin: false },
-  { label: 'FAQ', icon: MessageCircleQuestion, path: '/faq', auth: false, admin: false },
-  { label: 'Admin', icon: ShieldCheck, path: '/admin', auth: true, admin: true },
+  {
+    label: 'Analytics',
+    icon: BarChart3,
+    path: '/analytics',
+    auth: false,
+    admin: false,
+  },
+  {
+    label: 'Règles',
+    icon: HelpCircle,
+    path: '/rules',
+    auth: false,
+    admin: false,
+  },
+  {
+    label: 'FAQ',
+    icon: MessageCircleQuestion,
+    path: '/faq',
+    auth: false,
+    admin: false,
+  },
+  {
+    label: 'Admin',
+    icon: ShieldCheck,
+    path: '/admin',
+    auth: true,
+    admin: true,
+  },
 ]
 
 interface NavigationMenuProps {
@@ -114,8 +169,8 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
           </nav>
 
           <div className="px-5 py-4 border-t border-gray-100">
-            <p className="text-[0.6rem] text-gray-300 text-center">
-              v0.2.0 &bull; Made with ❤️
+            <p className="text-[0.6rem] text-gray-400 text-center">
+              Made with ❤️ by LeBihanCorporation
             </p>
           </div>
         </div>
