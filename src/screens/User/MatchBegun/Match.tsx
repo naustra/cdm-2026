@@ -1,9 +1,8 @@
 import { useBetFromUser } from '../../../hooks/bets'
 import Flag from '../../../components/Flag'
-import PointsWon from './PointsWon/PointsWon'
 import { isNumber } from 'lodash'
 import { useNavigate, useParams } from 'react-router-dom'
-import InformationMatch from '../../Matches/MatchToBet/InformationMatch'
+import InformationMatch from '../../Matches/MatchToBet/InformationMatch/InformationMatch'
 
 const facteurMultiplicateurPhase = {
   0: 1,
@@ -15,26 +14,43 @@ const facteurMultiplicateurPhase = {
   1: 10,
 }
 
+function formatPoints(pointsWon: number | null | undefined): string {
+  const pts = pointsWon || 0
+  if (pts > 0) return `+${pts}`
+  return String(pts)
+}
+
+function getBetResultClass(
+  betA: number | null,
+  betB: number | null,
+  scoreA: number,
+  scoreB: number,
+): string {
+  if (!isNumber(betA) || !isNumber(betB)) return 'user-bet--missed'
+  if (betA === scoreA && betB === scoreB) return 'user-bet--perfect'
+
+  const betSign = Math.sign(betA - betB)
+  const scoreSign = Math.sign(scoreA - scoreB)
+  if (betSign === scoreSign) return 'user-bet--good'
+
+  return 'user-bet--wrong'
+}
+
 const Match = ({ match }) => {
   const { id } = useParams()
   const [currentBet] = useBetFromUser(match.id, id)
   const navigate = useNavigate()
 
-  const myOdd =
-    !isNumber(currentBet?.betTeamA) || !isNumber(currentBet?.betTeamB)
-      ? null
-      : currentBet?.betTeamA > currentBet?.betTeamB
-        ? match.odds.PA
-        : currentBet?.betTeamA < currentBet?.betTeamB
-          ? match.odds.PB
-          : match.odds.PN
+  const hasBet =
+    isNumber(currentBet?.betTeamA) && isNumber(currentBet?.betTeamB)
+  const pointsWon = currentBet?.pointsWon || 0
 
-  const winningOdd =
-    match.scores.A > match.scores.B
-      ? match.odds.PA
-      : match.scores.A < match.scores.B
-        ? match.odds.PB
-        : match.odds.PN
+  const betResultClass = getBetResultClass(
+    currentBet?.betTeamA ?? null,
+    currentBet?.betTeamB ?? null,
+    match.scores.A,
+    match.scores.B,
+  )
 
   if (!match.display) return null
 
@@ -69,28 +85,25 @@ const Match = ({ match }) => {
         </div>
       </div>
 
-      <div className="match-card__stats">
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Sa cote</span>
-          <span className="match-card__stat-value">{myOdd ?? '–'}</span>
-        </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Cote gagnante</span>
-          <span className="match-card__stat-value">{winningOdd}</span>
-        </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Multiplicateur</span>
-          <span className="match-card__stat-value">
-            x{facteurMultiplicateurPhase[match.phase]}
+      <div className={`user-bet-row ${betResultClass}`}>
+        <span className="user-bet-row__label">Son prono</span>
+        <span className="user-bet-row__prediction">
+          {hasBet
+            ? `${currentBet?.betTeamA} – ${currentBet?.betTeamB}`
+            : 'Pas de prono'}
+        </span>
+        <span
+          className="user-bet-row__points"
+          style={{ color: pointsWon > 0 ? '#22c55e' : '#9ca3af' }}
+        >
+          {formatPoints(currentBet?.pointsWon)}
+          {' pts'}
+        </span>
+        {facteurMultiplicateurPhase[match.phase] > 1 && (
+          <span className="user-bet-row__mult">
+            ×{facteurMultiplicateurPhase[match.phase]}
           </span>
-        </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Son prono</span>
-          <span className="match-card__stat-value">
-            {currentBet?.betTeamA ?? '–'} – {currentBet?.betTeamB ?? '–'}
-          </span>
-        </div>
-        <PointsWon {...match} {...currentBet} />
+        )}
       </div>
     </button>
   )

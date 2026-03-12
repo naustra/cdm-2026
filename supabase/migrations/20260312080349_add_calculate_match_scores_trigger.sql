@@ -15,6 +15,19 @@ BEGIN
     RETURN NEW;
   END IF;
 
+  -- Score cleared: revert all points for this match
+  IF (NEW.score_a IS NULL OR NEW.score_b IS NULL)
+     AND (OLD.score_a IS NOT NULL AND OLD.score_b IS NOT NULL) THEN
+    FOR bet_row IN SELECT * FROM bets WHERE match_id = NEW.id LOOP
+      old_points := COALESCE(bet_row.points_won, 0);
+      UPDATE bets SET points_won = 0 WHERE id = bet_row.id;
+      UPDATE profiles
+      SET score = COALESCE(score, 0) - old_points
+      WHERE id = bet_row.user_id;
+    END LOOP;
+    RETURN NEW;
+  END IF;
+
   IF NEW.score_a IS NULL OR NEW.score_b IS NULL THEN
     RETURN NEW;
   END IF;

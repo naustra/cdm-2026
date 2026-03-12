@@ -2,7 +2,7 @@ import { isPast } from 'date-fns'
 import { useMemo } from 'react'
 import { useCompetitionData } from '../../hooks/competition'
 import { useIsUserConnected } from '../../hooks/user'
-import FinalWinner from './FinalWinner'
+import FinalWinner from './FinalWinner/FinalWinner'
 import { useNavigate } from 'react-router'
 
 const WinnerChoice = () => {

@@ -14,15 +14,20 @@ type MatchScoreEdit = {
 function AdminMatchRow({
   match,
   onSave,
+  onClear,
 }: {
   match: NormalizedMatch
   onSave: (matchId: string, scoreA: number, scoreB: number) => Promise<void>
+  onClear: (matchId: string) => Promise<void>
 }) {
   const [scores, setScores] = useState<MatchScoreEdit>({
     scoreA: match.scores.A?.toString() ?? '',
     scoreB: match.scores.B?.toString() ?? '',
   })
   const [saving, setSaving] = useState(false)
+  const [clearing, setClearing] = useState(false)
+
+  const hasScore = match.scores.A !== null && match.scores.B !== null
 
   const hasChanges =
     scores.scoreA !== (match.scores.A?.toString() ?? '') ||
@@ -36,6 +41,12 @@ function AdminMatchRow({
     await onSave(match.id, parseInt(scores.scoreA), parseInt(scores.scoreB))
     setSaving(false)
   }, [match.id, scores, isValid, hasChanges, onSave])
+
+  const handleClear = useCallback(async () => {
+    setClearing(true)
+    await onClear(match.id)
+    setClearing(false)
+  }, [match.id, onClear])
 
   return (
     <div className={`admin-match-row ${match.finished ? 'admin-match-row--finished' : ''}`}>
@@ -84,6 +95,16 @@ function AdminMatchRow({
         >
           {saving ? '...' : 'Sauver'}
         </button>
+
+        {hasScore && (
+          <button
+            className="admin-clear-btn"
+            disabled={clearing}
+            onClick={handleClear}
+          >
+            {clearing ? '...' : 'Vider'}
+          </button>
+        )}
       </div>
     </div>
   )
@@ -130,6 +151,23 @@ const Admin = () => {
         return
       }
       toast.success('Score mis à jour — points recalculés')
+      window.location.reload()
+    },
+    [],
+  )
+
+  const handleClearScore = useCallback(
+    async (matchId: string) => {
+      const { error } = await supabase
+        .from('matches')
+        .update({ score_a: null, score_b: null, finished: false })
+        .eq('id', matchId)
+
+      if (error) {
+        toast.error(`Erreur: ${error.message}`)
+        return
+      }
+      toast.success('Score vidé')
       window.location.reload()
     },
     [],
@@ -186,7 +224,7 @@ const Admin = () => {
         <div key={phase} className="admin-phase-group">
           <h2 className="admin-phase-title">{phase}</h2>
           {phaseMatches.map((match) => (
-            <AdminMatchRow key={match.id} match={match} onSave={handleSaveScore} />
+            <AdminMatchRow key={match.id} match={match} onSave={handleSaveScore} onClear={handleClearScore} />
           ))}
         </div>
       ))}

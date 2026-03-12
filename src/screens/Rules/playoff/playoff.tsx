@@ -1,5 +1,5 @@
-import Section from '../component/section'
-import Table from '../component/table'
+import Section from '../component/section/rulesSection'
+import Table from '../component/table/table'
 
 const Playoff = () => (
   <Section>

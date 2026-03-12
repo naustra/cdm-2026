@@ -1,11 +1,10 @@
-import isEmpty from 'lodash/isEmpty'
-import { Suspense, useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Suspense, useEffect, useRef, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useGroupsForUserMember } from '../../../hooks/groups'
-import GroupMatchDetails from './GroupMatchDetails'
+import GroupMatchDetails from './GroupMatchDetails/GroupMatchDetails'
 import { useAllOpponents } from '../../../hooks/opponents'
 import { useMatch } from 'hooks/matches'
-import MatchBegun from '../MatchBegun'
+import MatchBegun from '../MatchBegun/Match'
 
 const Details = () => {
   const { id } = useParams()
@@ -14,14 +13,20 @@ const Details = () => {
   const groups = useGroupsForUserMember()
   const match = useMatch(id)
   const allOpponents = useAllOpponents()
+  const loadedOnce = useRef(false)
 
   useEffect(() => {
-    if (!match) {
+    if (match) {
+      loadedOnce.current = true
+    }
+    if (!match && loadedOnce.current) {
       navigate('/matches')
     }
   }, [match, navigate])
 
-  if (!match) return null
+  if (!match) {
+    return <div className="page-loader">Chargement...</div>
+  }
 
   const tabs = [
     { label: 'Général', key: 'general' },
@@ -33,48 +38,34 @@ const Details = () => {
 
   return (
     <div className="details-page">
-      <MatchBegun match={match} />
+      <MatchBegun match={match} clickable={false} />
 
-      {isEmpty(groups) ? (
-        <div className="card" style={{ textAlign: 'center' }}>
-          <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
-            Pour voir plus d'infos,{' '}
-            <Link to="/groups" style={{ color: '#6366f1', fontWeight: 600 }}>
-              créez ou rejoignez une tribu
-            </Link>
-            .
-          </p>
-        </div>
+      <div className="ranking-tabs" style={{ position: 'static', background: 'transparent' }}>
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.key}
+            className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
+            onClick={() => setSelectedTab(i)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {selectedTab === 0 ? (
+        <GroupMatchDetails
+          name="Général"
+          opponents={allOpponents}
+          match={match}
+        />
       ) : (
-        <>
-          <div className="ranking-tabs" style={{ position: 'static', background: 'transparent' }}>
-            {tabs.map((tab, i) => (
-              <button
-                key={tab.key}
-                className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
-                onClick={() => setSelectedTab(i)}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {selectedTab === 0 ? (
-            <GroupMatchDetails
-              name="Général"
-              opponents={allOpponents}
-              match={match}
-            />
-          ) : (
-            <GroupMatchDetails
-              {...groups[selectedTab - 1]}
-              match={match}
-              opponents={allOpponents.filter((opponent) =>
-                groups[selectedTab - 1]?.members?.includes(opponent.id),
-              )}
-            />
+        <GroupMatchDetails
+          {...groups[selectedTab - 1]}
+          match={match}
+          opponents={allOpponents.filter((opponent) =>
+            groups[selectedTab - 1]?.members?.includes(opponent.id),
           )}
-        </>
+        />
       )}
     </div>
   )

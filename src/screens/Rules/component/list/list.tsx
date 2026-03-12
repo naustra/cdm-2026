@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import Item from './item'
+import Item from './item/item'
 
 interface ListProps {
   dataSource?: ReactNode[]

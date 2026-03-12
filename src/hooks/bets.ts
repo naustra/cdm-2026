@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
 import type { Tables } from '../lib/database.types'
+import type { MatchPrediction } from '../lib/openrouter'
 
 type BetRow = Tables<'bets'>
 
@@ -113,4 +114,56 @@ export function useBet(matchId: string | undefined) {
   )
 
   return [normalizeBet(bet), setBet] as const
+}
+
+export function useAllUserBets() {
+  const { user } = useAuth()
+  const [bettedMatchIds, setBettedMatchIds] = useState<Set<string> | null>(null)
+  const [version, setVersion] = useState(0)
+
+  useEffect(() => {
+    if (!user) return
+    supabase
+      .from('bets')
+      .select('match_id')
+      .eq('user_id', user.id)
+      .then(({ data }) => {
+        const ids = new Set(
+          (data ?? [])
+            .map((b) => b.match_id)
+            .filter(Boolean) as string[],
+        )
+        setBettedMatchIds(ids)
+      })
+  }, [user, version])
+
+  const refresh = useCallback(() => {
+    setVersion((v) => v + 1)
+  }, [])
+
+  return { bettedMatchIds, refresh }
+}
+
+export async function saveBatchBets(
+  userId: string,
+  predictions: MatchPrediction[],
+): Promise<number> {
+  const rows = predictions.map((p) => ({
+    id: `${p.match_id}_${userId}`,
+    match_id: p.match_id,
+    user_id: userId,
+    bet_team_a: p.score_a,
+    bet_team_b: p.score_b,
+    updated_at: new Date().toISOString(),
+  }))
+
+  const { error } = await supabase
+    .from('bets')
+    .upsert(rows, { onConflict: 'id' })
+
+  if (error) {
+    throw new Error('Erreur lors de la sauvegarde des pronostics')
+  }
+
+  return rows.length
 }

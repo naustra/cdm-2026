@@ -5,7 +5,7 @@ import forgotBetImgUrl from '../../../assets/icons/ForgotBet.png'
 import imgUrl from '../../../assets/icons/mask6.png'
 import { useOpponents } from '../../../hooks/opponents'
 import { useTeams } from '../../../hooks/teams'
-import OwnRank from './OwnRank'
+import OwnRank from './OwnRank/OwnRank'
 import { useNavigate } from 'react-router-dom'
 import Flag from 'components/Flag'
 
@@ -107,20 +107,22 @@ const GroupRanking = ({
                       style={{ width: 28, height: 28 }}
                     />
                   ) : (
-                    <img
-                      src={imgUrl}
-                      style={{ width: 28, height: 28 }}
-                      alt="Mystère"
-                      title="Vainqueur mystère"
-                    />
+                    <span data-tooltip="Vainqueur mystère">
+                      <img
+                        src={imgUrl}
+                        style={{ width: 28, height: 28 }}
+                        alt="Mystère"
+                      />
+                    </span>
                   )
                 ) : (
-                  <img
-                    src={forgotBetImgUrl}
-                    style={{ width: 28, height: 28, opacity: 0.4 }}
-                    alt="Aucun"
-                    title="Pas de vainqueur sélectionné"
-                  />
+                  <span data-tooltip="Pas de vainqueur sélectionné">
+                    <img
+                      src={forgotBetImgUrl}
+                      style={{ width: 28, height: 28, opacity: 0.4 }}
+                      alt="Aucun"
+                    />
+                  </span>
                 )}
               </div>
             </div>

@@ -1,9 +1,9 @@
 import includes from 'lodash/includes'
 import { useMemo } from 'react'
 import { useAuth } from '../../../../contexts/AuthContext'
-import Avatar from '../../../../components/Avatar'
+import Avatar from '../../../../components/Avatar/Avatar'
 import { useOpponents } from '../../../../hooks/opponents'
-import GroupStatus from './GroupStatus'
+import GroupStatus from './GroupStatus/GroupStatus'
 
 interface GroupRowProps {
   group: {

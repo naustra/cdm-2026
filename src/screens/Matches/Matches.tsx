@@ -1,11 +1,15 @@
 import { isPast, format, isSameDay } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import map from 'lodash/map'
-import { Suspense, useEffect, useMemo, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
+import { Sparkles } from 'lucide-react'
 import { useCompetitionData } from '../../hooks/competition'
 import { useMatches, type NormalizedMatch } from '../../hooks/matches'
-import MatchToBet from './MatchToBet'
-import MatchBegun from './MatchBegun'
+import { useAllUserBets } from '../../hooks/bets'
+import { useIsUserAdmin, useIsUserConnected } from '../../hooks/user'
+import MatchToBet from './MatchToBet/Match'
+import MatchBegun from './MatchBegun/Match'
+import AiBetModal from './AiBetModal/AiBetModal'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 function groupMatchesByDate(matches: NormalizedMatch[]) {
@@ -29,6 +33,12 @@ function groupMatchesByDate(matches: NormalizedMatch[]) {
 const Matches = () => {
   const navigate = useNavigate()
   const location = useLocation()
+  const isAdmin = useIsUserAdmin()
+  const isConnected = useIsUserConnected()
+  const { bettedMatchIds, refresh: refreshBets } = useAllUserBets()
+  const [aiModalOpen, setAiModalOpen] = useState(false)
+  const [refreshKey, setRefreshKey] = useState(0)
+
   const urlParams = useMemo(
     () => new URLSearchParams(location.search),
     [location.search],
@@ -43,6 +53,19 @@ const Matches = () => {
     navigate(`${location.pathname}?tab=${value}`)
   }
 
+  const handleOpenAiModal = useCallback(() => {
+    setAiModalOpen(true)
+  }, [])
+
+  const handleCloseAiModal = useCallback(() => {
+    setAiModalOpen(false)
+  }, [])
+
+  const handleAiComplete = useCallback(() => {
+    setRefreshKey((k) => k + 1)
+    refreshBets()
+  }, [refreshBets])
+
   useEffect(() => {
     const handle = setInterval(() => setComparingDate(Date.now()), 5000)
     return () => clearInterval(handle)
@@ -56,20 +79,37 @@ const Matches = () => {
   const matches = useMatches()
   const competitionData = useCompetitionData()
 
+  const isMatchPast = useCallback(
+    (match: NormalizedMatch) => {
+      const timestamp = match.dateTime?.seconds ? match.dateTime.seconds * 1000 : 0
+      const hasScore = match.scores.A !== null && match.scores.B !== null
+      return timestamp <= comparingDate || hasScore
+    },
+    [comparingDate],
+  )
+
+  const upcomingMatches = useMemo(() => {
+    if (!matches) return []
+    return matches.filter((match) => !isMatchPast(match))
+  }, [matches, isMatchPast])
+
   const filteredMatches = useMemo(() => {
     if (!matches) return []
-    return selectedTab === 0
-      ? matches.filter((match) => {
-          const timestamp = match.dateTime?.seconds * 1000
-          return timestamp > comparingDate
-        })
-      : matches
-          .filter((match) => {
-            const timestamp = match.dateTime?.seconds * 1000
-            return timestamp <= comparingDate
-          })
-          .reverse()
-  }, [comparingDate, matches, selectedTab])
+    if (selectedTab === 0) return upcomingMatches
+    return matches.filter((match) => isMatchPast(match)).reverse()
+  }, [matches, selectedTab, upcomingMatches, isMatchPast])
+
+  const hasUnbettedMatches = useMemo(() => {
+    if (!bettedMatchIds) return false
+    return upcomingMatches.some((m) => !bettedMatchIds.has(m.id))
+  }, [upcomingMatches, bettedMatchIds])
+
+  const showAiButton =
+    isConnected &&
+    selectedTab === 0 &&
+    bettedMatchIds !== null &&
+    upcomingMatches.length > 0 &&
+    (hasUnbettedMatches || isAdmin)
 
   const dateGroups = useMemo(
     () => groupMatchesByDate(filteredMatches),
@@ -114,6 +154,15 @@ const Matches = () => {
         </button>
       </div>
 
+      {showAiButton && (
+        <div className="ai-bet-banner">
+          <button className="ai-bet-button" onClick={handleOpenAiModal}>
+            <Sparkles size={18} />
+            <span>J'ai pas le temps, laisse l'IA pronostiquer !</span>
+          </button>
+        </div>
+      )}
+
       <div className="matches-list">
         {dateGroups.length === 0 && (
           <p className="text-gray-400 text-center py-12">
@@ -130,7 +179,10 @@ const Matches = () => {
             <div className="matches-date-list">
               {selectedTab === 0
                 ? map(group.matches, (match) => (
-                    <MatchToBet match={match} key={match.id} />
+                    <MatchToBet
+                      match={match}
+                      key={`${match.id}-${refreshKey}`}
+                    />
                   ))
                 : map(group.matches, (match) => (
                     <MatchBegun match={match} key={match.id} />
@@ -139,6 +191,17 @@ const Matches = () => {
           </div>
         ))}
       </div>
+
+      {isConnected && bettedMatchIds && (
+        <AiBetModal
+          open={aiModalOpen}
+          onClose={handleCloseAiModal}
+          onComplete={handleAiComplete}
+          matches={upcomingMatches}
+          bettedMatchIds={bettedMatchIds}
+          isAdmin={isAdmin}
+        />
+      )}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import isEmpty from 'lodash/isEmpty'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useGroupsForUserMember } from '../../hooks/groups'
-import GroupRanking from './GroupRanking'
+import GroupRanking from './GroupRanking/GroupRanking'
 import { useAllOpponents } from '../../hooks/opponents'
 
 const Ranking = () => {

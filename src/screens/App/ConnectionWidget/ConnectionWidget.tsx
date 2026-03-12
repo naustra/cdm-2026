@@ -1,8 +1,8 @@
 import { createPortal } from 'react-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useIsUserConnected } from '../../../hooks/user'
-import ConnectionModal from '../ConnectionModal'
-import User from './User'
+import ConnectionModal from '../ConnectionModal/ConnectionModal'
+import User from './User/User'
 
 const ConnectionWidget = () => {
   const isConnected = useIsUserConnected()

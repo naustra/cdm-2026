@@ -18,6 +18,9 @@
 .env.test.local
 .env.production.local
 
+# supabase
+supabase/.temp/
+
 # misc
 .DS_Store
 npm-debug.log*

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import FaqEntry from './FaqEntry'
+import FaqEntry from './FaqEntry/FaqEntry'
 
 function FAQPage() {
   return (

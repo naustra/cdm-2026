@@ -1,4 +1,4 @@
-import Section from '../component/section'
+import Section from '../component/section/rulesSection'
 
 const Subscription = () => (
   <Section>

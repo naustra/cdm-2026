@@ -115,6 +115,48 @@ CREATE POLICY "bets_update_own" ON bets
 CREATE POLICY "bets_admin_all" ON bets
   FOR ALL TO authenticated USING (is_admin()) WITH CHECK (is_admin());
 
+-- ----------------------------------------------------------------
+-- Trigger: block bets placed after match kick-off
+-- Allows updates to points_won only (from scoring trigger).
+-- Admins bypass this check.
+-- ----------------------------------------------------------------
+CREATE OR REPLACE FUNCTION public.prevent_late_bets()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+  match_start TIMESTAMPTZ;
+BEGIN
+  -- Allow scoring-trigger updates (only points_won changes)
+  IF TG_OP = 'UPDATE'
+     AND NEW.bet_team_a IS NOT DISTINCT FROM OLD.bet_team_a
+     AND NEW.bet_team_b IS NOT DISTINCT FROM OLD.bet_team_b THEN
+    RETURN NEW;
+  END IF;
+
+  -- Admins can always modify bets
+  IF is_admin() THEN
+    RETURN NEW;
+  END IF;
+
+  SELECT date_time INTO match_start
+  FROM matches
+  WHERE id = NEW.match_id;
+
+  IF match_start IS NOT NULL AND match_start <= now() THEN
+    RAISE EXCEPTION 'Les paris sont fermés pour ce match (déjà commencé)';
+  END IF;
+
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER prevent_late_bets
+  BEFORE INSERT OR UPDATE ON bets
+  FOR EACH ROW
+  EXECUTE FUNCTION public.prevent_late_bets();
+
 -- ================================================================
 -- COMPETITIONS (reference data)
 -- Read: public | Write: admin only
