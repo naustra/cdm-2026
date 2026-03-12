@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty'
-import { useAuth } from 'contexts/AuthContext'
-import type { GroupWithMembers } from 'hooks/groups'
+import { useAuth } from '../../../contexts/AuthContext'
+import type { GroupWithMembers } from '../../../hooks/groups'
 
 const MyGroups = ({ groups }: { groups: GroupWithMembers[] }) => {
   if (isEmpty(groups)) return null
