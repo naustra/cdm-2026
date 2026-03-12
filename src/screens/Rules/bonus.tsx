@@ -3,9 +3,9 @@ import Table from './component/table'
 
 const Bonus = () => (
   <Section>
-    <h2 className="rules-heading">Règles additionnelles</h2>
+    <h2 className="text-xl font-bold text-navy">Règles additionnelles</h2>
     <br />
-    <h3 className="rules-subheading">Vainqueur final</h3>
+    <h3 className="text-lg font-bold text-navy">Vainqueur final</h3>
     <p>
       Chaque joueur pronostique le champion de la Coupe du Monde 2026 avant
       le début de la compétition. Si le pronostic est correct, la cote
@@ -18,7 +18,7 @@ const Bonus = () => (
         de situation restent possibles jusqu&apos;au bout !
       </p>
       <br />
-      <div className="table_section">
+      <div className="overflow-x-auto">
         <Table
           header={['Phase', 'Matchs', 'Multi.', '% total']}
           rows={[

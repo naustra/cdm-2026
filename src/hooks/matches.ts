@@ -80,10 +80,3 @@ export function useMatch(matchId: string | undefined): NormalizedMatch | null {
 
   return match
 }
-
-export function isMatchFinished(match: NormalizedMatch, comparingDate?: number): boolean {
-  if (!match) return false
-  const timestamp = match.dateTime?.seconds ? match.dateTime.seconds * 1000 : 0
-  const hasScore = match.scores?.A !== null && match.scores?.B !== null
-  return timestamp <= (comparingDate ?? Date.now()) || hasScore
-}

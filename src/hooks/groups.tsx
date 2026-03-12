@@ -1,5 +1,5 @@
-import toast from 'react-hot-toast'
 import { useCallback, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../contexts/AuthContext'
@@ -29,11 +29,11 @@ export function useCreateGroup() {
 
     await applyInGroup(joinKey)
 
-    toast.success(`Groupe ${group.name} créé avec le code ${joinKey}`)
+    toast.success(`Groupe ${group.name} créé avec le code ${joinKey}.`)
   }
 }
 
-export function useApplyInGroup(): [(joinKey: string) => Promise<void>] {
+export function useApplyInGroup() {
   const { user } = useAuth()
 
   const applyFn = useCallback(
@@ -71,7 +71,7 @@ export function useApplyInGroup(): [(joinKey: string) => Promise<void>] {
     [user?.id],
   )
 
-  return [applyFn]
+  return [applyFn] as const
 }
 
 export function useGroupsForUserMember(): GroupRow[] {

@@ -6,20 +6,24 @@ interface RuleTableProps {
 }
 
 const RuleTable = ({ header = [], rows = [[]] }: RuleTableProps) => (
-  <div className="rules-table-wrapper">
-    <table className="rules-table">
+  <div className="overflow-x-auto">
+    <table className="w-full text-sm">
       <thead>
-        <tr>
+        <tr className="border-b border-gray-200">
           {header.map((col, i) => (
-            <th key={i}>{col}</th>
+            <th key={i} className="text-left py-2 px-3 font-semibold text-gray-500">
+              {col}
+            </th>
           ))}
         </tr>
       </thead>
       <tbody>
         {rows.map((row, i) => (
-          <tr key={i}>
+          <tr key={i} className="border-b border-gray-100">
             {row.map((col, j) => (
-              <td key={j}>{col}</td>
+              <td key={j} className="py-2 px-3">
+                {col}
+              </td>
             ))}
           </tr>
         ))}

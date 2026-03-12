@@ -4,7 +4,7 @@ import Table from './component/table'
 const Playoff = () => (
   <Section>
     <div>
-      <h2 className="rules-heading">Règles durant la phase finale</h2>
+      <h2 className="text-xl font-bold text-navy">Règles durant la phase finale</h2>
       <p>
         Le fonctionnement est identique à la phase de groupe. La côte du
         match nul s&apos;applique uniquement en cas de tirs au but.
@@ -13,7 +13,7 @@ const Playoff = () => (
     <div>
       <p><u>Exemple : Brésil 2-1 Allemagne (cote : 320)</u></p>
       <br />
-      <div className="table_section">
+      <div className="overflow-x-auto">
         <Table
           header={['Situation', 'Prono', 'Calcul', 'Points']}
           rows={[

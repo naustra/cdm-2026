@@ -7,10 +7,10 @@ interface FlagProps {
   style?: CSSProperties
 }
 
-const flags: Record<string, string> = import.meta.glob('../assets/flags/*.svg', {
+const flags = import.meta.glob('../assets/flags/*.svg', {
   eager: true,
   import: 'default',
-})
+}) as Record<string, string>
 
 function getFlagSrc(country: string): string | undefined {
   return flags[`../assets/flags/${country}.svg`]
@@ -25,10 +25,10 @@ const Flag = memo<FlagProps>(({ country, tooltipText, className, style }) => {
   return (
     <img
       src={flag}
-      alt={tooltipText || country}
-      title={tooltipText || undefined}
+      alt={country}
       className={className}
       style={style}
+      title={tooltipText ?? ''}
     />
   )
 })
@@ -36,18 +36,8 @@ const Flag = memo<FlagProps>(({ country, tooltipText, className, style }) => {
 const FlagPlaceholder = memo<{ className?: string; style?: CSSProperties }>(
   ({ className, style }) => (
     <div
-      className={className}
-      style={{
-        ...style,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#e5e7eb',
-        borderRadius: '6px',
-        color: '#9ca3af',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-      }}
+      className={`flex items-center justify-center bg-gray-200 rounded-md text-xs font-semibold text-gray-400 ${className ?? ''}`}
+      style={style}
     >
       ?
     </div>

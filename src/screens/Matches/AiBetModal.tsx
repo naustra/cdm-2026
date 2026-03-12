@@ -178,38 +178,43 @@ const AiBetModal = ({
   return createPortal(
     <dialog
       ref={dialogRef}
-      className="modal-dialog modal-dialog--ai"
+      className="fixed inset-0 m-auto w-[90vw] max-w-md rounded-2xl bg-white p-0 shadow-xl backdrop:bg-black/40"
       onClose={handleClose}
       onClick={handleBackdropClick}
     >
-      <div className="ai-modal">
+      <div className="relative p-6 flex flex-col gap-4">
         {step !== 'loading' && (
-          <button className="ai-modal__close" onClick={handleClose}>
+          <button
+            className="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-navy hover:bg-gray-100 transition-colors"
+            onClick={handleClose}
+          >
             <X size={18} />
           </button>
         )}
 
         {step === 'prompt' && (
-          <div className="ai-modal__step">
-            <div className="ai-modal__icon">✨</div>
-            <h2 className="ai-modal__title">Laisse l'IA pronostiquer</h2>
-            <p className="ai-modal__desc">
+          <div className="flex flex-col gap-4">
+            <div className="text-3xl text-center">✨</div>
+            <h2 className="text-lg font-bold text-navy text-center m-0">
+              Laisse l'IA pronostiquer
+            </h2>
+            <p className="text-sm text-gray-500 text-center m-0">
               Écris tes préférences et l'IA remplira tes pronostics
             </p>
 
             <textarea
-              className="ai-modal__textarea"
+              className="w-full py-2.5 px-3.5 border-[1.5px] border-gray-200 rounded-[10px] text-sm outline-none transition-colors bg-white focus:border-indigo-500 placeholder:text-gray-300 resize-none"
               placeholder="Ex: Je pense que la France va gagner..."
               value={prompt}
               onChange={handlePromptChange}
               rows={3}
             />
 
-            <div className="ai-modal__suggestions">
+            <div className="flex flex-wrap gap-2">
               {PROMPT_SUGGESTIONS.map((s) => (
                 <button
                   key={s}
-                  className="ai-modal__suggestion"
+                  className="text-xs py-1.5 px-3 rounded-full border border-gray-200 bg-gray-50 text-gray-600 cursor-pointer hover:border-indigo-300 hover:bg-indigo-50 transition-colors"
                   onClick={() => handleSuggestionClick(s)}
                 >
                   {s}
@@ -218,23 +223,24 @@ const AiBetModal = ({
             </div>
 
             {hasSomeBets && (
-              <label className="ai-modal__checkbox">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={overwriteExisting}
                   onChange={handleOverwriteChange}
+                  className="accent-indigo-500"
                 />
                 <span>Réécrire aussi mes pronostics existants</span>
               </label>
             )}
 
-            <p className="ai-modal__count">
+            <p className="text-xs text-gray-400 text-center m-0">
               {matchesToPredict.length} match
               {matchesToPredict.length > 1 ? 's' : ''} à pronostiquer
             </p>
 
             <button
-              className="btn btn--primary ai-modal__next"
+              className="inline-flex items-center justify-center gap-2 font-semibold rounded-full border-none cursor-pointer transition-all duration-150 bg-navy text-white py-2.5 px-5 text-sm hover:bg-navy-light disabled:opacity-50"
               onClick={handleGoToChoose}
               disabled={matchesToPredict.length === 0}
             >
@@ -245,33 +251,39 @@ const AiBetModal = ({
         )}
 
         {step === 'choose' && (
-          <div className="ai-modal__step">
-            <h2 className="ai-modal__title">Choisis ton IA</h2>
-            <p className="ai-modal__desc">
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold text-navy text-center m-0">
+              Choisis ton IA
+            </h2>
+            <p className="text-sm text-gray-500 text-center m-0">
               Chaque IA a sa propre vision du football
             </p>
 
-            <div className="ai-modal__providers">
+            <div className="flex flex-col gap-2">
               {AI_PROVIDERS.map((p) => (
                 <button
                   key={p.id}
-                  className="ai-modal__provider"
+                  className="flex items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:border-indigo-300 hover:shadow-card transition-all text-left"
                   onClick={() => handleChooseProvider(p.id)}
                 >
-                  <span className="ai-modal__provider-flag">{p.flag}</span>
-                  <div className="ai-modal__provider-info">
-                    <span className="ai-modal__provider-title">{p.title}</span>
-                    <span className="ai-modal__provider-subtitle">
+                  <span className="text-2xl">{p.flag}</span>
+                  <div className="flex-1">
+                    <span className="block text-sm font-semibold text-navy">
+                      {p.title}
+                    </span>
+                    <span className="block text-xs text-gray-400">
                       {p.subtitle}
                     </span>
                   </div>
-                  <span className="ai-modal__provider-label">{p.label}</span>
+                  <span className="text-xs font-semibold text-indigo-500 bg-indigo-50 py-0.5 px-2 rounded-full">
+                    {p.label}
+                  </span>
                 </button>
               ))}
             </div>
 
             <button
-              className="btn btn--ghost ai-modal__back"
+              className="inline-flex items-center justify-center gap-2 font-semibold rounded-full border-none cursor-pointer bg-transparent text-gray-500 py-2 px-4 text-sm hover:text-navy hover:bg-navy/[0.04] transition-colors"
               onClick={handleBackToPrompt}
             >
               ← Retour
@@ -280,25 +292,27 @@ const AiBetModal = ({
         )}
 
         {step === 'loading' && (
-          <div className="ai-modal__step ai-modal__step--center">
-            <div className="ai-modal__spinner" />
-            <h2 className="ai-modal__title">L'IA réfléchit...</h2>
-            <p className="ai-modal__desc">
+          <div className="flex flex-col items-center gap-4 py-8">
+            <div className="w-8 h-8 border-[3px] border-gray-200 border-t-indigo-500 rounded-full animate-spin" />
+            <h2 className="text-lg font-bold text-navy m-0">
+              L'IA réfléchit...
+            </h2>
+            <p className="text-sm text-gray-500 m-0">
               Analyse des équipes et génération des pronostics
             </p>
-            <p className="ai-modal__hint">
+            <p className="text-xs text-gray-400 m-0">
               Ça peut prendre quelques secondes
             </p>
           </div>
         )}
 
         {step === 'error' && (
-          <div className="ai-modal__step ai-modal__step--center">
-            <div className="ai-modal__icon">😬</div>
-            <h2 className="ai-modal__title">Oups !</h2>
-            <p className="ai-modal__desc">{error}</p>
+          <div className="flex flex-col items-center gap-4 py-4">
+            <div className="text-3xl">😬</div>
+            <h2 className="text-lg font-bold text-navy m-0">Oups !</h2>
+            <p className="text-sm text-gray-500 m-0">{error}</p>
             <button
-              className="btn btn--primary"
+              className="inline-flex items-center justify-center gap-2 font-semibold rounded-full border-none cursor-pointer transition-all duration-150 bg-navy text-white py-2 px-5 text-sm hover:bg-navy-light"
               onClick={handleBackToPrompt}
             >
               Réessayer

@@ -49,47 +49,55 @@ function AdminMatchRow({
   }, [match.id, onClear])
 
   return (
-    <div className={`admin-match-row ${match.finished ? 'admin-match-row--finished' : ''}`}>
-      <div className="admin-match-teams">
-        <div className="admin-match-team">
+    <div className={`bg-white rounded-xl p-3 shadow-card flex flex-col gap-2 ${match.finished ? 'opacity-60' : ''}`}>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
           <Flag country={match.teamACode ?? ''} style={{ width: 24, height: 24 }} />
-          <span>{match.teamAName ?? match.teamA}</span>
+          <span className="text-sm font-medium text-navy">{match.teamAName ?? match.teamA}</span>
         </div>
-        <span className="admin-match-vs">vs</span>
-        <div className="admin-match-team">
+        <span className="text-xs text-gray-400">vs</span>
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-navy">{match.teamBName ?? match.teamB}</span>
           <Flag country={match.teamBCode ?? ''} style={{ width: 24, height: 24 }} />
-          <span>{match.teamBName ?? match.teamB}</span>
         </div>
       </div>
 
-      <div className="admin-match-meta">
-        <span className="admin-match-phase">
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-gray-400">
           {formatPhase(match.phase)} — {match.groupName ?? ''}
         </span>
-        {match.finished && <span className="admin-match-badge">Terminé</span>}
+        {match.finished && (
+          <span className="text-[0.65rem] font-semibold py-0.5 px-2 rounded-full bg-green-100 text-green-800">
+            Terminé
+          </span>
+        )}
       </div>
 
-      <div className="admin-match-scores">
+      <div className="flex items-center gap-2">
         <input
           type="number"
           min="0"
-          className="admin-score-input"
+          className="w-12 h-10 rounded-lg border-[1.5px] border-gray-200 text-center text-lg font-bold text-navy bg-gray-50 outline-none focus:border-indigo-500"
           value={scores.scoreA}
           onChange={(e) => setScores({ ...scores, scoreA: e.target.value })}
           placeholder="—"
         />
-        <span className="admin-score-separator">–</span>
+        <span className="text-gray-400">–</span>
         <input
           type="number"
           min="0"
-          className="admin-score-input"
+          className="w-12 h-10 rounded-lg border-[1.5px] border-gray-200 text-center text-lg font-bold text-navy bg-gray-50 outline-none focus:border-indigo-500"
           value={scores.scoreB}
           onChange={(e) => setScores({ ...scores, scoreB: e.target.value })}
           placeholder="—"
         />
 
         <button
-          className={`admin-save-btn ${hasChanges && isValid ? 'admin-save-btn--active' : ''}`}
+          className={`ml-auto text-xs font-semibold py-1.5 px-3 rounded-full border-none cursor-pointer transition-all ${
+            hasChanges && isValid
+              ? 'bg-navy text-white hover:bg-navy-light'
+              : 'bg-gray-100 text-gray-400'
+          }`}
           disabled={!hasChanges || !isValid || saving}
           onClick={handleSave}
         >
@@ -98,7 +106,7 @@ function AdminMatchRow({
 
         {hasScore && (
           <button
-            className="admin-clear-btn"
+            className="text-xs font-semibold py-1.5 px-3 rounded-full border border-red-200 text-red-500 bg-white cursor-pointer hover:bg-red-50 transition-colors"
             disabled={clearing}
             onClick={handleClear}
           >
@@ -174,7 +182,13 @@ const Admin = () => {
   )
 
   if (!isAdmin) return null
-  if (!matches) return <div className="page-loader">Chargement...</div>
+  if (!matches) {
+    return (
+      <div className="flex items-center justify-center min-h-[40vh] text-gray-400">
+        Chargement...
+      </div>
+    )
+  }
 
   const filteredMatches = matches.filter((m) => {
     if (filter === 'pending') return !m.finished
@@ -193,27 +207,27 @@ const Admin = () => {
   )
 
   return (
-    <div className="admin-page">
-      <h1 className="admin-title">Administration</h1>
-      <p className="admin-subtitle">
+    <div className="max-w-[600px] mx-auto py-6 px-4 pb-12">
+      <h1 className="text-xl font-extrabold text-navy mb-1">Administration</h1>
+      <p className="text-sm text-gray-500 mb-5">
         Mettre à jour les scores déclenche le recalcul automatique des points.
       </p>
 
-      <div className="admin-filters">
+      <div className="flex gap-1 justify-center mb-6">
         <button
-          className={`matches-tab ${filter === 'pending' ? 'matches-tab--active' : ''}`}
+          className={`py-2 px-6 rounded-full text-sm font-semibold border-[1.5px] cursor-pointer transition-all duration-200 ${filter === 'pending' ? 'text-white bg-navy border-navy' : 'text-gray-500 bg-transparent border-gray-200 hover:text-navy hover:border-navy'}`}
           onClick={() => setFilter('pending')}
         >
           À jouer ({matches.filter((m) => !m.finished).length})
         </button>
         <button
-          className={`matches-tab ${filter === 'finished' ? 'matches-tab--active' : ''}`}
+          className={`py-2 px-6 rounded-full text-sm font-semibold border-[1.5px] cursor-pointer transition-all duration-200 ${filter === 'finished' ? 'text-white bg-navy border-navy' : 'text-gray-500 bg-transparent border-gray-200 hover:text-navy hover:border-navy'}`}
           onClick={() => setFilter('finished')}
         >
           Terminés ({matches.filter((m) => m.finished).length})
         </button>
         <button
-          className={`matches-tab ${filter === 'all' ? 'matches-tab--active' : ''}`}
+          className={`py-2 px-6 rounded-full text-sm font-semibold border-[1.5px] cursor-pointer transition-all duration-200 ${filter === 'all' ? 'text-white bg-navy border-navy' : 'text-gray-500 bg-transparent border-gray-200 hover:text-navy hover:border-navy'}`}
           onClick={() => setFilter('all')}
         >
           Tous ({matches.length})
@@ -221,16 +235,18 @@ const Admin = () => {
       </div>
 
       {Object.entries(groupedByPhase).map(([phase, phaseMatches]) => (
-        <div key={phase} className="admin-phase-group">
-          <h2 className="admin-phase-title">{phase}</h2>
-          {phaseMatches.map((match) => (
-            <AdminMatchRow key={match.id} match={match} onSave={handleSaveScore} onClear={handleClearScore} />
-          ))}
+        <div key={phase} className="mb-6">
+          <h2 className="text-base font-bold text-navy mb-3">{phase}</h2>
+          <div className="flex flex-col gap-2">
+            {phaseMatches.map((match) => (
+              <AdminMatchRow key={match.id} match={match} onSave={handleSaveScore} onClear={handleClearScore} />
+            ))}
+          </div>
         </div>
       ))}
 
       {filteredMatches.length === 0 && (
-        <p style={{ textAlign: 'center', color: '#9ca3af', padding: 40 }}>
+        <p className="text-center text-gray-400 py-10">
           Aucun match dans cette catégorie.
         </p>
       )}

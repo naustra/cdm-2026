@@ -1,6 +1,6 @@
 import isNumber from 'lodash/isNumber'
 
-function getMessage(betTeamA: number | null, betTeamB: number | null, pointsWon: number, maxPoints: number): string {
+const getMessage = (betTeamA, betTeamB, pointsWon, maxPoints) => {
   const hasBet = isNumber(betTeamA) && isNumber(betTeamB)
 
   if (!hasBet) return "Il n'a pas pronostiqué"
@@ -10,7 +10,7 @@ function getMessage(betTeamA: number | null, betTeamB: number | null, pointsWon:
   return 'Bon résultat pronostiqué'
 }
 
-const PointsWon = ({ betTeamA, betTeamB, pointsWon, scores, odds }: any) => {
+const PointsWon = ({ betTeamA, betTeamB, pointsWon, scores, odds }) => {
   if (!scores) return null
 
   const { A, B } = scores
@@ -20,13 +20,12 @@ const PointsWon = ({ betTeamA, betTeamB, pointsWon, scores, odds }: any) => {
 
   return (
     <div
-      className="match-card__stat"
       title={getMessage(betTeamA, betTeamB, pointsWon, oddScore)}
+      className="flex flex-col items-center gap-0.5"
     >
-      <span className="match-card__stat-label">Points</span>
+      <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Points</span>
       <span
-        className="match-card__stat-value"
-        style={{ color: isPositive ? '#22c55e' : undefined }}
+        className={`text-xs font-bold ${isPositive ? 'text-green-500' : 'text-navy'}`}
       >
         {pointsWon > 0 ? '+' : ''}
         {pointsWon || 0}

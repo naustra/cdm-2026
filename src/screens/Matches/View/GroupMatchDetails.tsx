@@ -57,18 +57,18 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
   const ScoreB = match.scores.B
 
   return (
-    <div className="card mb-4">
+    <div className="bg-white rounded-2xl p-5 shadow-card mb-4">
       <h3 className="text-center text-lg font-bold text-navy mb-3">{name}</h3>
 
-      <div className="rules-table-wrapper">
-        <table className="rules-table">
+      <div className="overflow-x-auto">
+        <table className="w-full">
           <thead>
             <tr>
-              <th></th>
-              <th>Nom</th>
-              <th>Prono</th>
-              <th>Malus</th>
-              <th className="text-right">Points</th>
+              <th className="p-2 text-left"></th>
+              <th className="p-2 text-left">Nom</th>
+              <th className="p-2 text-left">Prono</th>
+              <th className="p-2 text-left">Malus</th>
+              <th className="p-2 text-right">Points</th>
             </tr>
           </thead>
           <tbody>
@@ -78,24 +78,24 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
               return (
                 <tr
                   key={bet.id}
-                  className={`cursor-pointer transition-colors ${bet.uid === uid ? 'bg-amber-50 hover:bg-amber-100' : 'hover:bg-black/5'}`}
+                  className={`cursor-pointer transition-colors ${bet.uid === uid ? 'bg-cream/50 hover:bg-cream-dark' : 'hover:bg-black/5'}`}
                   onClick={() => navigate(`/user/${bet.uid}`)}
                 >
-                  <td className="text-xs text-gray-400 font-bold">
+                  <td className="p-2 text-xs text-gray-400 font-bold">
                     #{index + 1}
                   </td>
-                  <td>
+                  <td className="p-2">
                     <InlineAvatar
                       avatarUrl={opponent?.avatar_url ?? undefined}
                       displayName={opponent?.display_name ?? undefined}
                       size={24}
                     />
                   </td>
-                  <td className="text-center text-sm">
+                  <td className="p-2 text-center text-sm">
                     {`${bet.betTeamA} : ${bet.betTeamB}`}
                   </td>
                   <td
-                    className="text-center italic text-sm"
+                    className="p-2 text-center italic text-sm"
                     title="Écarts de points par rapport au score réel"
                   >
                     {bet.pointsWon && bet.pointsWon > 0
@@ -105,7 +105,7 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
                         }`
                       : '-'}
                   </td>
-                  <td className="text-right font-semibold text-sm">
+                  <td className="p-2 text-right font-semibold text-sm">
                     {(bet.pointsWon || 0).toLocaleString()} pts
                   </td>
                 </tr>

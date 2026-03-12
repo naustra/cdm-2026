@@ -15,11 +15,9 @@ const facteurMultiplicateurPhase = {
   1: 10,
 }
 
-const Match = ({ match, clickable = true }: { match: any; clickable?: boolean }) => {
+const Match = ({ match }) => {
   const [currentBet] = useBet(match.id)
   const navigate = useNavigate()
-
-  const hasScore = match.scores.A !== null && match.scores.B !== null
 
   const myOdd =
     !isNumber(currentBet?.betTeamA) || !isNumber(currentBet?.betTeamB)
@@ -30,9 +28,8 @@ const Match = ({ match, clickable = true }: { match: any; clickable?: boolean })
           ? match.odds.PB
           : match.odds.PN
 
-  const winningOdd = !hasScore
-    ? null
-    : match.scores.A > match.scores.B
+  const winningOdd =
+    match.scores.A > match.scores.B
       ? match.odds.PA
       : match.scores.A < match.scores.B
         ? match.odds.PB
@@ -40,63 +37,61 @@ const Match = ({ match, clickable = true }: { match: any; clickable?: boolean })
 
   if (!match.display) return null
 
-  const Tag = clickable ? 'button' : 'div'
-
   return (
-    <Tag
-      className={`match-card ${clickable ? 'match-card--clickable' : ''}`}
-      onClick={clickable ? () => navigate(`/matches/${match.id}`) : undefined}
+    <button
+      className="w-full bg-white rounded-[14px] py-3.5 px-4 shadow-card border-none text-left flex flex-col gap-2.5 transition-all duration-150 cursor-pointer hover:shadow-card-hover hover:-translate-y-px"
+      onClick={() => navigate(`/matches/${match.id}`)}
     >
-      <div className="match-card__header">
+      <div className="flex justify-between items-center">
         <InformationMatch phase={match.phase} groupName={match.groupName} />
       </div>
 
-      <div className="match-card__teams">
-        <div className="match-card__team">
-          <Flag country={match.teamACode} className="match-card__flag" />
-          <span className="match-card__team-name">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col items-center gap-1.5 w-[90px] shrink-0">
+          <Flag country={match.teamACode} className="h-9 w-9 object-contain rounded" />
+          <span className="text-xs font-semibold text-navy text-center leading-tight">
             {match.teamAName ?? 'À déterminer'}
           </span>
         </div>
 
-        <div className="match-card__result">
-          <span className="match-card__score">
-            {hasScore ? `${match.scores.A} – ${match.scores.B}` : 'En cours'}
+        <div className="shrink-0">
+          <span className="inline-block text-xl font-extrabold text-navy bg-gray-100 py-1.5 px-3.5 rounded-[10px]">
+            {match.scores.A} – {match.scores.B}
           </span>
         </div>
 
-        <div className="match-card__team">
-          <Flag country={match.teamBCode} className="match-card__flag" />
-          <span className="match-card__team-name">
+        <div className="flex flex-col items-center gap-1.5 w-[90px] shrink-0">
+          <Flag country={match.teamBCode} className="h-9 w-9 object-contain rounded" />
+          <span className="text-xs font-semibold text-navy text-center leading-tight">
             {match.teamBName ?? 'À déterminer'}
           </span>
         </div>
       </div>
 
-      <div className="match-card__stats">
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Ma cote</span>
-          <span className="match-card__stat-value">{myOdd ?? '–'}</span>
+      <div className="flex justify-between items-center gap-1 pt-2 border-t border-gray-100">
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Ma cote</span>
+          <span className="text-xs font-bold text-navy">{myOdd ?? '–'}</span>
         </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Cote gagnante</span>
-          <span className="match-card__stat-value">{winningOdd ?? '–'}</span>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Cote gagnante</span>
+          <span className="text-xs font-bold text-navy">{winningOdd}</span>
         </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Multiplicateur</span>
-          <span className="match-card__stat-value">
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Multiplicateur</span>
+          <span className="text-xs font-bold text-navy">
             x{facteurMultiplicateurPhase[match.phase]}
           </span>
         </div>
-        <div className="match-card__stat">
-          <span className="match-card__stat-label">Mon prono</span>
-          <span className="match-card__stat-value">
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Mon prono</span>
+          <span className="text-xs font-bold text-navy">
             {currentBet?.betTeamA ?? '–'} – {currentBet?.betTeamB ?? '–'}
           </span>
         </div>
         <PointsWon {...match} {...currentBet} />
       </div>
-    </Tag>
+    </button>
   )
 }
 

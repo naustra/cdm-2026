@@ -4,10 +4,10 @@ import MyGroups from './MyGroups/MyGroups'
 
 const Groups = () => {
   return (
-    <div className="groups-page">
-      <div style={{ textAlign: 'center', marginBottom: 4 }}>
-        <h1 className="page-title">Mes tribus</h1>
-        <p className="page-subtitle">
+    <div className="max-w-[600px] mx-auto py-6 px-4 pb-12 flex flex-col gap-5">
+      <div className="text-center mb-1">
+        <h1 className="text-xl font-extrabold text-navy m-0 mb-1">Mes tribus</h1>
+        <p className="text-sm text-gray-500 m-0 mb-5">
           Gérez vos tribus et affrontez vos proches
         </p>
       </div>

@@ -14,7 +14,7 @@ const MatchInfos = ({ match }: MatchInfosProps) => {
   const dateTime = new Date(match.dateTime.seconds * 1000)
 
   return (
-    <div className="match-infos-container">
+    <div className="flex flex-col gap-2">
       <div className="flex gap-2 items-center">
         <Calendar size={16} className="text-gray-400" />
         <span title={format(dateTime, 'PPPppp', { locale: fr })}>

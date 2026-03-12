@@ -13,7 +13,7 @@ const OwnRank = ({ opponents }: OwnRankProps) => {
   const rank = findIndex(opponents, { id: uid }) + 1
 
   return (
-    <p className="ranking-own">
+    <p className="text-xs font-semibold text-gray-500 text-right mb-2">
       {rank}
       <sup>{rank === 1 ? 'er' : 'e'}</sup> sur {size(opponents)} joueurs
     </p>

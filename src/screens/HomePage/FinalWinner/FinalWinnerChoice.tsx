@@ -19,14 +19,14 @@ const FinalWinnerChoice = ({
   return (
     <div className="flex flex-col items-center gap-3">
       {selectedTeam && (
-        <Flag country={selectedTeam.code} className="winner-card__flag" />
+        <Flag country={selectedTeam.code} className="h-16 mx-auto mb-3" />
       )}
 
       <select
         value={userTeam ?? ''}
         onChange={onValueChange}
         disabled={disabled}
-        className="native-select"
+        className="w-full py-2.5 px-3.5 border-[1.5px] border-gray-200 rounded-[10px] text-sm outline-none transition-colors bg-white focus:border-indigo-500"
       >
         <option value="" disabled>
           Sélectionner une équipe
@@ -39,7 +39,7 @@ const FinalWinnerChoice = ({
       </select>
 
       {selectedTeam?.winOdd && (
-        <p className="winner-card__odd">
+        <p className="text-xs font-semibold text-indigo-500 mt-2">
           Cote : {selectedTeam.winOdd}
         </p>
       )}

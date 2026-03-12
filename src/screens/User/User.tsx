@@ -3,12 +3,11 @@ import { fr } from 'date-fns/locale'
 import map from 'lodash/map'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useCompetitionData } from '../../hooks/competition'
-import { useMatches, isMatchFinished, type NormalizedMatch } from '../../hooks/matches'
+import { useMatches, type NormalizedMatch } from '../../hooks/matches'
 import MatchBegun from './MatchBegun/Match'
 import InlineAvatar from 'components/Avatar'
 import { useOpponent } from 'hooks/opponents'
-import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { useParams } from 'react-router-dom'
 
 function groupMatchesByDate(matches: NormalizedMatch[]) {
   const groups: { date: Date; matches: NormalizedMatch[] }[] = []
@@ -30,7 +29,6 @@ function groupMatchesByDate(matches: NormalizedMatch[]) {
 
 const User = () => {
   const { id } = useParams()
-  const navigate = useNavigate()
   const [comparingDate, setComparingDate] = useState(Date.now())
   const opponent = useOpponent(id)
 
@@ -45,12 +43,11 @@ const User = () => {
   const filteredMatches = useMemo(() => {
     if (!matches) return []
     return matches
-      .filter((match) => isMatchFinished(match, comparingDate))
-      .sort((a, b) => {
-        const tA = a.dateTime?.seconds || 0
-        const tB = b.dateTime?.seconds || 0
-        return tB - tA
+      .filter((match) => {
+        const timestamp = match.dateTime?.seconds * 1000
+        return timestamp <= comparingDate
       })
+      .reverse()
   }, [matches, comparingDate])
 
   const dateGroups = useMemo(
@@ -73,45 +70,35 @@ const User = () => {
   }
 
   return (
-    <div className="matches-page">
-      <div className="matches-tabs flex items-center gap-4">
-        <button 
-          onClick={() => navigate(-1)} 
-          className="p-2 hover:bg-white/10 rounded-full transition-colors"
-          aria-label="Retour"
-        >
-          <ArrowLeft size={20} />
-        </button>
+    <div className="min-h-screen">
+      <div className="sticky top-14 z-10 flex gap-1 justify-center py-3 px-4 bg-cream/[0.85] backdrop-blur-sm">
         <InlineAvatar
           avatarUrl={opponent.avatar_url}
           displayName={opponent.display_name}
         />
       </div>
 
-      <div className="matches-list">
+      <div className="max-w-[520px] mx-auto py-2 px-4 pb-10">
         {dateGroups.map((group) => (
-          <div key={group.date.toISOString()} className="matches-date-group">
-            <div className="matches-date-header">
-              <span className="matches-date-label">
+          <div key={group.date.toISOString()} className="mb-6">
+            <div className="sticky top-[100px] z-[5] py-2 mb-2">
+              <span className="inline-block text-xs font-bold uppercase tracking-wide text-navy bg-cream py-0.5">
                 {format(group.date, 'EEEE d MMMM', { locale: fr })}
               </span>
             </div>
-            <div className="matches-date-list">
+            <div className="flex flex-col gap-2.5">
               {map(group.matches, (match) => (
                 <MatchBegun match={match} key={match.id} />
               ))}
             </div>
           </div>
         ))}
-        {dateGroups.length === 0 && (
-          <p className="text-gray-500 text-center mt-8">Aucun match terminé pour le moment.</p>
-        )}
       </div>
     </div>
   )
 }
 
-const UserSuspense = (props: any) => {
+const UserSuspense = (props) => {
   return (
     <Suspense fallback="Loading matches...">
       <User {...props} />

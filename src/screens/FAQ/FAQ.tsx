@@ -3,10 +3,12 @@ import FaqEntry from './FaqEntry'
 
 function FAQPage() {
   return (
-    <div className="faq-page">
-      <div className="faq-header">
-        <h1 className="page-title">Questions fréquentes</h1>
-        <p className="page-subtitle">
+    <div className="max-w-[600px] mx-auto py-6 px-4 pb-12">
+      <div className="text-center mb-6">
+        <h1 className="text-xl font-extrabold text-navy m-0 mb-1">
+          Questions fréquentes
+        </h1>
+        <p className="text-sm text-gray-500 m-0 mb-5">
           Tout ce qu'il faut savoir sur Paris Entre Potos
         </p>
       </div>

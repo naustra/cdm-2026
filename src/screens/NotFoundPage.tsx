@@ -4,15 +4,18 @@ const NotFound = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="not-found-page">
-      <span style={{ fontSize: '3rem', marginBottom: 12 }}>🤔</span>
-      <h1 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#19194B', margin: '0 0 8px' }}>
+    <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-6">
+      <span className="text-5xl mb-3">🤔</span>
+      <h1 className="text-xl font-extrabold text-navy mb-2">
         Page non trouvée
       </h1>
-      <p style={{ fontSize: '0.875rem', color: '#9ca3af', marginBottom: 20 }}>
+      <p className="text-sm text-gray-400 mb-5">
         Cette page n'existe pas ou a été déplacée.
       </p>
-      <button className="btn btn--primary" onClick={() => navigate('/')}>
+      <button
+        className="inline-flex items-center gap-2 font-semibold rounded-full border-none cursor-pointer transition-all duration-150 bg-navy text-white py-2 px-5 text-sm hover:bg-navy-light"
+        onClick={() => navigate('/')}
+      >
         Retour à l'accueil
       </button>
     </div>

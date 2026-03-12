@@ -1,14 +1,15 @@
-import type { ReactNode, HTMLAttributes } from 'react'
+import { type ReactNode } from 'react'
 
-interface ReversibleProps extends HTMLAttributes<HTMLDivElement> {
+interface ReversibleProps {
   direction?: 'rtl' | 'ltr'
   children?: ReactNode[]
+  [key: string]: unknown
 }
 
 const Reversible = ({ direction, children, ...rest }: ReversibleProps) => {
   const orderedChildren =
-    direction === 'rtl' && children && Array.isArray(children)
-      ? [...children].reverse()
+    direction === 'rtl' && children && children.slice
+      ? children.slice().reverse()
       : children
   return <div {...rest}>{orderedChildren}</div>
 }

@@ -11,35 +11,40 @@ const CreateGroup = () => {
   const isFormValid = name.length >= 5 && !errorMessage
 
   return (
-    <div className="group-card">
-      <h3 className="group-card__title">Créer une tribu</h3>
-      <p className="group-card__desc">
+    <div className="bg-white rounded-2xl p-5 shadow-card">
+      <h3 className="text-lg font-bold text-navy m-0 mb-1">Créer une tribu</h3>
+      <p className="text-xs text-gray-400 m-0 mb-4">
         Créez votre tribu et invitez vos proches à vous rejoindre
       </p>
 
       <div className="flex flex-col gap-3">
         <div>
-          <label className="form-label" htmlFor="group-name">
+          <label
+            className="block text-xs font-semibold text-gray-500 mb-1.5"
+            htmlFor="group-name"
+          >
             Nom de la tribu
           </label>
           <input
             id="group-name"
-            className="form-input"
+            className="w-full py-2.5 px-3.5 border-[1.5px] border-gray-200 rounded-[10px] text-sm outline-none transition-colors bg-white focus:border-indigo-500 placeholder:text-gray-300"
             placeholder="Ex: Les Bleus 2026"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errorMessage && <p className="form-error">{errorMessage}</p>}
+          {errorMessage && (
+            <p className="text-[0.7rem] text-red-500 mt-1">{errorMessage}</p>
+          )}
         </div>
 
         <button
-          className="btn btn--primary"
+          className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2.5 px-4 rounded-[10px] transition-colors disabled:opacity-50 disabled:cursor-not-allowed self-start"
+          style={{ opacity: isFormValid ? 1 : 0.5 }}
           disabled={!isFormValid}
           onClick={async () => {
             await createGroup({ name })
             setName('')
           }}
-          style={{ alignSelf: 'flex-start', opacity: isFormValid ? 1 : 0.5 }}
         >
           Créer la tribu
         </button>

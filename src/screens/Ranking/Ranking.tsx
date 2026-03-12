@@ -31,10 +31,10 @@ const Ranking = () => {
 
   if (isEmpty(groups)) {
     return (
-      <div className="page-section" style={{ textAlign: 'center', paddingTop: 60 }}>
-        <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+      <div className="max-w-[600px] mx-auto py-6 px-4 text-center pt-[60px]">
+        <p className="text-gray-500 text-[0.9rem]">
           Pour voir le classement, il faut d'abord{' '}
-          <Link to="/groups" style={{ color: '#6366f1', fontWeight: 600 }}>
+          <Link to="/groups" className="text-indigo-500 font-semibold">
             créer ou rejoindre une tribu
           </Link>
           .
@@ -52,12 +52,16 @@ const Ranking = () => {
   ]
 
   return (
-    <div className="ranking-page">
-      <div className="ranking-tabs">
+    <div className="min-h-screen">
+      <div className="sticky top-14 z-10 flex gap-1 justify-center py-3 px-4 bg-cream/[0.85] backdrop-blur-sm flex-wrap">
         {tabs.map((tab, i) => (
           <button
             key={tab.key}
-            className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
+            className={`py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
+              selectedTab === i
+                ? 'bg-indigo-100 text-indigo-700 font-semibold'
+                : 'text-gray-500 hover:text-navy'
+            }`}
             onClick={() => handleTabChange(i)}
           >
             {tab.label}
@@ -65,7 +69,7 @@ const Ranking = () => {
         ))}
       </div>
 
-      <div className="ranking-content">
+      <div className="max-w-[600px] mx-auto p-4">
         {selectedTab === 0 ? (
           <GroupRanking name="Général" opponentsProvided={allOpponents} />
         ) : (

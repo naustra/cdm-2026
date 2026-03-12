@@ -82,16 +82,27 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   return (
     <>
       {menuOpen && (
-        <div className="drawer-overlay" onClick={closeMenu} />
+        <div
+          className="fixed inset-0 z-[1050] bg-black/30"
+          onClick={closeMenu}
+          role="presentation"
+          aria-hidden="true"
+        />
       )}
-      <aside className={`drawer ${menuOpen ? 'drawer--open' : ''}`}>
-        <div className="nav-drawer">
-          <div className="nav-drawer__brand">
-            <span className="nav-drawer__logo">🏆</span>
-            <span className="nav-drawer__title">Paris Entre Potos</span>
+      <aside
+        className={`fixed top-0 left-0 bottom-0 z-[1100] w-64 bg-cream transform transition-transform duration-200 ${
+          menuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-2 px-4 flex flex-col gap-6">
+          <div className="flex items-center gap-2.5 py-2 px-1">
+            <span className="text-2xl">🏆</span>
+            <span className="text-base font-extrabold text-navy">
+              Paris Entre Potos
+            </span>
           </div>
 
-          <nav className="nav-drawer__links">
+          <nav className="flex flex-col gap-0.5">
             {visibleItems.map((item) => {
               const isActive =
                 item.path === '/'
@@ -101,10 +112,18 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
               return (
                 <button
                   key={item.path}
-                  className={`nav-drawer__link ${isActive ? 'nav-drawer__link--active' : ''}`}
+                  type="button"
+                  className={`flex items-center gap-3 py-2.5 px-3 rounded-[10px] border-none bg-transparent text-sm font-medium cursor-pointer text-left w-full transition-colors hover:bg-navy/[0.06] ${
+                    isActive
+                      ? 'bg-navy/[0.08] text-navy font-semibold'
+                      : 'text-gray-700'
+                  }`}
                   onClick={goTo(item.path)}
                 >
-                  <item.icon size={20} className="text-gray-400" />
+                  <item.icon
+                    size={20}
+                    className={isActive ? 'text-navy shrink-0' : 'text-gray-500 shrink-0'}
+                  />
                   <span>{item.label}</span>
                 </button>
               )

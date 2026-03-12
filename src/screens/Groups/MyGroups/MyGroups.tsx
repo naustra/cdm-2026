@@ -11,11 +11,13 @@ const MyGroups = () => {
   if (isEmpty(groups)) return null
 
   return (
-    <div className="group-card">
-      <h3 className="group-card__title">Mes tribus</h3>
-      <p className="group-card__desc">Les tribus dont vous faites partie</p>
+    <div className="bg-white rounded-2xl p-5 shadow-card">
+      <h3 className="text-lg font-bold text-navy m-0 mb-1">Mes tribus</h3>
+      <p className="text-xs text-gray-400 m-0 mb-4">
+        Les tribus dont vous faites partie
+      </p>
 
-      <div className="group-list">
+      <div className="flex flex-col gap-2 mt-3">
         {groups.map((group) => (
           <GroupItem group={group} key={group.id} />
         ))}
@@ -38,14 +40,6 @@ const GroupItem = ({ group }) => {
   const isMember = includes(group.members, uid)
   const isAwaiting = includes(group.awaiting_members, uid)
 
-  const badgeClass = isAdmin
-    ? 'group-list-item__badge--admin'
-    : isMember
-      ? 'group-list-item__badge--member'
-      : isAwaiting
-        ? 'group-list-item__badge--awaiting'
-        : ''
-
   const badgeLabel = isAdmin
     ? 'Admin'
     : isMember
@@ -54,17 +48,29 @@ const GroupItem = ({ group }) => {
         ? 'En attente'
         : ''
 
+  const badgeClasses = isAdmin
+    ? 'bg-green-100 text-green-800'
+    : isMember
+      ? 'bg-blue-100 text-blue-800'
+      : isAwaiting
+        ? 'bg-amber-100 text-amber-800'
+        : ''
+
   return (
-    <div className="group-list-item">
-      <span className="group-list-item__name">{group.name}</span>
-      <span className="group-list-item__members">
+    <div className="flex items-center gap-3 py-2.5 px-3.5 rounded-[10px] bg-gray-50">
+      <span className="flex-1 text-sm font-semibold text-navy">{group.name}</span>
+      <span className="text-xs text-gray-400">
         {group.members?.length ?? 0} membres
       </span>
       {group.join_key && (
-        <span className="group-list-item__code">{group.join_key}</span>
+        <span className="text-[0.7rem] font-mono text-indigo-500 bg-indigo-50 py-0.5 px-2 rounded-md">
+          {group.join_key}
+        </span>
       )}
       {badgeLabel && (
-        <span className={`group-list-item__badge ${badgeClass}`}>
+        <span
+          className={`text-[0.65rem] font-semibold py-0.5 px-2 rounded-full ${badgeClasses}`}
+        >
           {badgeLabel}
         </span>
       )}

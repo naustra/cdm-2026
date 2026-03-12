@@ -1,16 +1,9 @@
 import React, { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Toaster } from 'react-hot-toast'
 import { BrowserRouter } from 'react-router-dom'
-import { registerSW } from 'virtual:pwa-register'
-
 import App from './screens/App/App'
 import { AuthProvider } from './contexts/AuthContext'
-
 import './index.css'
-
-// Register Service Worker
-registerSW({ immediate: true })
 
 const root = createRoot(document.getElementById('root')!)
 
@@ -20,19 +13,6 @@ root.render(
       <Suspense fallback="Chargement...">
         <AuthProvider>
           <App />
-          <Toaster
-            position="bottom-center"
-            toastOptions={{
-              duration: 3000,
-              style: {
-                borderRadius: '12px',
-                background: '#1e1e2f',
-                color: '#fff',
-                fontSize: '0.85rem',
-                fontWeight: 500,
-              },
-            }}
-          />
         </AuthProvider>
       </Suspense>
     </BrowserRouter>

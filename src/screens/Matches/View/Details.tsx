@@ -1,5 +1,6 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import isEmpty from 'lodash/isEmpty'
+import { Suspense, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGroupsForUserMember } from '../../../hooks/groups'
 import GroupMatchDetails from './GroupMatchDetails'
 import { useAllOpponents } from '../../../hooks/opponents'
@@ -13,20 +14,14 @@ const Details = () => {
   const groups = useGroupsForUserMember()
   const match = useMatch(id)
   const allOpponents = useAllOpponents()
-  const loadedOnce = useRef(false)
 
   useEffect(() => {
-    if (match) {
-      loadedOnce.current = true
-    }
-    if (!match && loadedOnce.current) {
+    if (!match) {
       navigate('/matches')
     }
   }, [match, navigate])
 
-  if (!match) {
-    return <div className="page-loader">Chargement...</div>
-  }
+  if (!match) return null
 
   const tabs = [
     { label: 'Général', key: 'general' },
@@ -37,35 +32,53 @@ const Details = () => {
   ]
 
   return (
-    <div className="details-page">
-      <MatchBegun match={match} clickable={false} />
+    <div className="min-h-screen">
+      <MatchBegun match={match} />
 
-      <div className="ranking-tabs" style={{ position: 'static', background: 'transparent' }}>
-        {tabs.map((tab, i) => (
-          <button
-            key={tab.key}
-            className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
-            onClick={() => setSelectedTab(i)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-
-      {selectedTab === 0 ? (
-        <GroupMatchDetails
-          name="Général"
-          opponents={allOpponents}
-          match={match}
-        />
+      {isEmpty(groups) ? (
+        <div className="bg-white rounded-2xl p-5 shadow-card text-center">
+          <p className="text-sm text-gray-500">
+            Pour voir plus d'infos,{' '}
+            <Link to="/groups" className="text-indigo-500 font-semibold">
+              créez ou rejoignez une tribu
+            </Link>
+            .
+          </p>
+        </div>
       ) : (
-        <GroupMatchDetails
-          {...groups[selectedTab - 1]}
-          match={match}
-          opponents={allOpponents.filter((opponent) =>
-            groups[selectedTab - 1]?.members?.includes(opponent.id),
+        <>
+          <div className="flex gap-1 justify-center py-3 px-4">
+            {tabs.map((tab, i) => (
+              <button
+                key={tab.key}
+                className={`py-2 px-6 rounded-full text-sm font-semibold border-[1.5px] cursor-pointer transition-all duration-200 ${
+                  selectedTab === i
+                    ? 'text-white bg-navy border-navy hover:text-white'
+                    : 'text-gray-500 bg-transparent border-gray-200 hover:text-navy hover:border-navy'
+                }`}
+                onClick={() => setSelectedTab(i)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {selectedTab === 0 ? (
+            <GroupMatchDetails
+              name="Général"
+              opponents={allOpponents}
+              match={match}
+            />
+          ) : (
+            <GroupMatchDetails
+              {...groups[selectedTab - 1]}
+              match={match}
+              opponents={allOpponents.filter((opponent) =>
+                groups[selectedTab - 1]?.members?.includes(opponent.id),
+              )}
+            />
           )}
-        />
+        </>
       )}
     </div>
   )

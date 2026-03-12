@@ -27,18 +27,25 @@ const GroupRow = ({ group }: GroupRowProps) => {
   const creator = creators?.[0]
 
   return (
-    <div className="group-list-item">
-      <span className="group-list-item__name">{name}</span>
-      <Avatar avatarUrl={creator?.avatar_url ?? undefined} size={24} />
-      <span className="group-list-item__members">{members?.length ?? 0}</span>
-      <GroupStatus
-        member={includes(members, uid)}
-        awaiting={includes(awaiting_members, uid)}
-        admin={created_by === uid}
+    <div className="flex items-center gap-3 py-2.5 px-3.5 border-b border-gray-100 last:border-b-0">
+      <div className="flex-1">
+        <b>{name}</b>
+      </div>
+      <div className="shrink-0">
+        <Avatar
+        avatarUrl={creator?.avatar_url ?? undefined}
+        displayName={creator?.display_name ?? undefined}
       />
-      {join_key && (
-        <span className="group-list-item__code">{join_key}</span>
-      )}
+      </div>
+      <div className="shrink-0">{members?.length ?? 0}</div>
+      <div className="shrink-0">
+        <GroupStatus
+          member={includes(members, uid)}
+          awaiting={includes(awaiting_members, uid)}
+          admin={created_by === uid}
+        />
+      </div>
+      <div className="shrink-0">{join_key}</div>
     </div>
   )
 }

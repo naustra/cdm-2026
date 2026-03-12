@@ -19,11 +19,11 @@ const WinnerChoice = () => {
   if (!competitionData || !LaunchBetDate) return null
 
   return isPast(LaunchBetDate) ? (
-    <div className="winner-section">
+    <div className="mb-7">
       <FinalWinner />
     </div>
   ) : (
-    <div className="card" style={{ textAlign: 'center' }}>
+    <div className="bg-white rounded-2xl p-5 shadow-card text-center">
       <p className="text-gray-500 text-sm">
         Le pronostic du vainqueur final sera bientôt accessible !
       </p>
@@ -36,40 +36,45 @@ const HomePage = () => {
   const signedIn = useIsUserConnected()
 
   return (
-    <div className="home-page">
-      <div className="home-hero">
-        <div className="home-hero__emoji">🏆</div>
-        <h1 className="home-hero__title">Coupe du Monde 2026</h1>
-        <p className="home-hero__desc">
+    <div className="py-8 px-4 pb-12 max-w-[520px] mx-auto">
+      <div className="text-center mb-7">
+        <div className="text-5xl mb-2">🏆</div>
+        <h1 className="text-2xl font-extrabold text-navy m-0 mb-2">
+          Coupe du Monde 2026
+        </h1>
+        <p className="text-sm text-gray-500 leading-relaxed">
           Pronostiquez les résultats des matches, marquez des points et
           affrontez vos amis et votre famille dans votre tribu !
         </p>
       </div>
 
-      <div className="home-actions">
+      <div className="flex flex-wrap gap-2.5 justify-center mb-7">
         <button
-          className="home-action-card"
+          type="button"
+          className="flex-1 min-w-[140px] max-w-[200px] bg-white rounded-[14px] p-4 text-center shadow-card cursor-pointer transition-all border-none hover:shadow-card-hover hover:-translate-y-px"
           onClick={() => navigate('/rules')}
         >
-          <div className="home-action-card__icon">📋</div>
-          <div className="home-action-card__label">Règles</div>
+          <div className="text-2xl mb-1.5">📋</div>
+          <div className="text-xs font-semibold text-navy">Règles</div>
         </button>
 
         {signedIn && (
           <>
             <button
-              className="home-action-card"
+              type="button"
+              className="flex-1 min-w-[140px] max-w-[200px] bg-white rounded-[14px] p-4 text-center shadow-card cursor-pointer transition-all border-none hover:shadow-card-hover hover:-translate-y-px"
               onClick={() => navigate('/matches')}
             >
-              <div className="home-action-card__icon">⚽</div>
-              <div className="home-action-card__label">Pronostics</div>
+              <div className="text-2xl mb-1.5">⚽</div>
+              <div className="text-xs font-semibold text-navy">Pronostics</div>
             </button>
             <button
-              className="home-action-card"
+              type="button"
+              className="flex-1 min-w-[140px] max-w-[200px] bg-white rounded-[14px] p-4 text-center shadow-card cursor-pointer transition-all border-none hover:shadow-card-hover hover:-translate-y-px"
               onClick={() => navigate('/ranking')}
             >
-              <div className="home-action-card__icon">🥇</div>
-              <div className="home-action-card__label">Classement</div>
+              <div className="text-2xl mb-1.5">🥇</div>
+              <div className="text-xs font-semibold text-navy">Classement</div>
             </button>
           </>
         )}
@@ -78,8 +83,8 @@ const HomePage = () => {
       {signedIn && <WinnerChoice />}
 
       {!signedIn && (
-        <div className="card" style={{ textAlign: 'center', marginTop: 12 }}>
-          <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+        <div className="bg-white rounded-2xl p-5 shadow-card text-center mt-3">
+          <p className="text-sm text-gray-500">
             Connectez-vous pour commencer à pronostiquer !
           </p>
         </div>

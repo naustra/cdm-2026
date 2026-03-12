@@ -4,7 +4,7 @@ import Table from './component/table'
 const Groups = () => (
   <Section>
     <div>
-      <h2 className="rules-heading">Règles durant la phase de groupe</h2>
+      <h2 className="text-xl font-bold text-navy">Règles durant la phase de groupe</h2>
       <p>
         Les pronostics fonctionnent avec un système de côtes basé sur notre
         propre système de calcul. Pour chaque match, une côte est proposée pour
@@ -26,7 +26,7 @@ const Groups = () => (
     <div>
       <p><u>Exemple : France 3-0 Mexique (cote : 116)</u></p>
       <br />
-      <div className="table_section">
+      <div className="overflow-x-auto">
         <Table
           header={['Situation', 'Prono', 'Calcul', 'Points']}
           rows={[

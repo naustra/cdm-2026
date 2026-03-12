@@ -25,24 +25,29 @@ const ConnectionModal = () => {
   const authenticateWithGoogle = useGoogleLogin()
 
   return (
-    <div className="connection-modal">
-      <div className="connection-modal__emoji">⚽</div>
-      <h2 className="connection-modal__title">Bienvenue !</h2>
-      <p className="connection-modal__subtitle">
+    <div className="py-8 px-7 text-center flex flex-col gap-3">
+      <div className="text-4xl mb-1">⚽</div>
+      <h2 className="text-xl font-extrabold text-navy m-0">Bienvenue !</h2>
+      <p className="text-sm text-gray-500 mb-2">
         Connectez-vous pour pronostiquer les matchs de la Coupe du Monde 2026
       </p>
 
-      <button className="google-btn" onClick={authenticateWithGoogle}>
+      <button
+        type="button"
+        className="flex items-center justify-center gap-2.5 py-3 px-6 rounded-xl border-[1.5px] border-gray-200 bg-white text-sm font-semibold text-navy-dark cursor-pointer transition-all hover:border-navy hover:shadow-lg mx-auto"
+        onClick={authenticateWithGoogle}
+      >
         <GoogleIcon />
         <span>Continuer avec Google</span>
       </button>
 
-      <p className="connection-modal__legal">
+      <p className="text-[0.7rem] text-gray-400 mt-1">
         En vous connectant, vous acceptez la{' '}
         <a
           href="https://github.com/naustra/euro-2024/blob/master/confidentialite.md"
           target="_blank"
           rel="noreferrer"
+          className="underline hover:text-gray-600"
         >
           politique de confidentialité
         </a>

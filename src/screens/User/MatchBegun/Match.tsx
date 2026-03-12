@@ -1,10 +1,11 @@
 import { useBetFromUser } from '../../../hooks/bets'
 import Flag from '../../../components/Flag'
+import PointsWon from './PointsWon'
 import { isNumber } from 'lodash'
 import { useNavigate, useParams } from 'react-router-dom'
 import InformationMatch from '../../Matches/MatchToBet/InformationMatch'
 
-const facteurMultiplicateurPhase: Record<number, number> = {
+const facteurMultiplicateurPhase = {
   0: 1,
   5: 1,
   6: 2,
@@ -14,110 +15,84 @@ const facteurMultiplicateurPhase: Record<number, number> = {
   1: 10,
 }
 
-function formatPoints(pointsWon: number | null | undefined): string {
-  const pts = pointsWon || 0
-  if (pts > 0) return `+${pts}`
-  return String(pts)
-}
-
-function getBetResultClass(
-  betA: number | null,
-  betB: number | null,
-  scoreA: number | null,
-  scoreB: number | null,
-): string {
-  if (!isNumber(betA) || !isNumber(betB)) return 'user-bet--missed'
-  if (!isNumber(scoreA) || !isNumber(scoreB)) return 'user-bet--missed'
-  if (betA === scoreA && betB === scoreB) return 'user-bet--perfect'
-
-  const betSign = Math.sign(betA - betB)
-  const scoreSign = Math.sign(scoreA - scoreB)
-  if (betSign === scoreSign) return 'user-bet--good'
-
-  return 'user-bet--wrong'
-}
-
-const Match = ({ match }: { match: any }) => {
+const Match = ({ match }) => {
   const { id } = useParams()
   const [currentBet] = useBetFromUser(match.id, id)
   const navigate = useNavigate()
 
-  const hasBet =
-    isNumber(currentBet?.betTeamA) && isNumber(currentBet?.betTeamB)
-  const pointsWon = currentBet?.pointsWon ?? 0
+  const myOdd =
+    !isNumber(currentBet?.betTeamA) || !isNumber(currentBet?.betTeamB)
+      ? null
+      : currentBet?.betTeamA > currentBet?.betTeamB
+        ? match.odds.PA
+        : currentBet?.betTeamA < currentBet?.betTeamB
+          ? match.odds.PB
+          : match.odds.PN
 
-  const betResultClass = getBetResultClass(
-    currentBet?.betTeamA ?? null,
-    currentBet?.betTeamB ?? null,
-    match.scores?.A ?? null,
-    match.scores?.B ?? null,
-  )
-
-  const isClickable = match.scores?.A !== null && match.scores?.B !== null
+  const winningOdd =
+    match.scores.A > match.scores.B
+      ? match.odds.PA
+      : match.scores.A < match.scores.B
+        ? match.odds.PB
+        : match.odds.PN
 
   if (!match.display) return null
 
   return (
-    <div
-      className={`match-card ${isClickable ? 'match-card--clickable' : ''}`}
-      onClick={isClickable ? () => navigate(`/matches/${match.id}`) : undefined}
-      onKeyDown={isClickable ? (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          navigate(`/matches/${match.id}`)
-        }
-      } : undefined}
-      role={isClickable ? 'button' : undefined}
-      tabIndex={isClickable ? 0 : undefined}
+    <button
+      className="w-full bg-white rounded-[14px] py-3.5 px-4 shadow-card border-none text-left flex flex-col gap-2.5 transition-all duration-150 cursor-pointer hover:shadow-card-hover hover:-translate-y-px"
+      onClick={() => navigate(`/matches/${match.id}`)}
     >
-      <div className="match-card__header">
+      <div className="flex justify-between items-center">
         <InformationMatch phase={match.phase} groupName={match.groupName} />
       </div>
 
-      <div className="match-card__teams">
-        <div className="match-card__team">
-          <Flag country={match.teamACode} className="match-card__flag" />
-          <span className="match-card__team-name">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col items-center gap-1.5 w-[90px] shrink-0">
+          <Flag country={match.teamACode} className="h-9 w-9 object-contain rounded" />
+          <span className="text-xs font-semibold text-navy text-center leading-tight">
             {match.teamAName ?? 'À déterminer'}
           </span>
         </div>
 
-        <div className="match-card__result">
-          <span className="match-card__score">
-            {match.scores?.A !== null && match.scores?.B !== null 
-              ? `${match.scores.A} – ${match.scores.B}` 
-              : 'En cours'}
+        <div className="shrink-0">
+          <span className="inline-block text-xl font-extrabold text-navy bg-gray-100 py-1.5 px-3.5 rounded-[10px]">
+            {match.scores.A} – {match.scores.B}
           </span>
         </div>
 
-        <div className="match-card__team">
-          <Flag country={match.teamBCode} className="match-card__flag" />
-          <span className="match-card__team-name">
+        <div className="flex flex-col items-center gap-1.5 w-[90px] shrink-0">
+          <Flag country={match.teamBCode} className="h-9 w-9 object-contain rounded" />
+          <span className="text-xs font-semibold text-navy text-center leading-tight">
             {match.teamBName ?? 'À déterminer'}
           </span>
         </div>
       </div>
 
-      <div className={`user-bet-row ${betResultClass}`}>
-        <span className="user-bet-row__label">Son prono</span>
-        <span className="user-bet-row__prediction">
-          {hasBet
-            ? `${currentBet?.betTeamA} – ${currentBet?.betTeamB}`
-            : 'Pas de prono'}
-        </span>
-        <span
-          className="user-bet-row__points"
-          style={{ color: pointsWon > 0 ? '#22c55e' : pointsWon < 0 ? '#ef4444' : '#9ca3af' }}
-        >
-          {formatPoints(pointsWon)}
-          {' pts'}
-        </span>
-        {facteurMultiplicateurPhase[match.phase as keyof typeof facteurMultiplicateurPhase] > 1 && (
-          <span className="user-bet-row__mult">
-            ×{facteurMultiplicateurPhase[match.phase as keyof typeof facteurMultiplicateurPhase]}
+      <div className="flex justify-between items-center gap-1 pt-2 border-t border-gray-100">
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Sa cote</span>
+          <span className="text-xs font-bold text-navy">{myOdd ?? '–'}</span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Cote gagnante</span>
+          <span className="text-xs font-bold text-navy">{winningOdd}</span>
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Multiplicateur</span>
+          <span className="text-xs font-bold text-navy">
+            x{facteurMultiplicateurPhase[match.phase]}
           </span>
-        )}
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <span className="text-[0.625rem] text-gray-400 font-medium uppercase tracking-wide">Son prono</span>
+          <span className="text-xs font-bold text-navy">
+            {currentBet?.betTeamA ?? '–'} – {currentBet?.betTeamB ?? '–'}
+          </span>
+        </div>
+        <PointsWon {...match} {...currentBet} />
       </div>
-    </div>
+    </button>
   )
 }
 

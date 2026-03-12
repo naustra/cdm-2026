@@ -44,49 +44,51 @@ const GroupRanking = ({
     <>
       <OwnRank opponents={sortedOpponents} members={members ?? undefined} />
 
-      <div className="ranking-table">
+      <div className="w-full bg-white rounded-[14px] overflow-hidden shadow-card">
         {sortedOpponents.map((opponent, index) => {
           if (!opponent) return null
 
           const team = opponent.winner_team
             ? teams.find((t) => t.id === opponent.winner_team)
             : null
+          const isLast = index === sortedOpponents.length - 1
+          const isOwn = opponent.id === uid
 
           return (
             <div
               key={opponent.id}
-              className={`ranking-row ${opponent.id === uid ? 'ranking-row--own' : ''}`}
+              className={`flex items-center py-2.5 px-3.5 gap-3 cursor-pointer transition-colors ${
+                isOwn ? 'bg-amber-100 hover:bg-amber-200' : 'hover:bg-cream-dark'
+              } ${!isLast ? 'border-b border-gray-100' : ''}`}
               onClick={() => navigate(`/user/${opponent.id}`)}
             >
-              <span className="ranking-row__rank">#{index + 1}</span>
+              <span className="text-xs font-bold text-gray-400 w-7 text-center shrink-0">
+                #{index + 1}
+              </span>
 
-              <div className="ranking-row__avatar">
+              <div className="shrink-0">
                 {opponent.avatar_url ? (
                   <img
                     src={opponent.avatar_url}
                     alt={opponent.display_name ?? ''}
-                    className="avatar-img"
-                    style={{ width: 32, height: 32 }}
+                    className="w-8 h-8 rounded-full object-cover"
                   />
                 ) : (
-                  <div
-                    className="avatar-fallback"
-                    style={{ width: 32, height: 32, fontSize: 13 }}
-                  >
-                    {(opponent.display_name ?? '?').charAt(0).toUpperCase()}
+                  <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-500">
+                    {(opponent.display_name ?? '?')[0]}
                   </div>
                 )}
               </div>
 
-              <span className="ranking-row__name">
+              <span className="flex-1 text-sm font-semibold text-navy overflow-hidden text-ellipsis whitespace-nowrap">
                 {opponent.display_name ?? 'Anonyme'}
               </span>
 
-              <span className="ranking-row__score">
+              <span className="text-xs font-bold text-indigo-500 shrink-0">
                 {(opponent.score || 0).toLocaleString()} pts
               </span>
 
-              <div className="ranking-row__winner">
+              <div className="shrink-0 w-8 h-8">
                 {team ? (
                   team.elimination ? (
                     <Flag
@@ -103,26 +105,23 @@ const GroupRanking = ({
                     <Flag
                       tooltipText={team.name}
                       country={team.code}
-                      className="bet-winner-unveiled"
                       style={{ width: 28, height: 28 }}
                     />
                   ) : (
-                    <span data-tooltip="Vainqueur mystère">
-                      <img
-                        src={imgUrl}
-                        style={{ width: 28, height: 28 }}
-                        alt="Mystère"
-                      />
-                    </span>
+                    <img
+                      src={imgUrl}
+                      style={{ width: 28, height: 28 }}
+                      alt="Mystère"
+                      title="Vainqueur mystère"
+                    />
                   )
                 ) : (
-                  <span data-tooltip="Pas de vainqueur sélectionné">
-                    <img
-                      src={forgotBetImgUrl}
-                      style={{ width: 28, height: 28, opacity: 0.4 }}
-                      alt="Aucun"
-                    />
-                  </span>
+                  <img
+                    src={forgotBetImgUrl}
+                    style={{ width: 28, height: 28, opacity: 0.4 }}
+                    alt="Aucun"
+                    title="Pas de vainqueur sélectionné"
+                  />
                 )}
               </div>
             </div>

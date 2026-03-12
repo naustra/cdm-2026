@@ -5,7 +5,7 @@ interface RulesSectionProps {
 }
 
 const RulesSection = ({ children }: RulesSectionProps) => (
-  <div className="rules-section">{children}</div>
+  <div className="mb-8">{children}</div>
 )
 
 export default RulesSection

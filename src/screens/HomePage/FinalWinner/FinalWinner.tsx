@@ -25,11 +25,11 @@ const FinalWinner = () => {
   const locked = isPast(CompetitionStartDate)
 
   return (
-    <div className="winner-card">
-      <h3 className="winner-card__title">
+    <div className="bg-white rounded-2xl py-6 px-5 text-center shadow-card">
+      <h3 className="text-lg font-bold text-navy m-0 mb-1">
         {locked ? 'Votre vainqueur final' : 'Choisissez le vainqueur'}
       </h3>
-      <p className="winner-card__subtitle">
+      <p className="text-xs text-gray-400 m-0 mb-4">
         {locked
           ? 'Vous avez parié pour :'
           : 'Qui gagnera la Coupe du Monde 2026 ?'}

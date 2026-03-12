@@ -14,24 +14,30 @@ function getInitials(name?: string): string {
     .slice(0, 2)
 }
 
-const InlineAvatar = ({ avatarUrl, displayName, size = 32 }: InlineAvatarProps) => (
-  <div className="avatar-container">
+const InlineAvatar = ({
+  avatarUrl,
+  displayName,
+  size = 32,
+}: InlineAvatarProps) => (
+  <div className="flex items-center">
     {avatarUrl ? (
       <img
         src={avatarUrl}
         alt={displayName || ''}
-        className="avatar-img"
+        className="rounded-full object-cover"
         style={{ width: size, height: size }}
       />
     ) : (
       <div
-        className="avatar-fallback"
+        className="rounded-full bg-gray-200 flex items-center justify-center font-semibold text-gray-500"
         style={{ width: size, height: size, fontSize: size * 0.4 }}
       >
         {getInitials(displayName)}
       </div>
     )}
-    {displayName && <span className="avatar-name">{displayName}</span>}
+    {displayName && (
+      <span className="ml-2 text-sm font-semibold text-navy">{displayName}</span>
+    )}
   </div>
 )
 
