@@ -14,7 +14,7 @@ const flags = import.meta.glob('../assets/flags/*.svg', {
 }) as Record<string, string>
 
 function getFlagSrc(country: string): string | undefined {
-  return flags[`../assets/flags/${country}.svg`]
+  return flags[`../assets/flags/${country.toLowerCase().trim()}.svg`]
 }
 
 const Flag = memo<FlagProps>(({ country, tooltipText, className, style }) => {

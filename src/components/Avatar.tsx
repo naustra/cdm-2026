@@ -26,6 +26,7 @@ const InlineAvatar = ({
         alt={displayName || ''}
         className="rounded-full object-cover"
         style={{ width: size, height: size }}
+        referrerPolicy="no-referrer"
       />
     ) : (
       <div

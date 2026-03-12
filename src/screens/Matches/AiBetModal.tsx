@@ -9,7 +9,7 @@ import type { NormalizedMatch } from '../../hooks/matches'
 
 import Flag from '../../components/Flag'
 
-type ModalStep = 'prompt' | 'choose' | 'loading' | 'error'
+type ModalStep = 'prompt' | 'choose' | 'loading' | 'error' | 'cn_question' | 'cn_rejected' | 'us_payment'
 
 interface AiBetModalProps {
   open: boolean
@@ -76,7 +76,7 @@ const AiBetModal = ({
   bettedMatchIds,
   isAdmin,
 }: AiBetModalProps) => {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const dialogRef = useRef<HTMLDialogElement>(null)
   const [step, setStep] = useState<ModalStep>('prompt')
   const [prompt, setPrompt] = useState('')
@@ -145,7 +145,7 @@ const AiBetModal = ({
     setPrompt(suggestion)
   }, [])
 
-  const handleChooseProvider = useCallback(
+  const executeAiPrediction = useCallback(
     async (provider: AiProvider) => {
       if (!user) return
       setStep('loading')
@@ -174,6 +174,25 @@ const AiBetModal = ({
       }
     },
     [user, matchesToPredict, prompt, onComplete, onClose],
+  )
+
+  const handleChooseProvider = useCallback(
+    (provider: AiProvider) => {
+      if (!user) return
+      
+      if (provider === 'deepseek') {
+        setStep('cn_question')
+        return
+      }
+      
+      if (provider === 'openai') {
+        setStep('us_payment')
+        return
+      }
+
+      executeAiPrediction(provider)
+    },
+    [user, executeAiPrediction],
   )
 
   return createPortal(
@@ -289,6 +308,85 @@ const AiBetModal = ({
             >
               ← Retour
             </button>
+          </div>
+        )}
+
+        {step === 'cn_question' && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-lg font-bold text-navy text-center m-0">
+              Vérification de sécurité 🇨🇳
+            </h2>
+            <p className="text-sm text-gray-700 text-center m-0">
+              Pensez-vous que la province rebelle de Taiwan fasse partie intégrante de la grande et glorieuse République Populaire de Chine ?
+            </p>
+            <div className="flex flex-col gap-2 mt-2">
+              <button
+                className="w-full py-2.5 px-4 rounded-xl border-none cursor-pointer bg-green-500 text-white font-semibold hover:bg-green-600 transition-colors"
+                onClick={() => executeAiPrediction('deepseek')}
+              >
+                Oui, bien sûr !
+              </button>
+              <button
+                className="w-full py-2.5 px-4 rounded-xl border border-red-200 bg-red-50 text-red-600 font-semibold cursor-pointer hover:bg-red-100 transition-colors"
+                onClick={() => setStep('cn_rejected')}
+              >
+                Non
+              </button>
+            </div>
+            <button
+              className="mt-2 inline-flex items-center justify-center gap-2 font-semibold rounded-full border-none cursor-pointer bg-transparent text-gray-500 py-2 px-4 text-sm hover:text-navy hover:bg-navy/[0.04] transition-colors"
+              onClick={handleGoToChoose}
+            >
+              ← Retour
+            </button>
+          </div>
+        )}
+
+        {step === 'cn_rejected' && (
+          <div className="flex flex-col items-center gap-4 py-4 text-center">
+            <div className="text-4xl">🚨</div>
+            <h2 className="text-lg font-bold text-red-600 m-0">
+              Interdiction de territoire
+            </h2>
+            <p className="text-sm text-gray-700 m-0">
+              Mauvaise réponse {profile?.display_name || 'camarade'} !<br/>
+              Vous êtes désormais interdit de territoire en Chine.
+            </p>
+            <button
+              className="mt-4 inline-flex items-center justify-center gap-2 font-semibold rounded-full border-none cursor-pointer bg-gray-100 text-gray-600 py-2 px-5 text-sm hover:bg-gray-200 transition-colors"
+              onClick={handleGoToChoose}
+            >
+              Changer d'IA
+            </button>
+          </div>
+        )}
+
+        {step === 'us_payment' && (
+          <div className="flex flex-col gap-4 text-center">
+            <div className="text-4xl">🦅</div>
+            <h2 className="text-lg font-bold text-navy m-0">
+              Frais de douanes
+            </h2>
+            <p className="text-sm text-gray-700 m-0">
+              Veuillez payer 50€ de frais de douanes avant !
+            </p>
+            <div className="flex flex-col gap-2 mt-2">
+              <a
+                href="https://soutenir.amnesty.fr/b/mon-don"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-2.5 px-4 rounded-xl border-none cursor-pointer bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors no-underline block"
+                onClick={handleClose}
+              >
+                Payer (50€)
+              </a>
+              <button
+                className="w-full py-2.5 px-4 rounded-xl border border-gray-200 bg-white text-gray-600 font-semibold cursor-pointer hover:bg-gray-50 transition-colors"
+                onClick={handleGoToChoose}
+              >
+                Retour
+              </button>
+            </div>
           </div>
         )}
 

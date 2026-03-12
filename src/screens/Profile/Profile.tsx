@@ -29,6 +29,7 @@ const Profile = () => {
             src={photoURL}
             alt={displayName}
             className="w-[72px] h-[72px] rounded-full object-cover mx-auto mb-3 overflow-hidden"
+            referrerPolicy="no-referrer"
           />
         ) : (
           <div className="w-[72px] h-[72px] rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-3 text-2xl font-semibold text-gray-500 overflow-hidden">

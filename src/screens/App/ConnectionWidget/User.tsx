@@ -33,7 +33,7 @@ const User = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         {photoURL ? (
-          <img src={photoURL} alt={displayName} className="w-8 h-8 rounded-full object-cover" />
+          <img src={photoURL} alt={displayName} className="w-8 h-8 rounded-full object-cover" referrerPolicy="no-referrer" />
         ) : (
           <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-500">
             {displayName.charAt(0).toUpperCase()}
