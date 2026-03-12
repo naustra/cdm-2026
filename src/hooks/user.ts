@@ -1,0 +1,33 @@
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
+import type { Tables } from '../lib/database.types'
+
+export function useGoogleLogin(): () => Promise<void> {
+  const { signInWithGoogle } = useAuth()
+  return signInWithGoogle
+}
+
+export function useLogout(): () => Promise<void> {
+  const { signOut } = useAuth()
+  const navigate = useNavigate()
+
+  return async () => {
+    await signOut()
+    navigate('/')
+  }
+}
+
+export function useUserProfile(): Tables<'profiles'> | null {
+  const { profile } = useAuth()
+  return profile
+}
+
+export function useIsUserConnected(): boolean {
+  const { user, loading } = useAuth()
+  return !loading && !!user
+}
+
+export function useIsUserAdmin(): boolean {
+  const { profile } = useAuth()
+  return profile?.role === 'admin'
+}

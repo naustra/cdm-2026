@@ -9,11 +9,7 @@ body {
 }
 
 body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-body.fontLoaded {
-  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 #app {
@@ -22,8 +18,137 @@ body.fontLoaded {
   min-width: 100%;
 }
 
-p,
-label {
-  font-family: Georgia, Times, 'Times New Roman', serif;
-  line-height: 1.5em;
+/* App toolbar responsive banner images */
+.app-toolbar-title #imgMobile { display: none; }
+.app-toolbar-title #imgTablette { display: none; }
+.app-toolbar-title #imgDesktop { display: block; }
+
+@media all and (max-width: 949px) {
+  .app-toolbar-title #imgMobile { display: none; }
+  .app-toolbar-title #imgTablette { display: block; }
+  .app-toolbar-title #imgDesktop { display: none; }
+}
+@media all and (max-width: 669px) {
+  .app-toolbar-title #imgMobile { display: block; }
+  .app-toolbar-title #imgTablette { display: none; }
+}
+
+/* Tab bars offset for fixed AppBar */
+.matches-tab-bar,
+.ranking-tab-bar {
+  margin-top: 64px;
+}
+@media screen and (max-width: 600px) {
+  .matches-tab-bar,
+  .ranking-tab-bar {
+    margin-top: 56px;
+  }
+}
+
+/* Ranking highlight own row */
+.own-ranking-row {
+  background: #feefc4;
+}
+
+/* Winner team badges in ranking */
+.bet-winner-unveiled {
+  border-radius: 50%;
+  width: 3em;
+  background-color: #fff;
+  box-shadow: 0 0 6px 3px #fff, 0 0 9px 6px #ed0, 0 0 12px 9px #fca;
+}
+.bet-winner-unknown {
+  width: 3em;
+}
+
+/* Winner card (FinalWinner) */
+.winner-card {
+  max-width: 370px;
+  width: 90%;
+  margin: 24px auto;
+  padding: 8px;
+  text-align: center;
+  box-shadow: 8px 8px 12px #aaa;
+  background-color: #f9f6ed;
+}
+
+/* Valid/invalid bet icons */
+.valid-icon { color: green; }
+.invalid-icon { color: red; }
+
+/* Layout containers */
+.app-toolbar { justify-content: space-between; }
+.app-content { padding-top: 60px; padding-bottom: 40px; }
+.connection-label { color: white !important; font-size: 1.0625em; }
+
+.matches-container {
+  @apply flex flex-col flex-wrap justify-around items-center gap-4 px-4 py-16 bg-gray-50;
+}
+
+.ranking-container {
+  @apply flex flex-col flex-wrap justify-around items-center mx-4 my-12;
+}
+
+.ranking-page-div,
+.faq-page-div {
+  @apply text-center mx-auto w-11/12 max-w-[800px] pt-5 pb-8;
+}
+
+.groups-container {
+  @apply text-center flex flex-row flex-wrap justify-center;
+}
+.groups-container > div {
+  @apply m-2.5 basis-[90%] max-w-[800px];
+}
+
+.group-ranking-card {
+  @apply mb-2.5 mx-auto max-w-[800px];
+}
+
+/* Cards */
+.join-group-card,
+.create-group-card,
+.my-groups-card {
+  @apply p-5 flex flex-col items-center;
+}
+
+/* Match infos */
+.match-infos-container {
+  @apply mt-3 text-gray-400 flex justify-between text-sm;
+}
+
+/* Avatar */
+.avatar-container {
+  @apply flex items-center;
+}
+.avatar-container .avatar-name {
+  @apply ml-2.5;
+}
+
+/* Points won */
+.points-won-container {
+  @apply flex flex-col items-center;
+}
+
+/* Winner choice */
+.winner-choice {
+  @apply flex flex-col justify-start items-center;
+}
+.winner-choice-flag { height: 5em; }
+.winner-choice-odd { font-weight: bold; }
+.winner-choice-select-container {
+  @apply flex items-center m-1;
+}
+.winner-choice-select-value {
+  @apply text-center w-full;
+}
+
+/* Rules section */
+.rules-section {
+  @apply p-5 overflow-hidden;
+}
+.rules-section::after {
+  content: '';
+  clear: both;
+  display: table;
 }
