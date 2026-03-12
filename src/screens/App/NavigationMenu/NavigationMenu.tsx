@@ -9,7 +9,7 @@ import {
   type LucideProps,
 } from 'lucide-react'
 import { Suspense, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { NavLink } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
@@ -56,7 +56,6 @@ interface NavigationMenuProps {
 const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   const isConnected = useIsUserConnected()
   const isAdmin = useIsUserAdmin()
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (!menuOpen) return
@@ -68,11 +67,6 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [menuOpen, closeMenu])
-
-  const goTo = (to: string) => () => {
-    navigate(to)
-    closeMenu()
-  }
 
   const visibleItems = menuItems.filter(
     (item) => (!item.auth || isConnected) && (!item.admin || isAdmin),
@@ -92,14 +86,17 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
 
           <nav className="nav-drawer__links">
             {visibleItems.map((item) => (
-              <button
+              <NavLink
                 key={item.path}
-                className="nav-drawer__link"
-                onClick={goTo(item.path)}
+                to={item.path}
+                className={({ isActive }) =>
+                  `nav-drawer__link ${isActive ? 'nav-drawer__link--active' : ''}`
+                }
+                onClick={closeMenu}
               >
                 <item.icon size={20} className="text-gray-400" />
                 <span>{item.label}</span>
-              </button>
+              </NavLink>
             ))}
           </nav>
         </div>
