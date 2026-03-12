@@ -10,20 +10,16 @@ const User = () => {
   const menuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
-  const displayName =
-    profile?.display_name || user?.user_metadata?.full_name || ''
-  const photoURL =
-    profile?.avatar_url || user?.user_metadata?.avatar_url || ''
+  const displayName = profile?.display_name || user?.user_metadata?.full_name || ''
+  const photoURL = profile?.avatar_url || user?.user_metadata?.avatar_url || ''
 
   useEffect(() => {
     if (!isOpen) return
-
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && e.target instanceof Node && !menuRef.current.contains(e.target)) {
         setIsOpen(false)
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isOpen])
@@ -31,37 +27,32 @@ const User = () => {
   return (
     <div className="relative" ref={menuRef}>
       <button
-        className="header-icon-btn"
+        className="p-1 rounded-full hover:ring-2 hover:ring-navy/20 transition-all"
         aria-label="Menu utilisateur"
         aria-haspopup="true"
         onClick={() => setIsOpen(!isOpen)}
       >
         {photoURL ? (
-          <img
-            src={photoURL}
-            alt={displayName}
-            className="avatar-img"
-            style={{ width: 32, height: 32 }}
-          />
+          <img src={photoURL} alt={displayName} className="w-8 h-8 rounded-full object-cover" />
         ) : (
-          <div className="avatar-fallback" style={{ width: 32, height: 32, fontSize: 13 }}>
+          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-semibold text-gray-500">
             {displayName.charAt(0).toUpperCase()}
           </div>
         )}
       </button>
 
       {isOpen && (
-        <div className="dropdown-menu">
+        <div className="absolute right-0 top-full mt-2 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
           <button
-            className="dropdown-menu__item"
-            onClick={() => {
-              navigate('/profile')
-              setIsOpen(false)
-            }}
+            className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            onClick={() => { navigate('/profile'); setIsOpen(false) }}
           >
             Profil
           </button>
-          <button className="dropdown-menu__item" onClick={logout}>
+          <button
+            className="w-full text-left px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            onClick={logout}
+          >
             Se déconnecter
           </button>
         </div>

@@ -13,27 +13,12 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <circle cx="12" cy="12" r="10" />
     <polygon points="12 12 9.5 8.5 14.5 8.5" fill="currentColor" stroke="currentColor" />
-    <path d="M9.5 8.5L6 7" />
-    <path d="M14.5 8.5L18 7" />
-    <path d="M12 12v4.5" />
-    <path d="M12 16.5L8.5 19" />
-    <path d="M12 16.5L15.5 19" />
-    <path d="M6 7l-2 3" />
-    <path d="M18 7l2 3" />
+    <path d="M9.5 8.5L6 7" /><path d="M14.5 8.5L18 7" /><path d="M12 12v4.5" />
+    <path d="M12 16.5L8.5 19" /><path d="M12 16.5L15.5 19" />
+    <path d="M6 7l-2 3" /><path d="M18 7l2 3" />
   </svg>
 )
 
@@ -61,11 +46,9 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
 
   useEffect(() => {
     if (!menuOpen) return
-
     function handleKey(e: KeyboardEvent) {
       if (e.key === 'Escape') closeMenu()
     }
-
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
   }, [menuOpen, closeMenu])
@@ -82,48 +65,25 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   return (
     <>
       {menuOpen && (
-        <div
-          className="fixed inset-0 z-[1050] bg-black/30"
-          onClick={closeMenu}
-          role="presentation"
-          aria-hidden="true"
-        />
+        <div className="fixed inset-0 z-[1050] bg-black/30" onClick={closeMenu} />
       )}
-      <aside
-        className={`fixed top-0 left-0 bottom-0 z-[1100] w-64 bg-cream transform transition-transform duration-200 ${
-          menuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="p-2 px-4 flex flex-col gap-6">
-          <div className="flex items-center gap-2.5 py-2 px-1">
+      <aside className={`fixed top-0 left-0 bottom-0 z-[1100] w-64 bg-cream shadow-xl transform transition-transform duration-200 ${menuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="p-4 flex flex-col gap-6">
+          <button onClick={goTo('/')} className="flex items-center gap-2.5 py-2 px-1 hover:opacity-80 transition-opacity text-left cursor-pointer border-none bg-transparent">
             <span className="text-2xl">🏆</span>
-            <span className="text-base font-extrabold text-navy">
-              Paris Entre Potos
-            </span>
-          </div>
+            <span className="text-base font-extrabold text-navy">Paris Entre Potos</span>
+          </button>
 
           <nav className="flex flex-col gap-0.5">
             {visibleItems.map((item) => {
-              const isActive =
-                item.path === '/'
-                  ? location.pathname === '/'
-                  : location.pathname.startsWith(item.path)
-
+              const isActive = item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path)
               return (
                 <button
                   key={item.path}
-                  type="button"
-                  className={`flex items-center gap-3 py-2.5 px-3 rounded-[10px] border-none bg-transparent text-sm font-medium cursor-pointer text-left w-full transition-colors hover:bg-navy/[0.06] ${
-                    isActive
-                      ? 'bg-navy/[0.08] text-navy font-semibold'
-                      : 'text-gray-700'
-                  }`}
+                  className={`flex items-center gap-3 py-2.5 px-3 rounded-[10px] border-none bg-transparent text-sm font-medium cursor-pointer text-left w-full transition-colors ${isActive ? 'bg-navy/[0.08] text-navy font-semibold' : 'text-gray-700 hover:bg-navy/[0.06]'}`}
                   onClick={goTo(item.path)}
                 >
-                  <item.icon
-                    size={20}
-                    className={isActive ? 'text-navy shrink-0' : 'text-gray-500 shrink-0'}
-                  />
+                  <item.icon size={20} className="text-gray-400" />
                   <span>{item.label}</span>
                 </button>
               )

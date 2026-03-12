@@ -1,11 +1,22 @@
-import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { useEffect, useRef, useState } from 'react'
 import { useIsUserConnected } from '../../../hooks/user'
 import ConnectionModal from '../ConnectionModal'
 import User from './User'
 
+function handleDialogBackdropClick(
+  e: React.MouseEvent<HTMLDialogElement>,
+  onClose: () => void,
+) {
+  if (e.target === e.currentTarget) {
+    onClose()
+  }
+}
+
 const ConnectionWidget = () => {
   const isConnected = useIsUserConnected()
   const [modalOpened, setModalOpened] = useState(false)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
     if (isConnected && modalOpened) {
@@ -13,22 +24,31 @@ const ConnectionWidget = () => {
     }
   }, [isConnected, modalOpened])
 
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+    if (modalOpened) {
+      dialog.showModal()
+    } else {
+      dialog.close()
+    }
+  }, [modalOpened])
+
+  const closeModalRef = useRef<() => void>(() => {})
+  closeModalRef.current = () => setModalOpened(false)
+
   return (
     <>
-      {modalOpened && (
-        <div
-          className="fixed inset-0 z-[1200] flex items-center justify-center bg-black/50"
-          onClick={() => setModalOpened(false)}
-          role="presentation"
-          aria-hidden="true"
+      {createPortal(
+        <dialog
+          ref={dialogRef}
+          className="fixed inset-0 m-auto w-[90vw] max-w-sm rounded-2xl bg-white p-0 shadow-xl backdrop:bg-black/40"
+          onClose={() => closeModalRef.current?.()}
+          onClick={(e) => handleDialogBackdropClick(e, () => closeModalRef.current?.())}
         >
-          <div
-            className="bg-white rounded-2xl mx-4 max-w-sm w-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <ConnectionModal />
-          </div>
-        </div>
+          <ConnectionModal />
+        </dialog>,
+        document.body,
       )}
 
       {isConnected ? (

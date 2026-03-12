@@ -1,20 +1,23 @@
 import { Menu, X } from 'lucide-react'
-import { Suspense, useState } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Suspense, lazy, useState } from 'react'
+import { Route, Routes, Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
-import AdminPage from '../Admin'
-import FAQPage from '../FAQ/FAQ'
-import GroupsPage from '../Groups/Groups'
 import HomePage from '../HomePage/HomePage'
 import UserPage from '../User'
 import MatchesPage from '../Matches'
 import NotFoundPage from '../NotFoundPage'
-import Profile from '../Profile/Profile'
-import RankingPage from '../Ranking/Ranking'
-import RulesPage from '../Rules/rules'
 import ConnectionWidget from './ConnectionWidget/ConnectionWidget'
 import NavigationMenu from './NavigationMenu'
+import InstallPrompt from 'components/InstallPrompt'
+
+const AnalyticsPage = lazy(() => import('../Analytics'))
+const FAQPage = lazy(() => import('../FAQ/FAQ'))
+const GroupsPage = lazy(() => import('../Groups/Groups'))
+const Profile = lazy(() => import('../Profile/Profile'))
+const RankingPage = lazy(() => import('../Ranking/Ranking'))
+const RulesPage = lazy(() => import('../Rules/rules'))
+const AdminPage = lazy(() => import('../Admin'))
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -24,39 +27,24 @@ const App = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-[1100] h-14 flex items-center justify-between px-4 bg-cream/[0.88] backdrop-blur-sm border-b border-black/[0.06]">
-        <button
-          type="button"
-          aria-label="Menu"
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="p-2 -ml-2 rounded-full text-navy hover:bg-navy/[0.06] transition-colors"
-        >
+        <button type="button" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)} className="p-2 -ml-2 rounded-full text-navy hover:bg-navy/[0.06] transition-colors">
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-
-        <span className="text-[1.05rem] font-extrabold text-navy tracking-tight">
-          Paris Entre Potos
-        </span>
-
-        <ConnectionWidget />
+        <Link to="/" className="text-[1.05rem] font-extrabold text-navy tracking-tight hover:opacity-80 active:scale-95 transition-all inline-block" title="Retour à l'accueil">Paris Entre Potos</Link>
+        <div className="shrink-0">
+          <ConnectionWidget />
+        </div>
       </header>
 
-      <NavigationMenu
-        menuOpen={menuOpen}
-        closeMenu={() => setMenuOpen(false)}
-      />
+      <NavigationMenu menuOpen={menuOpen} closeMenu={() => setMenuOpen(false)} />
 
       <main className="pt-14 min-h-[calc(100vh-56px)]">
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center min-h-[40vh] text-gray-400">
-              Chargement...
-            </div>
-          }
-        >
+        <Suspense fallback={<div className="flex items-center justify-center min-h-[40vh] text-gray-400">Chargement...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/rules" element={<RulesPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
 
             {signedIn && (
               <>
@@ -65,17 +53,15 @@ const App = () => {
                 <Route path="/ranking" element={<RankingPage />} />
                 <Route path="/groups" element={<GroupsPage />} />
                 <Route path="/profile" element={<Profile />} />
-
-                {adminUser && (
-                  <Route path="/admin" element={<AdminPage />} />
-                )}
+                {adminUser && (<Route path="/admin" element={<AdminPage />} />)}
               </>
             )}
 
-            <Route element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </main>
+      <InstallPrompt />
       <Toaster position="bottom-center" />
     </>
   )

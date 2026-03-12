@@ -30,16 +30,10 @@ const FinalWinner = () => {
         {locked ? 'Votre vainqueur final' : 'Choisissez le vainqueur'}
       </h3>
       <p className="text-xs text-gray-400 m-0 mb-4">
-        {locked
-          ? 'Vous avez parié pour :'
-          : 'Qui gagnera la Coupe du Monde 2026 ?'}
+        {locked ? 'Vous avez parié pour :' : 'Qui gagnera la Coupe du Monde 2026 ?'}
       </p>
       <Suspense fallback={null}>
-        <FinalWinnerChoice
-          userTeam={team}
-          disabled={locked}
-          onValueChange={handleChange}
-        />
+        <FinalWinnerChoice userTeam={team} disabled={locked} onValueChange={handleChange} />
       </Suspense>
     </div>
   )
