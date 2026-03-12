@@ -123,7 +123,7 @@ const Matches = () => {
         {dateGroups.length === 0 && (<p className="text-gray-400 text-center py-12">Aucun match à afficher</p>)}
         {dateGroups.map((group) => (
           <div key={group.date.toISOString()} className="mb-6">
-            <div className="sticky top-[100px] z-[5] py-2 mb-2">
+            <div className="relative z-[5] py-2 mb-2">
               <span className="inline-block text-xs font-bold uppercase tracking-wide text-navy bg-cream py-0.5">{format(group.date, 'EEEE d MMMM', { locale: fr })}</span>
             </div>
             <div className="flex flex-col gap-2.5">

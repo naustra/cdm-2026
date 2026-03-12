@@ -46,10 +46,25 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
     [normalizedBets, membersIds],
   )
 
-  const sortedBets = useMemo(
-    () => orderBy(betsFiltered, (bet) => bet.pointsWon ?? 0, ['desc']),
-    [betsFiltered],
-  )
+  const rows = useMemo(() => {
+    if (!opponents) return []
+
+    const rowsData = opponents.map((opponent) => {
+      const bet = betsFiltered?.find((b) => b.uid === opponent.id)
+      return {
+        opponent,
+        bet,
+        pointsWon: bet?.pointsWon ?? 0,
+        hasBet: !!bet,
+      }
+    })
+
+    return orderBy(
+      rowsData,
+      [(row) => row.hasBet, (row) => row.pointsWon],
+      ['desc', 'desc'],
+    )
+  }, [opponents, betsFiltered])
 
   if (!bets) return null
 
@@ -72,33 +87,31 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
             </tr>
           </thead>
           <tbody>
-            {sortedBets.map((bet, index) => {
-              const opponent = opponents?.find((o) => o.id === bet.uid)
-
+            {rows.map(({ opponent, bet, hasBet }, index) => {
               return (
                 <tr
-                  key={bet.id}
-                  className={`cursor-pointer transition-colors ${bet.uid === uid ? 'bg-cream/50 hover:bg-cream-dark' : 'hover:bg-black/5'}`}
-                  onClick={() => navigate(`/user/${bet.uid}`)}
+                  key={opponent.id}
+                  className={`cursor-pointer transition-colors ${opponent.id === uid ? 'bg-cream/50 hover:bg-cream-dark' : 'hover:bg-black/5'}`}
+                  onClick={() => navigate(`/user/${opponent.id}`)}
                 >
                   <td className="p-2 text-xs text-gray-400 font-bold">
                     #{index + 1}
                   </td>
                   <td className="p-2">
                     <InlineAvatar
-                      avatarUrl={opponent?.avatar_url ?? undefined}
-                      displayName={opponent?.display_name ?? undefined}
+                      avatarUrl={opponent.avatar_url ?? undefined}
+                      displayName={opponent.display_name ?? undefined}
                       size={24}
                     />
                   </td>
                   <td className="p-2 text-center text-sm">
-                    {`${bet.betTeamA} : ${bet.betTeamB}`}
+                    {hasBet ? `${bet.betTeamA} : ${bet.betTeamB}` : '–'}
                   </td>
                   <td
                     className="p-2 text-center italic text-sm"
-                    title="Écarts de points par rapport au score réel"
+                    title={hasBet ? "Écarts de points par rapport au score réel" : undefined}
                   >
-                    {bet.pointsWon && bet.pointsWon > 0
+                    {hasBet && bet.pointsWon && bet.pointsWon > 0
                       ? `- ${
                           Math.abs(ScoreA - (bet.betTeamA ?? 0)) +
                           Math.abs(ScoreB - (bet.betTeamB ?? 0))
@@ -106,7 +119,7 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
                       : '-'}
                   </td>
                   <td className="p-2 text-right font-semibold text-sm">
-                    {(bet.pointsWon || 0).toLocaleString()} pts
+                    {(bet?.pointsWon || 0).toLocaleString()} pts
                   </td>
                 </tr>
               )

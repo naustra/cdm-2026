@@ -267,7 +267,7 @@ const AiBetModal = ({
                   className="flex items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:border-indigo-300 hover:shadow-card transition-all text-left"
                   onClick={() => handleChooseProvider(p.id)}
                 >
-                  <Flag country={p.country} className="w-8 h-8 rounded-sm object-cover" />
+                  <Flag country={p.country} className="w-[34px] rounded-[4px]" />
                   <div className="flex-1">
                     <span className="block text-sm font-semibold text-navy">
                       {p.title}

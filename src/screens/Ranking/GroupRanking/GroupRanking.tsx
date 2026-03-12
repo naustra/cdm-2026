@@ -45,7 +45,7 @@ const GroupRanking = ({
     <>
       <OwnRank opponents={sortedOpponents} />
 
-      <div className="w-full bg-white rounded-[14px] overflow-hidden shadow-card">
+      <div className="w-full bg-white rounded-[14px] shadow-card">
         {sortedOpponents.map((opponent, index) => {
           if (!opponent) return null
 
@@ -58,7 +58,7 @@ const GroupRanking = ({
           return (
             <div
               key={opponent.id}
-              className={`flex items-center py-2.5 px-3.5 gap-3 cursor-pointer transition-colors ${
+              className={`flex items-center py-2.5 px-3.5 gap-3 cursor-pointer transition-colors first:rounded-t-[14px] last:rounded-b-[14px] ${
                 isOwn ? 'bg-amber-100 hover:bg-amber-200' : 'hover:bg-cream-dark'
               } ${!isLast ? 'border-b border-gray-100' : ''}`}
               onClick={() => navigate(`/user/${opponent.id}`)}
