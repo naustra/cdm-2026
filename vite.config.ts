@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/euro-2024/',
+  base: '/cdm-2026/',
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src/components'),
