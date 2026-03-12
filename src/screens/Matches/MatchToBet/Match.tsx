@@ -3,7 +3,6 @@ import isNumber from 'lodash/isNumber'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useBet } from '../../../hooks/bets'
-import { useTeam } from '../../../hooks/teams'
 import InformationMatch from './InformationMatch'
 import MatchInfos from './MatchInfos'
 import Odds from '../components/Odds'
@@ -15,9 +14,6 @@ const empty = {}
 const Match = ({ match }) => {
   const [bet, saveBet] = useBet(match.id)
   const [currentBet, setCurrentBet] = useState(bet)
-
-  const teamA = useTeam(match.teamA)
-  const teamB = useTeam(match.teamB)
 
   const isBetValid = (updatedBet) => {
     const scoreValidator = (score) => isNumber(score) && score >= 0
@@ -57,15 +53,15 @@ const Match = ({ match }) => {
     match.display && (
       <div className="rounded-xl border w-full p-2 gap-4 max-w-lg text-gray-800 bg-white space-y-2">
         <div className="text-center">
-          <InformationMatch phase={match.phase} group={teamA.group} />
+          <InformationMatch phase={match.phase} group={null} />
         </div>
 
         <div className="flex justify-around items-center">
           <div className="flex flex-col items-center justify-center gap-2 mt-1 w-24">
             <div>
-              <Flag country={teamA.code} className="h-10"></Flag>
+              <Flag country={match.teamACode} className="h-10"></Flag>
             </div>
-            <p className="font-sans">{teamA.name}</p>
+            <p className="font-sans">{match.teamAName}</p>
           </div>
 
           <div className="text-[#19194B] text-center w-36 space-y-2">
@@ -74,7 +70,7 @@ const Match = ({ match }) => {
                 type="text"
                 placeholder="..."
                 className="w-16 text-4xl font-sans text-right"
-                id={`betValue${teamA.code}`}
+                id={`betValue${match.teamACode}`}
                 data-error={
                   currentBet?.betTeamA !== undefined && (currentBet?.betTeamA < 0 ||
                   [1, 2, 4].includes(currentBet?.betTeamA))
@@ -89,7 +85,7 @@ const Match = ({ match }) => {
                 type="text"
                 placeholder="..."
                 className="w-16 text-4xl font-sans text-left"
-                id={`betValue${teamB?.code}`}
+                id={`betValue${match.teamBCode}`}
                 data-error={
                   currentBet?.betTeamB !== undefined && (currentBet?.betTeamB < 0 ||
                   [1, 2, 4].includes(currentBet?.betTeamA))
@@ -109,9 +105,9 @@ const Match = ({ match }) => {
 
           <div className="flex flex-col items-center justify-center gap-2 mt-1 w-24">
             <div>
-              <Flag country={teamB.code} className="h-10"></Flag>
+              <Flag country={match.teamBCode} className="h-10"></Flag>
             </div>
-            <p className="font-sans">{teamB.name}</p>
+            <p className="font-sans">{match.teamBName}</p>
           </div>
         </div>
 

@@ -74,30 +74,16 @@ export function useApplyInGroup() {
         return
       }
 
-      if (group.awaiting_members?.includes(user!.id)) {
-        enqueueSnackbar(
-          <>
-            Vous avez déjà fait une demande pour rejoindre la tribu&nbsp;
-            <b>{group.name}</b>
-          </>,
-          { variant: 'info' },
-        )
-        return
-      }
-
-      await supabase.from('group_apply').upsert({
+      const { error } = await supabase.from('group_apply').upsert({
         id: `${group.id}_${user!.id}`,
         user_id: user!.id,
         group_id: group.id,
-        status: 'sent',
       })
 
-      await supabase
-        .from('groups')
-        .update({
-          awaiting_members: [...(group.awaiting_members || []), user!.id],
-        })
-        .eq('id', group.id)
+      if (error) {
+        enqueueSnackbar("Erreur lors de l'inscription", { variant: 'error' })
+        return
+      }
 
       enqueueSnackbar(
         <>
@@ -186,34 +172,15 @@ export function useValidApply(groupId: string, userId: string) {
   const { enqueueSnackbar } = useSnackbar()
 
   return useCallback(async () => {
-    const { data: group } = await supabase
-      .from('groups')
-      .select('*')
-      .eq('id', groupId)
-      .single()
+    const { error } = await supabase.rpc('validate_group_apply', {
+      p_group_id: groupId,
+      p_user_id: userId,
+    })
 
-    if (!group) {
-      enqueueSnackbar('Groupe introuvable', { variant: 'error' })
+    if (error) {
+      enqueueSnackbar(error.message, { variant: 'error' })
       return
     }
-
-    const newMembers = [...(group.members || []), userId]
-    const newAwaiting = (group.awaiting_members || []).filter(
-      (id) => id !== userId,
-    )
-
-    await supabase
-      .from('groups')
-      .update({ members: newMembers, awaiting_members: newAwaiting })
-      .eq('id', groupId)
-
-    await supabase
-      .from('group_apply')
-      .update({
-        status: 'validated',
-        validated_at: new Date().toISOString(),
-      })
-      .eq('id', `${groupId}_${userId}`)
 
     enqueueSnackbar('Joueur validé', { variant: 'success' })
   }, [groupId, userId, enqueueSnackbar])

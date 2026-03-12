@@ -48,6 +48,13 @@ export type Database = {
             referencedRelation: 'matches'
             referencedColumns: ['id']
           },
+          {
+            foreignKeyName: 'bets_match_id_fkey'
+            columns: ['match_id']
+            isOneToOne: false
+            referencedRelation: 'matches_with_teams'
+            referencedColumns: ['id']
+          },
         ]
       }
       competitions: {
@@ -264,10 +271,92 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      bets_with_profiles: {
+        Row: {
+          bet_team_a: number | null
+          bet_team_b: number | null
+          id: string | null
+          match_id: string | null
+          points_won: number | null
+          updated_at: string | null
+          user_avatar_url: string | null
+          user_display_name: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'bets_match_id_fkey'
+            columns: ['match_id']
+            isOneToOne: false
+            referencedRelation: 'matches'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'bets_match_id_fkey'
+            columns: ['match_id']
+            isOneToOne: false
+            referencedRelation: 'matches_with_teams'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      matches_with_teams: {
+        Row: {
+          api_id: string | null
+          city: string | null
+          date_time: string | null
+          finished: boolean | null
+          id: string | null
+          odds_a: number | null
+          odds_b: number | null
+          odds_draw: number | null
+          phase: string | null
+          score_a: number | null
+          score_b: number | null
+          streaming: string | null
+          team_a: string | null
+          team_a_code: string | null
+          team_a_name: string | null
+          team_b: string | null
+          team_b_code: string | null
+          team_b_name: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'matches_team_a_fkey'
+            columns: ['team_a']
+            isOneToOne: false
+            referencedRelation: 'teams'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'matches_team_b_fkey'
+            columns: ['team_b']
+            isOneToOne: false
+            referencedRelation: 'teams'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      ranking: {
+        Row: {
+          avatar_url: string | null
+          display_name: string | null
+          id: string | null
+          rank: number | null
+          score: number | null
+          winner_team: string | null
+          winner_team_code: string | null
+          winner_team_name: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      validate_group_apply: {
+        Args: { p_group_id: string; p_user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

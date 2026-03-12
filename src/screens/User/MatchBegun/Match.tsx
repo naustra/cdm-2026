@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { useBetFromUser } from '../../../hooks/bets'
-import { useTeam } from '../../../hooks/teams'
 import Flag from '../../../components/Flag'
 import PointsWon from './PointsWon/PointsWon'
 import { Divider } from '@mui/material'
@@ -21,9 +20,6 @@ const Match = ({ match }) => {
   const { id } = useParams()
   const [currentBet] = useBetFromUser(match.id, id)
   const navigate = useNavigate()
-
-  const teamA = useTeam(match.teamA)
-  const teamB = useTeam(match.teamB)
 
   const myOdd =
     !isNumber(currentBet?.betTeamA) || !isNumber(currentBet?.betTeamB)
@@ -49,9 +45,9 @@ const Match = ({ match }) => {
       >
         <div className="flex justify-center items-center">
           <div className="flex items-center gap-2 mt-1">
-            <p className="font-sans">{teamA.name}</p>
+            <p className="font-sans">{match.teamAName}</p>
             <Flag
-              country={teamA.code}
+              country={match.teamACode}
               style={{ width: '40px', height: '40px' }}
             ></Flag>
           </div>
@@ -66,10 +62,10 @@ const Match = ({ match }) => {
 
           <div className="flex items-center gap-2 mt-1">
             <Flag
-              country={teamB.code}
+              country={match.teamBCode}
               style={{ width: '40px', height: '40px' }}
             ></Flag>
-            <p className="font-sans">{teamB.name}</p>
+            <p className="font-sans">{match.teamBName}</p>
           </div>
         </div>
         <Divider />
