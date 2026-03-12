@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
 import { supabase } from '../lib/supabase'
 import type { Session, User } from '@supabase/supabase-js'
 import type { Tables } from '../lib/database.types'
@@ -93,14 +100,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signInWithGoogle() {
-    const redirectUrl = import.meta.env.DEV 
-      ? window.location.origin 
-      : 'https://naustra.github.io/cdm-2026/'
+    const redirectUrl = import.meta.env.DEV
+      ? window.location.origin
+      : 'https://makepronogreatagain.bzh/'
 
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { 
-        redirectTo: redirectUrl
+      options: {
+        redirectTo: redirectUrl,
       },
     })
   }
