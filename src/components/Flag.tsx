@@ -7,10 +7,10 @@ interface FlagProps {
   style?: CSSProperties
 }
 
-const flags = import.meta.glob('../assets/flags/*.svg', {
+const flags: Record<string, string> = import.meta.glob('../assets/flags/*.svg', {
   eager: true,
   import: 'default',
-}) as Record<string, string>
+})
 
 function getFlagSrc(country: string): string | undefined {
   return flags[`../assets/flags/${country}.svg`]

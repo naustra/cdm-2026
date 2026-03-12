@@ -33,7 +33,7 @@ export function useCreateGroup() {
   }
 }
 
-export function useApplyInGroup() {
+export function useApplyInGroup(): [(joinKey: string) => Promise<void>] {
   const { user } = useAuth()
 
   const applyFn = useCallback(
@@ -71,7 +71,7 @@ export function useApplyInGroup() {
     [user?.id],
   )
 
-  return [applyFn] as const
+  return [applyFn]
 }
 
 export function useGroupsForUserMember(): GroupRow[] {

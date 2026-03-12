@@ -82,7 +82,7 @@ export async function generatePredictions(
   preferences: string,
   provider: AiProvider,
 ): Promise<MatchPrediction[]> {
-  const apiKey = import.meta.env.VITE_OPENROUTER_KEY as string
+  const apiKey = import.meta.env.VITE_OPENROUTER_KEY || ''
   if (!apiKey) {
     throw new Error('Clé OpenRouter non configurée')
   }

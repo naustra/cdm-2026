@@ -45,7 +45,10 @@ export function useBetsFromGame(matchId: string | undefined) {
       .from('bets')
       .select('*')
       .eq('match_id', matchId)
-      .then(({ data }) => setBets(data?.map(normalizeBet).filter(Boolean) as NormalizedBet[] ?? null))
+      .then(({ data }) => setBets(data?.flatMap((b) => {
+        const n = normalizeBet(b)
+        return n ? [n] : []
+      }) ?? null))
   }, [matchId])
 
   return bets
@@ -68,7 +71,7 @@ export function useBetFromUser(matchId: string | undefined, uid: string | undefi
   return [bet]
 }
 
-export function useBet(matchId: string | undefined) {
+export function useBet(matchId: string | undefined): [NormalizedBet | undefined, (betData: { betTeamA: number; betTeamB: number }) => Promise<void>] {
   const { user } = useAuth()
   const uid = user?.id
   const [bet, setBetState] = useState<BetRow | null>(null)
@@ -113,7 +116,7 @@ export function useBet(matchId: string | undefined) {
     [matchId, uid],
   )
 
-  return [normalizeBet(bet), setBet] as const
+  return [normalizeBet(bet), setBet]
 }
 
 export function useAllUserBets() {
@@ -129,9 +132,7 @@ export function useAllUserBets() {
       .eq('user_id', user.id)
       .then(({ data }) => {
         const ids = new Set(
-          (data ?? [])
-            .map((b) => b.match_id)
-            .filter(Boolean) as string[],
+          (data ?? []).flatMap((b) => b.match_id ? [b.match_id] : [])
         )
         setBettedMatchIds(ids)
       })

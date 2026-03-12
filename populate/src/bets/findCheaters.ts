@@ -13,7 +13,7 @@ async function findCheaters() {
   const { data: matches, error: matchError } = await supabase
     .from('matches')
     .select('id, date_time')
-    .in('id', matchIds as string[])
+    .in('id', matchIds)
 
   if (matchError) throw matchError
 

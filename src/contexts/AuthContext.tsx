@@ -93,10 +93,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signInWithGoogle() {
+    const redirectUrl = import.meta.env.DEV 
+      ? window.location.origin 
+      : 'https://naustra.github.io/cdm-2026/'
+
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { 
-        redirectTo: window.location.origin + window.location.pathname 
+        redirectTo: redirectUrl
       },
     })
   }

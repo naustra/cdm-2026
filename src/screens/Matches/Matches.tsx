@@ -4,7 +4,7 @@ import map from 'lodash/map'
 import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import { Sparkles } from 'lucide-react'
 import { useCompetitionData } from '../../hooks/competition'
-import { useMatches, type NormalizedMatch } from '../../hooks/matches'
+import { useMatches, isMatchFinished, type NormalizedMatch } from '../../hooks/matches'
 import { useAllUserBets } from '../../hooks/bets'
 import { useIsUserAdmin, useIsUserConnected } from '../../hooks/user'
 import MatchToBet from './MatchToBet/Match'
@@ -79,25 +79,16 @@ const Matches = () => {
   const matches = useMatches()
   const competitionData = useCompetitionData()
 
-  const isMatchPast = useCallback(
-    (match: NormalizedMatch) => {
-      const timestamp = match.dateTime?.seconds ? match.dateTime.seconds * 1000 : 0
-      const hasScore = match.scores.A !== null && match.scores.B !== null
-      return timestamp <= comparingDate || hasScore
-    },
-    [comparingDate],
-  )
-
   const upcomingMatches = useMemo(() => {
     if (!matches) return []
-    return matches.filter((match) => !isMatchPast(match))
-  }, [matches, isMatchPast])
+    return matches.filter((match) => !isMatchFinished(match, comparingDate))
+  }, [matches, comparingDate])
 
   const filteredMatches = useMemo(() => {
     if (!matches) return []
     if (selectedTab === 0) return upcomingMatches
-    return matches.filter((match) => isMatchPast(match)).reverse()
-  }, [matches, selectedTab, upcomingMatches, isMatchPast])
+    return matches.filter((match) => isMatchFinished(match, comparingDate)).reverse()
+  }, [matches, selectedTab, upcomingMatches, comparingDate])
 
   const hasUnbettedMatches = useMemo(() => {
     if (!bettedMatchIds) return false

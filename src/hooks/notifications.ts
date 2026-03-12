@@ -1,5 +1,5 @@
 export function useNotificationPermission() {
-  return { permission: 'old-navigator' as const, refreshPermission: () => {} }
+  return { permission: 'old-navigator', refreshPermission: () => {} }
 }
 
 export function useNotificationConfiguration(): [null, () => void] {

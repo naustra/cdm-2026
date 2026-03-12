@@ -53,7 +53,10 @@ export function useTeams(): NormalizedTeam[] {
       .order('win_odd', { ascending: true })
       .then(({ data }) =>
         setTeams(
-          data?.map(normalizeTeam).filter(Boolean) as NormalizedTeam[] ?? [],
+          data?.flatMap((t) => {
+            const n = normalizeTeam(t)
+            return n ? [n] : []
+          }) ?? [],
         ),
       )
   }, [])

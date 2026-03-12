@@ -1,5 +1,6 @@
 import orderBy from 'lodash/orderBy'
 import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../contexts/AuthContext'
 import InlineAvatar from 'components/Avatar/Avatar'
 import { useBetsFromGame } from 'hooks/bets'
@@ -20,6 +21,7 @@ interface GroupMatchDetailsProps {
 const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) => {
   const { user } = useAuth()
   const uid = user?.id
+  const navigate = useNavigate()
   const membersIds = opponents?.map((o) => o.id)
 
   const bets = useBetsFromGame(match.id)
@@ -76,7 +78,8 @@ const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) =
               return (
                 <tr
                   key={bet.id}
-                  className={bet.uid === uid ? 'bg-amber-50' : ''}
+                  className={`cursor-pointer transition-colors ${bet.uid === uid ? 'bg-amber-50 hover:bg-amber-100' : 'hover:bg-black/5'}`}
+                  onClick={() => navigate(`/user/${bet.uid}`)}
                 >
                   <td className="text-xs text-gray-400 font-bold">
                     #{index + 1}

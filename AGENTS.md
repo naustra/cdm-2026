@@ -63,6 +63,7 @@ functions/           # Cloud Functions Firebase — legacy, non utilise
 - Langue de l'UI : francais
 
 ### Regles strictes
+- Ne jamais utiliser d'assertions de type TypeScript (comme `as const`, `as Type`, `as any`). Privilégier un typage explicite (ex: `const foo: Record<string, string> = ...`) ou des méthodes qui infèrent correctement (comme `flatMap` au lieu de `filter(Boolean) as Type[]`).
 - Ne jamais coder de fonction d'une seule ligne (privilegier la duplication)
 - Ne jamais definir une fonction a l'interieur d'une autre fonction — utiliser un fichier helper ou service dedie
 - Ne jamais ajouter de commentaires narratifs evidents

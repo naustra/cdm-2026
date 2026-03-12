@@ -9,7 +9,7 @@ import {
   type LucideProps,
 } from 'lucide-react'
 import { Suspense, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../../hooks/user'
 
 const FootballIcon = (props: LucideProps) => (
@@ -56,6 +56,8 @@ interface NavigationMenuProps {
 const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   const isConnected = useIsUserConnected()
   const isAdmin = useIsUserAdmin()
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     if (!menuOpen) return
@@ -72,6 +74,11 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
     (item) => (!item.auth || isConnected) && (!item.admin || isAdmin),
   )
 
+  const goTo = (to: string) => () => {
+    navigate(to)
+    closeMenu()
+  }
+
   return (
     <>
       {menuOpen && (
@@ -85,19 +92,23 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
           </div>
 
           <nav className="nav-drawer__links">
-            {visibleItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                className={({ isActive }) =>
-                  `nav-drawer__link ${isActive ? 'nav-drawer__link--active' : ''}`
-                }
-                onClick={closeMenu}
-              >
-                <item.icon size={20} className="text-gray-400" />
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
+            {visibleItems.map((item) => {
+              const isActive =
+                item.path === '/'
+                  ? location.pathname === '/'
+                  : location.pathname.startsWith(item.path)
+
+              return (
+                <button
+                  key={item.path}
+                  className={`nav-drawer__link ${isActive ? 'nav-drawer__link--active' : ''}`}
+                  onClick={goTo(item.path)}
+                >
+                  <item.icon size={20} className="text-gray-400" />
+                  <span>{item.label}</span>
+                </button>
+              )
+            })}
           </nav>
         </div>
       </aside>

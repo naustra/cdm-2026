@@ -4,7 +4,7 @@ import { isNumber } from 'lodash'
 import { useNavigate, useParams } from 'react-router-dom'
 import InformationMatch from '../../Matches/MatchToBet/InformationMatch/InformationMatch'
 
-const facteurMultiplicateurPhase = {
+const facteurMultiplicateurPhase: Record<number, number> = {
   0: 1,
   5: 1,
   6: 2,
@@ -12,7 +12,7 @@ const facteurMultiplicateurPhase = {
   2: 5,
   3: 7,
   1: 10,
-} as const
+}
 
 function formatPoints(pointsWon: number | null | undefined): string {
   const pts = pointsWon || 0
@@ -23,10 +23,11 @@ function formatPoints(pointsWon: number | null | undefined): string {
 function getBetResultClass(
   betA: number | null,
   betB: number | null,
-  scoreA: number,
-  scoreB: number,
+  scoreA: number | null,
+  scoreB: number | null,
 ): string {
   if (!isNumber(betA) || !isNumber(betB)) return 'user-bet--missed'
+  if (!isNumber(scoreA) || !isNumber(scoreB)) return 'user-bet--missed'
   if (betA === scoreA && betB === scoreB) return 'user-bet--perfect'
 
   const betSign = Math.sign(betA - betB)
@@ -43,28 +44,30 @@ const Match = ({ match }: { match: any }) => {
 
   const hasBet =
     isNumber(currentBet?.betTeamA) && isNumber(currentBet?.betTeamB)
-  const pointsWon = currentBet?.pointsWon || 0
+  const pointsWon = currentBet?.pointsWon ?? 0
 
   const betResultClass = getBetResultClass(
     currentBet?.betTeamA ?? null,
     currentBet?.betTeamB ?? null,
-    match.scores.A,
-    match.scores.B,
+    match.scores?.A ?? null,
+    match.scores?.B ?? null,
   )
+
+  const isClickable = match.scores?.A !== null && match.scores?.B !== null
 
   if (!match.display) return null
 
   return (
     <div
-      className="match-card match-card--clickable"
-      onClick={() => navigate(`/matches/${match.id}`)}
-      onKeyDown={(e) => {
+      className={`match-card ${isClickable ? 'match-card--clickable' : ''}`}
+      onClick={isClickable ? () => navigate(`/matches/${match.id}`) : undefined}
+      onKeyDown={isClickable ? (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           navigate(`/matches/${match.id}`)
         }
-      }}
-      role="button"
-      tabIndex={0}
+      } : undefined}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
     >
       <div className="match-card__header">
         <InformationMatch phase={match.phase} groupName={match.groupName} />
@@ -80,7 +83,9 @@ const Match = ({ match }: { match: any }) => {
 
         <div className="match-card__result">
           <span className="match-card__score">
-            {match.scores.A} – {match.scores.B}
+            {match.scores?.A !== null && match.scores?.B !== null 
+              ? `${match.scores.A} – ${match.scores.B}` 
+              : 'En cours'}
           </span>
         </div>
 
@@ -101,9 +106,9 @@ const Match = ({ match }: { match: any }) => {
         </span>
         <span
           className="user-bet-row__points"
-          style={{ color: pointsWon > 0 ? '#22c55e' : '#9ca3af' }}
+          style={{ color: pointsWon > 0 ? '#22c55e' : pointsWon < 0 ? '#ef4444' : '#9ca3af' }}
         >
-          {formatPoints(currentBet?.pointsWon)}
+          {formatPoints(pointsWon)}
           {' pts'}
         </span>
         {facteurMultiplicateurPhase[match.phase as keyof typeof facteurMultiplicateurPhase] > 1 && (

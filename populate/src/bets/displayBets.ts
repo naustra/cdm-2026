@@ -12,7 +12,7 @@ async function displayBets() {
   const { data: matches, error: matchError } = await supabase
     .from('matches_with_teams')
     .select('id, team_a_name, team_b_name, score_a, score_b')
-    .in('id', matchIds as string[])
+    .in('id', matchIds)
 
   if (matchError) throw matchError
 

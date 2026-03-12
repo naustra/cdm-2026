@@ -3,11 +3,12 @@ import { fr } from 'date-fns/locale'
 import map from 'lodash/map'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useCompetitionData } from '../../hooks/competition'
-import { useMatches, type NormalizedMatch } from '../../hooks/matches'
+import { useMatches, isMatchFinished, type NormalizedMatch } from '../../hooks/matches'
 import MatchBegun from './MatchBegun/Match'
 import InlineAvatar from 'components/Avatar/Avatar'
 import { useOpponent } from 'hooks/opponents'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 
 function groupMatchesByDate(matches: NormalizedMatch[]) {
   const groups: { date: Date; matches: NormalizedMatch[] }[] = []
@@ -29,6 +30,7 @@ function groupMatchesByDate(matches: NormalizedMatch[]) {
 
 const User = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [comparingDate, setComparingDate] = useState(Date.now())
   const opponent = useOpponent(id)
 
@@ -43,10 +45,7 @@ const User = () => {
   const filteredMatches = useMemo(() => {
     if (!matches) return []
     return matches
-      .filter((match) => {
-        const timestamp = match.dateTime?.seconds ? match.dateTime.seconds * 1000 : 0
-        return timestamp <= comparingDate && match.scores.A !== null && match.scores.B !== null
-      })
+      .filter((match) => isMatchFinished(match, comparingDate))
       .sort((a, b) => {
         const tA = a.dateTime?.seconds || 0
         const tB = b.dateTime?.seconds || 0
@@ -75,7 +74,14 @@ const User = () => {
 
   return (
     <div className="matches-page">
-      <div className="matches-tabs">
+      <div className="matches-tabs flex items-center gap-4">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="p-2 hover:bg-white/10 rounded-full transition-colors"
+          aria-label="Retour"
+        >
+          <ArrowLeft size={20} />
+        </button>
         <InlineAvatar
           avatarUrl={opponent.avatar_url}
           displayName={opponent.display_name}
