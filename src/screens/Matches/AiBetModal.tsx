@@ -7,6 +7,8 @@ import { saveBatchBets } from '../../hooks/bets'
 import { generatePredictions, type AiProvider } from '../../lib/openrouter'
 import type { NormalizedMatch } from '../../hooks/matches'
 
+import Flag from '../../components/Flag'
+
 type ModalStep = 'prompt' | 'choose' | 'loading' | 'error'
 
 interface AiBetModalProps {
@@ -28,28 +30,28 @@ const PROMPT_SUGGESTIONS = [
 
 const AI_PROVIDERS: {
   id: AiProvider
-  flag: string
+  country: string
   title: string
   subtitle: string
   label: string
 }[] = [
   {
     id: 'openai',
-    flag: '🇺🇸',
+    country: 'us',
     title: 'IA Américaine',
     subtitle: 'Yes, of course!',
     label: 'OpenAI',
   },
   {
     id: 'deepseek',
-    flag: '🇨🇳',
+    country: 'cn',
     title: 'IA Chinoise',
     subtitle: "L'IA qui fait trembler la Silicon Valley",
     label: 'DeepSeek',
   },
   {
     id: 'mistral',
-    flag: '🇫🇷',
+    country: 'fr',
     title: 'Une IA française, monsieur',
     subtitle: 'Cocorico !',
     label: 'Mistral',
@@ -265,7 +267,7 @@ const AiBetModal = ({
                   className="flex items-center gap-3 p-4 rounded-xl border border-gray-200 bg-white cursor-pointer hover:border-indigo-300 hover:shadow-card transition-all text-left"
                   onClick={() => handleChooseProvider(p.id)}
                 >
-                  <span className="text-2xl">{p.flag}</span>
+                  <Flag country={p.country} className="w-8 h-8 rounded-sm object-cover" />
                   <div className="flex-1">
                     <span className="block text-sm font-semibold text-navy">
                       {p.title}
