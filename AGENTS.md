@@ -11,7 +11,7 @@ Application PWA de pronostics entre amis pour la Coupe du Monde 2026. Les utilis
 | Couche | Technologie |
 |--------|-------------|
 | Frontend | React 19, React Router 7, TypeScript 5 |
-| Styling | Tailwind CSS 3, CSS custom dans `index.css` |
+| Styling | Tailwind CSS 3 (utility-first, pas de CSS custom) |
 | Backend | Supabase (Auth + PostgreSQL) |
 | Edge Functions | Deno (Supabase Edge Functions) |
 | Build | Vite 6, vite-plugin-pwa |
@@ -30,7 +30,7 @@ src/
 ├── hooks/           # Hooks de donnees (useMatches, useBet, useTeams, useGroups, etc.)
 ├── lib/             # Client Supabase (supabase.ts) + types DB generes (database.types.ts)
 ├── screens/         # Pages de l'app (HomePage, Matches, Ranking, Groups, Profile, etc.)
-├── index.css        # Tailwind + styles globaux
+├── index.css        # Tailwind directives + reset minimal (13 lignes)
 └── main.tsx         # Point d'entree
 
 supabase/
@@ -49,10 +49,21 @@ populate/            # Scripts admin
 - **Tables/colonnes DB** : snake_case (`bet_team_a`, `display_name`)
 
 ### Organisation des fichiers
-- **Composants** : Les composants simples sont placés directement à la racine de `components/` (ex: `InstallPrompt.tsx`). S'il y a des sous-composants, ils peuvent avoir leur propre dossier.
-- **Screens** : Les écrans simples sont placés directement à la racine de `screens/` (ex: `Analytics.tsx`). Les dossiers sont réservés aux écrans complexes. Plus de fichiers `index.js` ou `index.ts` pour les ré-exports de composants.
+- **Pas de barrel index.tsx** : ne jamais creer de fichier `index.tsx` qui ne fait que re-exporter un composant. Les imports doivent pointer directement vers le fichier (ex: `import App from './App/App'`, pas `import App from './App'`)
+- **Pas de dossier a fichier unique** : si un dossier ne contient qu'un seul fichier, remonter le fichier au niveau du parent
+- **Composants** : fichiers plats dans `components/` (ex: `Avatar.tsx`, `Flag.tsx`)
+- **Screens** : fichiers plats dans `screens/` pour les ecrans simples (ex: `Admin.tsx`). Dossiers reserves aux ecrans complexes avec sous-composants
 - **Hooks** : fichiers plats dans `hooks/`
 - **Contexts** : fichiers plats dans `contexts/`
+
+### Styling (Tailwind)
+- **Tout en utility classes** : ne pas creer de classes CSS custom dans `index.css`. Toute la mise en forme passe par des classes Tailwind directement dans le JSX
+- **index.css** : ne contient que les directives `@tailwind`, le reset body/html, et le background `#root`. Ne rien y ajouter
+- **Couleurs brand** : utiliser `text-navy`, `bg-cream`, `text-navy-light`, `bg-cream-dark` (definies dans `tailwind.config.js`)
+- **Ombres** : utiliser `shadow-card` et `shadow-card-hover` (definies dans `tailwind.config.js`)
+- **Pas de MUI** : le projet n'utilise plus Material-UI. Utiliser des elements HTML natifs styles avec Tailwind
+- **Icones** : utiliser `lucide-react` exclusivement
+- **Toasts** : utiliser `react-hot-toast` (pas notistack)
 
 ### Style de code
 - Prettier : `semi: false`, `trailingComma: "all"`, `singleQuote: true`
@@ -139,4 +150,5 @@ Push sur `main` declenche le workflow `.github/workflows/deploy.yml` :
 - Les types DB sont generes dans `src/lib/database.types.ts` — les regenerer apres toute modification de schema
 - Le dossier `populate/` contient des scripts de reference pour la migration vers Supabase
 - L'app est une PWA avec Service Worker (vite-plugin-pwa), manifest genere dans `vite.config.ts`
-- Theme couleur : `#19194b` (fond sombre), `#bcffff` (fond clair)
+- Theme couleur : `navy` (#19194B), `cream` (#f9f6ed) — definis dans `tailwind.config.js`
+- Police principale : Inter (fallback Roboto, system-ui)
