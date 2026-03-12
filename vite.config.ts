@@ -19,22 +19,22 @@ export default defineConfig({
             type: 'image/x-icon'
           },
           {
-            src: '/icon-192x192.png',
+            src: 'icon-192x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: '/icon-256x256.png',
+            src: 'icon-256x256.png',
             sizes: '256x256',
             type: 'image/png'
           },
           {
-            src: '/icon-384x384.png',
+            src: 'icon-384x384.png',
             sizes: '384x384',
             type: 'image/png'
           },
           {
-            src: '/icon-512x512.png',
+            src: 'icon-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
@@ -44,15 +44,15 @@ export default defineConfig({
         background_color: '#bcffff',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/',
-        start_url: '/'
+        scope: '/cdm-2026/',
+        start_url: '/cdm-2026/'
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       }
     })
   ],
-  base: '/',
+  base: '/cdm-2026/',
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src/components'),

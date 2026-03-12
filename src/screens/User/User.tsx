@@ -44,10 +44,14 @@ const User = () => {
     if (!matches) return []
     return matches
       .filter((match) => {
-        const timestamp = match.dateTime?.seconds * 1000
-        return timestamp <= comparingDate
+        const timestamp = match.dateTime?.seconds ? match.dateTime.seconds * 1000 : 0
+        return timestamp <= comparingDate && match.scores.A !== null && match.scores.B !== null
       })
-      .reverse()
+      .sort((a, b) => {
+        const tA = a.dateTime?.seconds || 0
+        const tB = b.dateTime?.seconds || 0
+        return tB - tA
+      })
   }, [matches, comparingDate])
 
   const dateGroups = useMemo(
@@ -93,12 +97,15 @@ const User = () => {
             </div>
           </div>
         ))}
+        {dateGroups.length === 0 && (
+          <p className="text-gray-500 text-center mt-8">Aucun match terminé pour le moment.</p>
+        )}
       </div>
     </div>
   )
 }
 
-const UserSuspense = (props) => {
+const UserSuspense = (props: any) => {
   return (
     <Suspense fallback="Loading matches...">
       <User {...props} />

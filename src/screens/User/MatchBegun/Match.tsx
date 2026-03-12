@@ -12,7 +12,7 @@ const facteurMultiplicateurPhase = {
   2: 5,
   3: 7,
   1: 10,
-}
+} as const
 
 function formatPoints(pointsWon: number | null | undefined): string {
   const pts = pointsWon || 0
@@ -36,7 +36,7 @@ function getBetResultClass(
   return 'user-bet--wrong'
 }
 
-const Match = ({ match }) => {
+const Match = ({ match }: { match: any }) => {
   const { id } = useParams()
   const [currentBet] = useBetFromUser(match.id, id)
   const navigate = useNavigate()
@@ -55,9 +55,16 @@ const Match = ({ match }) => {
   if (!match.display) return null
 
   return (
-    <button
+    <div
       className="match-card match-card--clickable"
       onClick={() => navigate(`/matches/${match.id}`)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          navigate(`/matches/${match.id}`)
+        }
+      }}
+      role="button"
+      tabIndex={0}
     >
       <div className="match-card__header">
         <InformationMatch phase={match.phase} groupName={match.groupName} />
@@ -99,13 +106,13 @@ const Match = ({ match }) => {
           {formatPoints(currentBet?.pointsWon)}
           {' pts'}
         </span>
-        {facteurMultiplicateurPhase[match.phase] > 1 && (
+        {facteurMultiplicateurPhase[match.phase as keyof typeof facteurMultiplicateurPhase] > 1 && (
           <span className="user-bet-row__mult">
-            ×{facteurMultiplicateurPhase[match.phase]}
+            ×{facteurMultiplicateurPhase[match.phase as keyof typeof facteurMultiplicateurPhase]}
           </span>
         )}
       </div>
-    </button>
+    </div>
   )
 }
 
