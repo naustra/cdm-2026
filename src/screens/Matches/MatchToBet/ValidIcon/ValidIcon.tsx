@@ -1,25 +1,16 @@
-import CheckIcon from '@mui/icons-material/Check'
-import ClearIcon from '@mui/icons-material/Clear'
-import Tooltip from '@mui/material/Tooltip'
-import PropTypes from 'prop-types'
-const ValidIcon = ({ valid }) => (
-  <Tooltip
-    title={valid ? 'Pari enregistré' : 'Pari invalide'}
-    placement="right"
-    enterTouchDelay={0}
-  >
-    <div className="tooltip-svg-container">
-      {valid ? (
-        <CheckIcon className="valid-icon" />
-      ) : (
-        <ClearIcon className="invalid-icon" />
-      )}
-    </div>
-  </Tooltip>
-)
+import { Check, X } from 'lucide-react'
 
-ValidIcon.propTypes = {
-  valid: PropTypes.bool.isRequired,
-}
+const ValidIcon = ({ valid }: { valid: boolean }) => (
+  <div
+    className="flex items-center justify-center w-5 h-5"
+    title={valid ? 'Pari enregistré' : 'Pari invalide'}
+  >
+    {valid ? (
+      <Check size={16} className="text-green-500" />
+    ) : (
+      <X size={16} className="text-gray-300" />
+    )}
+  </div>
+)
 
 export default ValidIcon

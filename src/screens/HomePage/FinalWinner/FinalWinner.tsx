@@ -1,6 +1,3 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
 import { isPast } from 'date-fns'
 import { Suspense, useCallback, useMemo, type ChangeEvent } from 'react'
 import { useSelectedWinner } from '../../../hooks/winner'
@@ -25,33 +22,26 @@ const FinalWinner = () => {
 
   if (!CompetitionStartDate) return null
 
+  const locked = isPast(CompetitionStartDate)
+
   return (
-    <Card className="winner-card">
-      <Typography
-        className="winner-typo"
-        gutterBottom
-        variant="h1"
-        component="h2"
-      >
-        {isPast(CompetitionStartDate)
-          ? 'Votre vainqueur final'
-          : 'Choix du vainqueur final'}
-      </Typography>
-      <Typography className="winner-typo" color="textSecondary">
-        {isPast(CompetitionStartDate)
+    <div className="winner-card">
+      <h3 className="winner-card__title">
+        {locked ? 'Votre vainqueur final' : 'Choisissez le vainqueur'}
+      </h3>
+      <p className="winner-card__subtitle">
+        {locked
           ? 'Vous avez parié pour :'
-          : 'Quel pays gagnera la Coupe du Monde 2026 ?'}
-      </Typography>
-      <CardContent>
-        <Suspense fallback={null}>
-          <FinalWinnerChoice
-            userTeam={team}
-            disabled={isPast(CompetitionStartDate)}
-            onValueChange={handleChange}
-          />
-        </Suspense>
-      </CardContent>
-    </Card>
+          : 'Qui gagnera la Coupe du Monde 2026 ?'}
+      </p>
+      <Suspense fallback={null}>
+        <FinalWinnerChoice
+          userTeam={team}
+          disabled={locked}
+          onValueChange={handleChange}
+        />
+      </Suspense>
+    </div>
   )
 }
 

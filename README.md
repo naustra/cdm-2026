@@ -146,21 +146,36 @@ CREATE OR REPLACE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
--- Désactiver RLS pour le PoC
-ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
-ALTER TABLE teams DISABLE ROW LEVEL SECURITY;
-ALTER TABLE matches DISABLE ROW LEVEL SECURITY;
-ALTER TABLE bets DISABLE ROW LEVEL SECURITY;
-ALTER TABLE competitions DISABLE ROW LEVEL SECURITY;
-ALTER TABLE groups DISABLE ROW LEVEL SECURITY;
-ALTER TABLE group_apply DISABLE ROW LEVEL SECURITY;
-
 -- Insérer une compétition par défaut
 INSERT INTO competitions (launch_bet, start_date)
 VALUES ('2026-06-11T08:00:00Z', '2026-06-11T18:00:00Z');
 ```
 
-> **TODO prod** : Configurer des RLS policies strictes avant la mise en production.
+### 4. Row Level Security (RLS)
+
+Les RLS policies sont définies dans `supabase/migrations/20260312140000_enable_rls_policies.sql`.
+
+| Table | SELECT | INSERT | UPDATE | DELETE |
+|---|---|---|---|---|
+| **profiles** | authenticated | own (`id = auth.uid()`) | own | admin |
+| **teams** | public | admin | admin | admin |
+| **matches** | public | admin | admin | admin |
+| **bets** | authenticated | own (`user_id`) | own (`user_id`) | admin |
+| **competitions** | public | admin | admin | admin |
+| **groups** | authenticated | own (`created_by`) | creator ou admin | creator ou admin |
+| **group_apply** | authenticated | own (`user_id`) | own (`user_id`) | admin |
+
+**Points clés :**
+- Fonction helper `is_admin()` (SECURITY DEFINER) pour vérifier le rôle admin sans récursion RLS.
+- Trigger `prevent_role_escalation` empêche un utilisateur de modifier son propre rôle.
+- Les vues (`matches_with_teams`, `bets_with_profiles`, `ranking`) utilisent `security_invoker = true` pour respecter les RLS des tables sous-jacentes.
+- Les Edge Functions utilisent le `service_role` key qui bypass les RLS.
+- Les fonctions trigger (`calculate_match_scores`, `handle_group_apply`) sont SECURITY DEFINER.
+
+Pour rendre un utilisateur admin :
+```sql
+UPDATE profiles SET role = 'admin' WHERE id = '<user-uuid>';
+```
 
 ---
 
@@ -243,7 +258,7 @@ src/
 
 ## Ce qui reste à faire (hors PoC)
 
-- **Row Level Security** : Configurer les RLS policies Supabase
+- ~~**Row Level Security**~~ : ✅ RLS policies configurées
 - **Edge Functions** : Migrer les Cloud Functions (cron scores, cotes, notifications)
 - **Notifications push** : Remplacer Firebase Cloud Messaging
 - **Populate scripts** : Adapter les scripts de peuplement vers Supabase

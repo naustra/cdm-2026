@@ -1,17 +1,9 @@
-import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { useApplyInGroup } from '../../../hooks/groups'
+
 const JoinGroup = () => {
   const [code, setCode] = useState('')
   const [applyInGroup] = useApplyInGroup()
-
-  const handleSelection = (event) => setCode(event.target.value)
 
   const apply = async () => {
     if (code) {
@@ -21,47 +13,37 @@ const JoinGroup = () => {
   }
 
   return (
-    <Card className="join-group-card">
-      <Typography gutterBottom variant="h1">
-        Rejoindre une tribu
-      </Typography>
-      <br />
-      <Typography gutterBottom variant="h3">
-        Rejoignez une tribu pour vous confrontez à vos amis, collègues,
-        famille...
-      </Typography>
-      <br />
-      <Typography variant="body2">
-        Entrez le code qui vous a été fourni par l&apos;administrateur de la
-        tribu.
-      </Typography>
+    <div className="group-card">
+      <h3 className="group-card__title">Rejoindre une tribu</h3>
+      <p className="group-card__desc">
+        Entrez le code fourni par l'administrateur de la tribu
+      </p>
 
-      <CardContent className="join-group-content">
-        <FormControl>
-          <TextField
-            required
-            id="join-group-code"
-            label="Code"
+      <div className="flex flex-col gap-3">
+        <div>
+          <label className="form-label" htmlFor="join-code">
+            Code d'accès
+          </label>
+          <input
+            id="join-code"
+            className="form-input"
+            placeholder="Entrez le code..."
             value={code}
-            onChange={handleSelection}
+            onChange={(e) => setCode(e.target.value)}
           />
-        </FormControl>
-      </CardContent>
+        </div>
 
-      <CardActions>
-        <Button
+        <button
+          className="btn btn--primary"
           disabled={!code}
           onClick={apply}
-          color="primary"
-          variant="contained"
+          style={{ alignSelf: 'flex-start', opacity: code ? 1 : 0.5 }}
         >
           Envoyer la demande
-        </Button>
-      </CardActions>
-    </Card>
+        </button>
+      </div>
+    </div>
   )
 }
-
-JoinGroup.propTypes = {}
 
 export default JoinGroup

@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types'
-import './item.css'
+import type { ReactNode } from 'react'
 
-const Item = (props) => <li>{props.donnee}</li>
-
-Item.defaultProps = {
-  donnee: '',
+interface ItemProps {
+  donnee?: ReactNode
 }
 
-Item.propTypes = {
-  donnee: PropTypes.node,
-}
+const Item = ({ donnee = '' }: ItemProps) => <li>{donnee}</li>
 
 export default Item

@@ -1,4 +1,3 @@
-import { Tooltip } from '@mui/material'
 import { memo, type CSSProperties } from 'react'
 
 interface FlagProps {
@@ -18,18 +17,44 @@ function getFlagSrc(country: string): string | undefined {
 }
 
 const Flag = memo<FlagProps>(({ country, tooltipText, className, style }) => {
-  if (!country) return null
+  if (!country) return <FlagPlaceholder className={className} style={style} />
 
   const flag = getFlagSrc(country)
-  if (!flag) return null
+  if (!flag) return <FlagPlaceholder className={className} style={style} />
 
   return (
-    <Tooltip title={tooltipText ?? ''} placement="top" enterTouchDelay={0}>
-      <img src={flag} alt={country} className={className} style={style} />
-    </Tooltip>
+    <img
+      src={flag}
+      alt={tooltipText || country}
+      title={tooltipText || undefined}
+      className={className}
+      style={style}
+    />
   )
 })
 
+const FlagPlaceholder = memo<{ className?: string; style?: CSSProperties }>(
+  ({ className, style }) => (
+    <div
+      className={className}
+      style={{
+        ...style,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#e5e7eb',
+        borderRadius: '6px',
+        color: '#9ca3af',
+        fontSize: '0.75rem',
+        fontWeight: 600,
+      }}
+    >
+      ?
+    </div>
+  ),
+)
+
 Flag.displayName = 'Flag'
+FlagPlaceholder.displayName = 'FlagPlaceholder'
 
 export default Flag

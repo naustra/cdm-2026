@@ -1,38 +1,34 @@
 import isNumber from 'lodash/isNumber'
 
 const Odds = ({ scoreA, scoreB, odds }) => {
+  if (!odds?.PA && !odds?.PB && !odds?.PN) return null
+
   const oddToFocus =
     !isNumber(scoreA) || !isNumber(scoreB)
       ? null
       : scoreA > scoreB
-      ? 'PA'
-      : scoreA < scoreB
-      ? 'PB'
-      : 'PN'
+        ? 'PA'
+        : scoreA < scoreB
+          ? 'PB'
+          : 'PN'
 
   return (
-    <div className="flex justify-between">
-      <p
-        className={`font-sans rounded border px-1.5 py-1 text-sm bg-gray-100 ${
-          oddToFocus === 'PA' ? 'border-[#19194B]' : 'text-gray-500'
-        }`}
+    <div className="match-card__odds">
+      <span
+        className={`match-card__odd ${oddToFocus === 'PA' ? 'match-card__odd--active' : ''}`}
       >
         {odds.PA}
-      </p>
-      <p
-        className={`font-sans rounded border px-1.5 py-1 text-sm bg-gray-100 ${
-          oddToFocus === 'PN' ? 'border-[#19194B]' : 'text-gray-500'
-        }`}
+      </span>
+      <span
+        className={`match-card__odd ${oddToFocus === 'PN' ? 'match-card__odd--active' : ''}`}
       >
         {odds.PN}
-      </p>
-      <p
-        className={`font-sans rounded border px-1.5 py-1 text-sm bg-gray-100 ${
-          oddToFocus === 'PB' ? 'border-[#19194B]' : 'text-gray-500'
-        }`}
+      </span>
+      <span
+        className={`match-card__odd ${oddToFocus === 'PB' ? 'match-card__odd--active' : ''}`}
       >
         {odds.PB}
-      </p>
+      </span>
     </div>
   )
 }

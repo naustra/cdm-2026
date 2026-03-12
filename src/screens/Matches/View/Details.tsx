@@ -1,6 +1,3 @@
-import AppBar from '@mui/material/AppBar'
-import Tab from '@mui/material/Tab'
-import Tabs from '@mui/material/Tabs'
 import isEmpty from 'lodash/isEmpty'
 import { Suspense, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -13,11 +10,8 @@ import MatchBegun from '../MatchBegun'
 const Details = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const [selectedTab, setSelectedTab] = useState(1)
+  const [selectedTab, setSelectedTab] = useState(0)
   const groups = useGroupsForUserMember()
-  const handleTabChange = (_, value) => {
-    setSelectedTab(value)
-  }
   const match = useMatch(id)
   const allOpponents = useAllOpponents()
 
@@ -29,59 +23,57 @@ const Details = () => {
 
   if (!match) return null
 
+  const tabs = [
+    { label: 'Général', key: 'general' },
+    ...groups.map((g) => ({
+      label: g.name.length > 10 ? `${g.name.slice(0, 8)}…` : g.name,
+      key: g.id,
+    })),
+  ]
+
   return (
-    <div className="flex flex-col justify-around items-center gap-4 mt-16 md:mt-14 bg-gray-100">
+    <div className="details-page">
       <MatchBegun match={match} />
+
       {isEmpty(groups) ? (
-        <div className="ranking-page-div">
-          <p>
-            Pour pouvoir visualiser plus d'informations, il vous faut tout
-            d&apos;abord <Link to="/groups">créer ou rejoindre une tribu</Link>.
+        <div className="card" style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
+            Pour voir plus d'infos,{' '}
+            <Link to="/groups" style={{ color: '#6366f1', fontWeight: 600 }}>
+              créez ou rejoignez une tribu
+            </Link>
+            .
           </p>
         </div>
       ) : (
         <>
-          <AppBar
-            position="fixed"
-            className="ranking-tab-bar"
-            color="secondary"
-          >
-            <Tabs
-              value={selectedTab}
-              onChange={handleTabChange}
-              centered
-              textColor="inherit"
-            >
-              <Tab label="Général" />
-              {groups.map((group) => (
-                <Tab
-                  key={group.id}
-                  label={
-                    group.name.length > 10
-                      ? `${group.name.slice(0, 7)}...`
-                      : group.name
-                  }
-                />
-              ))}
-            </Tabs>
-          </AppBar>
-          <div className="ranking-container">
-            {!isEmpty(groups) && selectedTab === 0 ? (
-              <GroupMatchDetails
-                name="Général"
-                opponents={allOpponents}
-                match={match}
-              />
-            ) : (
-              <GroupMatchDetails
-                {...groups[selectedTab - 1]}
-                match={match}
-                opponents={allOpponents.filter((opponent) =>
-                  groups[selectedTab - 1]?.members?.includes(opponent.id),
-                )}
-              />
-            )}
+          <div className="ranking-tabs" style={{ position: 'static', background: 'transparent' }}>
+            {tabs.map((tab, i) => (
+              <button
+                key={tab.key}
+                className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
+                onClick={() => setSelectedTab(i)}
+              >
+                {tab.label}
+              </button>
+            ))}
           </div>
+
+          {selectedTab === 0 ? (
+            <GroupMatchDetails
+              name="Général"
+              opponents={allOpponents}
+              match={match}
+            />
+          ) : (
+            <GroupMatchDetails
+              {...groups[selectedTab - 1]}
+              match={match}
+              opponents={allOpponents.filter((opponent) =>
+                groups[selectedTab - 1]?.members?.includes(opponent.id),
+              )}
+            />
+          )}
         </>
       )}
     </div>
@@ -90,7 +82,7 @@ const Details = () => {
 
 const DetailsWithSuspense = (props: Record<string, unknown>) => {
   return (
-    <Suspense fallback="Loading groups...">
+    <Suspense fallback="Loading...">
       <Details {...props} />
     </Suspense>
   )

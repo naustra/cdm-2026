@@ -1,17 +1,8 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
 import orderBy from 'lodash/orderBy'
 import { useMemo } from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
 import forgotBetImgUrl from '../../../assets/icons/ForgotBet.png'
 import imgUrl from '../../../assets/icons/mask6.png'
-import InlineAvatar from '../../../components/Avatar'
 import { useOpponents } from '../../../hooks/opponents'
 import { useTeams } from '../../../hooks/teams'
 import OwnRank from './OwnRank'
@@ -30,7 +21,11 @@ interface GroupRankingProps {
   }>
 }
 
-const GroupRanking = ({ name, members, opponentsProvided }: GroupRankingProps) => {
+const GroupRanking = ({
+  name,
+  members,
+  opponentsProvided,
+}: GroupRankingProps) => {
   const { user } = useAuth()
   const uid = user?.id
   const opponents = useOpponents(members ?? undefined)
@@ -46,94 +41,93 @@ const GroupRanking = ({ name, members, opponentsProvided }: GroupRankingProps) =
   const teams = useTeams()
 
   return (
-    <Card className="group-ranking-card">
-      <CardContent>
-        <Typography variant="h1" align="center">
-          {name}
-        </Typography>
-        <OwnRank opponents={sortedOpponents} members={members ?? undefined} />
-        <Table>
-          <TableBody>
-            {sortedOpponents.map((opponent, index) => {
-              if (!opponent) return null
+    <>
+      <OwnRank opponents={sortedOpponents} members={members ?? undefined} />
 
-              const team = opponent.winner_team
-                ? teams.find((t) => t.id === opponent.winner_team)
-                : null
+      <div className="ranking-table">
+        {sortedOpponents.map((opponent, index) => {
+          if (!opponent) return null
 
-              return (
-                <TableRow
-                  key={opponent.id}
-                  className={opponent.id === uid ? 'own-ranking-row' : ''}
-                >
-                  <TableCell padding="none">
-                    <Typography variant="overline">#{index + 1}</Typography>
-                  </TableCell>
-                  <TableCell
-                    padding="normal"
-                    onClick={() => navigate(`/user/${opponent.id}`)}
+          const team = opponent.winner_team
+            ? teams.find((t) => t.id === opponent.winner_team)
+            : null
+
+          return (
+            <div
+              key={opponent.id}
+              className={`ranking-row ${opponent.id === uid ? 'ranking-row--own' : ''}`}
+              onClick={() => navigate(`/user/${opponent.id}`)}
+            >
+              <span className="ranking-row__rank">#{index + 1}</span>
+
+              <div className="ranking-row__avatar">
+                {opponent.avatar_url ? (
+                  <img
+                    src={opponent.avatar_url}
+                    alt={opponent.display_name ?? ''}
+                    className="avatar-img"
+                    style={{ width: 32, height: 32 }}
+                  />
+                ) : (
+                  <div
+                    className="avatar-fallback"
+                    style={{ width: 32, height: 32, fontSize: 13 }}
                   >
-                    <InlineAvatar
-                      avatarUrl={opponent.avatar_url ?? undefined}
-                      displayName={opponent.display_name ?? undefined}
+                    {(opponent.display_name ?? '?').charAt(0).toUpperCase()}
+                  </div>
+                )}
+              </div>
+
+              <span className="ranking-row__name">
+                {opponent.display_name ?? 'Anonyme'}
+              </span>
+
+              <span className="ranking-row__score">
+                {(opponent.score || 0).toLocaleString()} pts
+              </span>
+
+              <div className="ranking-row__winner">
+                {team ? (
+                  team.elimination ? (
+                    <Flag
+                      tooltipText={'Éliminé : ' + team.name}
+                      country={team.code}
+                      style={{
+                        width: 28,
+                        height: 28,
+                        opacity: 0.4,
+                        filter: 'grayscale(1)',
+                      }}
                     />
-                  </TableCell>
-                  <TableCell padding="none">
-                    {(opponent.score || 0).toLocaleString()} points
-                  </TableCell>
-                  <TableCell padding="normal">
-                    {team ? (
-                      team.elimination ? (
-                        <Flag
-                          tooltipText={
-                            'Vainqueur final éliminé : ' + team.name
-                          }
-                          country={team.code}
-                          style={{ width: '40px', height: '40px' }}
-                        />
-                      ) : team.unveiled ? (
-                        <Flag
-                          tooltipText={
-                            'Gains en cas de victoire : ' + team.winOdd
-                          }
-                          country={team.code}
-                          style={{ width: '40px', height: '40px' }}
-                          className="bet-winner-unveiled"
-                        />
-                      ) : (
-                        <Tooltip
-                          title="Vainqueur final mystère"
-                          placement="top"
-                          enterTouchDelay={0}
-                        >
-                          <img
-                            src={imgUrl}
-                            className="bet-winner-unknown"
-                            alt="Équipe non éliminée"
-                          />
-                        </Tooltip>
-                      )
-                    ) : (
-                      <Tooltip
-                        title="Cette personne a oublié de parier son vainqueur final"
-                        placement="top"
-                        enterTouchDelay={0}
-                      >
-                        <img
-                          src={forgotBetImgUrl}
-                          className="bet-winner-unknown"
-                          alt="Aucun vainqueur sélectionné"
-                        />
-                      </Tooltip>
-                    )}
-                  </TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+                  ) : team.unveiled ? (
+                    <Flag
+                      tooltipText={team.name}
+                      country={team.code}
+                      className="bet-winner-unveiled"
+                      style={{ width: 28, height: 28 }}
+                    />
+                  ) : (
+                    <img
+                      src={imgUrl}
+                      style={{ width: 28, height: 28 }}
+                      alt="Mystère"
+                      title="Vainqueur mystère"
+                    />
+                  )
+                ) : (
+                  <img
+                    src={forgotBetImgUrl}
+                    style={{ width: 28, height: 28, opacity: 0.4 }}
+                    alt="Aucun"
+                    title="Pas de vainqueur sélectionné"
+                  />
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </>
   )
 }
 

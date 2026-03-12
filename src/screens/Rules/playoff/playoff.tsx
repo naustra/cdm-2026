@@ -1,20 +1,19 @@
-import Typography from '@mui/material/Typography'
 import Section from '../component/section'
 import Table from '../component/table'
 
 const Playoff = () => (
   <Section>
     <div>
-      <Typography variant="h1">Règles durant la phase finale</Typography>
+      <h2 className="rules-heading">Règles durant la phase finale</h2>
       <p>
         Le fonctionnement des paris à partir de ce niveau de la compétition est
         identique à celui de la phase de groupe, à un détail près, la côte du
-        match nul s'applique uniquement pour les tirs au buts.
+        match nul s&apos;applique uniquement pour les tirs au buts.
       </p>
     </div>
     <div>
       <p>
-        <u>Exemple pour un match de quart de finale Irlande-Italie</u> :
+        <u>Exemple pour un match de quart de finale Brésil-Allemagne</u> :
       </p>
       <br />
       <div className="table_section">
@@ -31,87 +30,39 @@ const Playoff = () => (
           rows={[
             [
               'Bon score',
-              <div>
-                <div>50-40</div>
-              </div>,
-              <div>
-                <div>320</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>50-40</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>320</div>
-              </div>,
+              '2-1',
+              '320',
+              'Brésil',
+              '2-1',
+              'Brésil',
+              '320',
             ],
             [
               'Bon résultat',
-              <div>
-                <div>40-40</div>
-              </div>,
-              <div>
-                <div>320</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>50-40</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>320 - |50-40| = 310</div>
-              </div>,
+              '1-1',
+              '320',
+              'Brésil',
+              '2-1',
+              'Brésil',
+              '320 - |2-1| - |1-1| = 319',
             ],
             [
               'Bon résultat',
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>320</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>50-40</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>320 - |50-30| - |40-30| = 290</div>
-              </div>,
+              '3-0',
+              '320',
+              'Brésil',
+              '2-1',
+              'Brésil',
+              '320 - |2-3| - |1-0| = 318',
             ],
             [
               'Mauvais vainqueur',
-              <div>
-                <div>10-20</div>
-              </div>,
-              <div>
-                <div>600</div>
-              </div>,
-              <div>
-                <div>Italie</div>
-              </div>,
-              <div>
-                <div>50-40</div>
-              </div>,
-              <div>
-                <div>Irlande</div>
-              </div>,
-              <div>
-                <div>0</div>
-              </div>,
+              '0-2',
+              '600',
+              'Allemagne',
+              '2-1',
+              'Brésil',
+              '0',
             ],
           ]}
         />

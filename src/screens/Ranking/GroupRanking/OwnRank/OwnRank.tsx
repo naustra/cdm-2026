@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography'
 import findIndex from 'lodash/findIndex'
 import size from 'lodash/size'
 import { useAuth } from '../../../../contexts/AuthContext'
@@ -14,10 +13,10 @@ const OwnRank = ({ opponents }: OwnRankProps) => {
   const rank = findIndex(opponents, { id: uid }) + 1
 
   return (
-    <Typography variant="caption" align="right">
+    <p className="ranking-own">
       {rank}
-      <sup>{rank === 1 ? 'er' : 'ème'}</sup> sur {size(opponents)}
-    </Typography>
+      <sup>{rank === 1 ? 'er' : 'e'}</sup> sur {size(opponents)} joueurs
+    </p>
   )
 }
 

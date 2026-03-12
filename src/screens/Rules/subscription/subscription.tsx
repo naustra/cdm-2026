@@ -1,25 +1,24 @@
-import Typography from '@mui/material/Typography'
 import Section from '../component/section'
 
 const Subscription = () => (
   <Section>
-    <Typography variant="h1">
-      Droits d’inscription et mode de qualification
-    </Typography>
+    <h2 className="rules-heading">
+      Droits d&apos;inscription et mode de qualification
+    </h2>
     <br />
-    <Typography variant="h2">Mode de qualification</Typography>
+    <h3 className="rules-subheading">Mode de qualification</h3>
     <p>
-      Il n’y a pas d’élimination, tout le monde participe aux pronostics de tous
+      Il n&apos;y a pas d&apos;élimination, tout le monde participe aux pronostics de tous
       les matchs. Chacun des participants garde son nombre de points acquis
       durant toute la compétition.
     </p>
-    <Typography variant="h2">Droits d’inscription</Typography>
+    <h3 className="rules-subheading">Droits d&apos;inscription</h3>
     <p>
-      L'inscription est gratuite et instantanée. Néanmoins, il est conseillé aux
+      L&apos;inscription est gratuite et instantanée. Néanmoins, il est conseillé aux
       tribus de mettre en place une cagnotte pour récompenser les vainqueurs et
-      rajouter de l'enjeu.
+      rajouter de l&apos;enjeu.
     </p>
-    <Typography variant="h2">Date de validation des pronostics</Typography>
+    <h3 className="rules-subheading">Date de validation des pronostics</h3>
     <p>
       <b>
         Les pronostics pour chaque match doivent être remplis sur le site avant
@@ -28,7 +27,7 @@ const Subscription = () => (
       &nbsp;En ce qui concerne les pronostics sur le vainqueur de la
       compétition, ceux-ci doivent être réalisés avant le premier match de la
       compétition, soit
-      <b> le vendredi 08 septembre 2023 à 21h.</b>
+      <b> le samedi 14 juin 2025 à 21h.</b>
       <br />
       <br />
       <b>

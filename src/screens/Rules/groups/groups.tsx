@@ -1,12 +1,10 @@
-import Typography from '@mui/material/Typography'
-
 import Section from '../component/section'
 import Table from '../component/table'
 
 const Groups = () => (
   <Section>
     <div>
-      <Typography variant="h1">Règles durant la phase de groupe</Typography>
+      <h2 className="rules-heading">Règles durant la phase de groupe</h2>
       <p>
         Les pronostics fonctionnent avec un système de côtes basé sur notre
         propre système de calcul de côtes ! En effet, pour chaque match nous
@@ -15,19 +13,19 @@ const Groups = () => (
         Ces côtes multiplieront les points attribués selon les trois différents
         cas ci-dessous.
         <br />
-        Nous nous réservons le droit de changer les côtes jusqu’à la veille de
+        Nous nous réservons le droit de changer les côtes jusqu&apos;à la veille de
         chaque match.
         <br />
         Les points sont attribués pour les matchs de poules comme suit :
         <ol>
           <li>
-            Tout d’abord c’est le type de résultat qui compte en priorité :
+            Tout d&apos;abord c&apos;est le type de résultat qui compte en priorité :
             Gagnant/Perdant/Match Nul
           </li>
           <li>
             Ensuite soit on a le score parfait (100% de la côte est attribué),
             soit on a un score plus ou moins proche (un malus correspondant à
-            l'écart au score sera appliqué). Le minimum de points étant un tier
+            l&apos;écart au score sera appliqué). Le minimum de points étant un tier
             de la côte.
           </li>
         </ol>
@@ -35,7 +33,7 @@ const Groups = () => (
     </div>
     <div>
       <p>
-        <u>Exemple pour un match de poules France-Australie</u> :
+        <u>Exemple pour un match de poules France-Mexique</u> :
       </p>
       <br />
       <div className="table_section">
@@ -52,87 +50,39 @@ const Groups = () => (
           rows={[
             [
               'Bon score',
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>116</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>116</div>
-              </div>,
+              '3-0',
+              'France',
+              '3-0',
+              '116',
+              'France',
+              '116',
             ],
             [
               'Bon résultat',
-              <div>
-                <div>20-10</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>116</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>116 - |30-20| = 106</div>
-              </div>,
+              '2-1',
+              'France',
+              '3-0',
+              '116',
+              'France',
+              '116 - |3-2| - |0-1| = 114',
             ],
             [
               'Bon résultat',
-              <div>
-                <div>40-0</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>116</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>116 - |30-40| - |10-0| = 96</div>
-              </div>,
+              '4-0',
+              'France',
+              '3-0',
+              '116',
+              'France',
+              '116 - |3-4| - |0-0| = 115',
             ],
             [
               'Mauvais vainqueur',
-              <div>
-                <div>15-20</div>
-              </div>,
-              <div>
-                <div>Australie</div>
-              </div>,
-              <div>
-                <div>30-10</div>
-              </div>,
-              <div>
-                <div>116</div>
-              </div>,
-              <div>
-                <div>France</div>
-              </div>,
-              <div>
-                <div>0</div>
-              </div>,
+              '1-2',
+              'Mexique',
+              '3-0',
+              '116',
+              'France',
+              '0',
             ],
           ]}
         />

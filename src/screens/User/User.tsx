@@ -1,14 +1,31 @@
-import Typography from '@mui/material/Typography'
-import { isPast } from 'date-fns'
+import { isPast, format, isSameDay } from 'date-fns'
+import { fr } from 'date-fns/locale'
 import map from 'lodash/map'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { useCompetitionData } from '../../hooks/competition'
-import { useMatches } from '../../hooks/matches'
+import { useMatches, type NormalizedMatch } from '../../hooks/matches'
 import MatchBegun from './MatchBegun'
-import { AppBar, Tabs } from '@mui/material'
 import InlineAvatar from 'components/Avatar/Avatar'
 import { useOpponent } from 'hooks/opponents'
 import { useParams } from 'react-router-dom'
+
+function groupMatchesByDate(matches: NormalizedMatch[]) {
+  const groups: { date: Date; matches: NormalizedMatch[] }[] = []
+
+  for (const match of matches) {
+    if (!match.dateTime) continue
+    const matchDate = new Date(match.dateTime.seconds * 1000)
+    const lastGroup = groups[groups.length - 1]
+
+    if (lastGroup && isSameDay(lastGroup.date, matchDate)) {
+      lastGroup.matches.push(match)
+    } else {
+      groups.push({ date: matchDate, matches: [match] })
+    }
+  }
+
+  return groups
+}
 
 const User = () => {
   const { id } = useParams()
@@ -33,30 +50,51 @@ const User = () => {
       .reverse()
   }, [matches, comparingDate])
 
+  const dateGroups = useMemo(
+    () => groupMatchesByDate(filteredMatches),
+    [filteredMatches],
+  )
+
   if (!competitionData?.launchBet || !opponent) return null
 
   const LaunchBetDate = new Date(competitionData.launchBet.seconds * 1000)
 
-  return isPast(LaunchBetDate) ? (
-    <>
-      <AppBar position="fixed" className="matches-tab-bar" color="secondary">
-        <Tabs centered textColor="inherit" value={0}>
-          <InlineAvatar
-            avatarUrl={opponent.avatar_url}
-            displayName={opponent.display_name}
-          />
-        </Tabs>
-      </AppBar>
-      <div className="matches-container">
-        {map(filteredMatches, (match) => (
-          <MatchBegun match={match} key={match.id} />
+  if (!isPast(LaunchBetDate)) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh] px-6">
+        <p className="text-gray-500 text-center">
+          Les pronostics seront bientôt accessibles !
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="matches-page">
+      <div className="matches-tabs">
+        <InlineAvatar
+          avatarUrl={opponent.avatar_url}
+          displayName={opponent.display_name}
+        />
+      </div>
+
+      <div className="matches-list">
+        {dateGroups.map((group) => (
+          <div key={group.date.toISOString()} className="matches-date-group">
+            <div className="matches-date-header">
+              <span className="matches-date-label">
+                {format(group.date, 'EEEE d MMMM', { locale: fr })}
+              </span>
+            </div>
+            <div className="matches-date-list">
+              {map(group.matches, (match) => (
+                <MatchBegun match={match} key={match.id} />
+              ))}
+            </div>
+          </div>
         ))}
       </div>
-    </>
-  ) : (
-    <Typography variant="h1">
-      Les pronostics seront bientôt accessibles !
-    </Typography>
+    </div>
   )
 }
 

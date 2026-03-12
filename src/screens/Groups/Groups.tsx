@@ -4,7 +4,13 @@ import MyGroups from './MyGroups'
 
 const Groups = () => {
   return (
-    <div className="groups-container">
+    <div className="groups-page">
+      <div style={{ textAlign: 'center', marginBottom: 4 }}>
+        <h1 className="page-title">Mes tribus</h1>
+        <p className="page-subtitle">
+          Gérez vos tribus et affrontez vos proches
+        </p>
+      </div>
       <MyGroups />
       <JoinGroup />
       <CreateGroup />

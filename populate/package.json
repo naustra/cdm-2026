@@ -1,20 +1,29 @@
 {
-  "name": "euro2021-populate",
+  "name": "euro-2024-populate",
   "private": true,
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "directories": {
-    "test": "tests"
+  "version": "2.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bets:display": "tsx src/bets/displayBets.ts",
+    "bets:check-scores": "tsx src/bets/checkScores.ts",
+    "bets:who-dont-bet": "tsx src/bets/whoDontBet.ts",
+    "bets:who-have-no-winner": "tsx src/bets/whoHaveNoWinner.ts",
+    "bets:find-cheaters": "tsx src/bets/findCheaters.ts",
+    "ranking:global": "tsx src/ranking/rankingGlobal.ts",
+    "ranking:by-groups": "tsx src/ranking/rankingByGroups.ts",
+    "stats:good-bet-strike": "tsx src/stats/goodBetStrike.ts",
+    "groups:by-user": "tsx src/groups/groupsByUser.ts",
+    "groups:who-have-no-group": "tsx src/groups/whoHaveNoGroup.ts"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "firebase-admin": "10.2.0",
-    "firestore-export-import": "^1.2.0",
-    "json-stable-stringify": "^1.0.1"
+    "@supabase/supabase-js": "^2.49.1",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
   }
 }

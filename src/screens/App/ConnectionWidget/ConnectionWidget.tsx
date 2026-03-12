@@ -1,6 +1,4 @@
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useIsUserConnected } from '../../../hooks/user'
 import ConnectionModal from '../ConnectionModal'
 import User from './User'
@@ -8,6 +6,7 @@ import User from './User'
 const ConnectionWidget = () => {
   const isConnected = useIsUserConnected()
   const [modalOpened, setModalOpened] = useState(false)
+  const dialogRef = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
     if (isConnected && modalOpened) {
@@ -15,27 +14,41 @@ const ConnectionWidget = () => {
     }
   }, [isConnected, modalOpened])
 
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (!dialog) return
+
+    if (modalOpened) {
+      dialog.showModal()
+    } else {
+      dialog.close()
+    }
+  }, [modalOpened])
+
   return (
-    <div className="connection-widget-container">
-      <Dialog
-        title="Connexion"
+    <>
+      <dialog
+        ref={dialogRef}
+        className="modal-dialog"
         onClose={() => setModalOpened(false)}
-        open={modalOpened}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setModalOpened(false)
+        }}
       >
         <ConnectionModal />
-      </Dialog>
+      </dialog>
 
-      {isConnected && <User />}
-
-      {!isConnected && (
-        <Button
-          className="connection-label"
+      {isConnected ? (
+        <User />
+      ) : (
+        <button
+          className="btn btn--primary btn--sm"
           onClick={() => setModalOpened(true)}
         >
           Connexion
-        </Button>
+        </button>
       )}
-    </div>
+    </>
   )
 }
 

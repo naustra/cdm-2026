@@ -1,27 +1,20 @@
-import InfoOutlined from '@mui/icons-material/InfoOutlined'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Switch from '@mui/material/Switch'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
+import { Info } from 'lucide-react'
 
 const NotificationConfiguration = () => {
   return (
     <div className="mt-8">
-      <Typography variant="h3">
+      <h3 className="text-sm font-semibold text-gray-700 mb-3">
         Choisissez les types de notifications:
-      </Typography>
+      </h3>
 
-      <div className="info-wrapper">
-        <FormControlLabel
-          control={<Switch disabled />}
-          label="Activer les rappels avant match"
-        />
-        <Tooltip
-          title="Notifications non disponibles pour le moment"
-          enterTouchDelay={0}
-        >
-          <InfoOutlined style={{ fontSize: 14, marginLeft: -12 }} />
-        </Tooltip>
+      <div className="flex items-center gap-2 text-sm text-gray-400">
+        <label className="flex items-center gap-2 cursor-not-allowed opacity-60">
+          <input type="checkbox" disabled className="rounded" />
+          <span>Activer les rappels avant match</span>
+        </label>
+        <span title="Notifications non disponibles pour le moment">
+          <Info size={14} className="text-gray-300" />
+        </span>
       </div>
     </div>
   )

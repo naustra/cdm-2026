@@ -1,5 +1,3 @@
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
 import includes from 'lodash/includes'
 import { useMemo } from 'react'
 import { useAuth } from '../../../../contexts/AuthContext'
@@ -29,23 +27,19 @@ const GroupRow = ({ group }: GroupRowProps) => {
   const creator = creators?.[0]
 
   return (
-    <TableRow>
-      <TableCell>
-        <b>{name}</b>
-      </TableCell>
-      <TableCell>
-        <Avatar avatarUrl={creator?.avatar_url ?? undefined} />
-      </TableCell>
-      <TableCell>{members?.length ?? 0}</TableCell>
-      <TableCell>
-        <GroupStatus
-          member={includes(members, uid)}
-          awaiting={includes(awaiting_members, uid)}
-          admin={created_by === uid}
-        />
-      </TableCell>
-      <TableCell>{join_key}</TableCell>
-    </TableRow>
+    <div className="group-list-item">
+      <span className="group-list-item__name">{name}</span>
+      <Avatar avatarUrl={creator?.avatar_url ?? undefined} size={24} />
+      <span className="group-list-item__members">{members?.length ?? 0}</span>
+      <GroupStatus
+        member={includes(members, uid)}
+        awaiting={includes(awaiting_members, uid)}
+        admin={created_by === uid}
+      />
+      {join_key && (
+        <span className="group-list-item__code">{join_key}</span>
+      )}
+    </div>
   )
 }
 

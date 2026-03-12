@@ -1,46 +1,38 @@
-import Typography from '@mui/material/Typography'
-import PropTypes from 'prop-types'
-import { Tooltip } from '@mui/material'
 import isNumber from 'lodash/isNumber'
 
-const getMessage = (betTeamA, betTeamB, pointsWon, maxPoints) => {
+function getMessage(betTeamA: number | null, betTeamB: number | null, pointsWon: number, maxPoints: number): string {
   const hasBet = isNumber(betTeamA) && isNumber(betTeamB)
 
-  if (!hasBet) return "Vous n'avez pas pronostiqué"
-  if (!pointsWon) return "Vous n'avez pas marqué de points"
-  if (pointsWon === maxPoints) return 'Vous avez pronostiqué le score parfait!'
+  if (!hasBet) return "Il n'a pas pronostiqué"
+  if (!pointsWon) return "Il n'a pas marqué de points"
+  if (pointsWon === maxPoints) return 'Score parfait pronostiqué !'
 
-  return 'Vous avez pronostiqué le bon résultat'
+  return 'Bon résultat pronostiqué'
 }
 
-const PointsWon = ({ betTeamA, betTeamB, pointsWon, scores, odds }) => {
+const PointsWon = ({ betTeamA, betTeamB, pointsWon, scores, odds }: any) => {
   if (!scores) return null
 
-  // Find odd depending on scores
   const { A, B } = scores
   const oddScore = A > B ? odds.PA : A < B ? odds.PB : odds.PN
 
-  return (
-    <Tooltip
-      title={getMessage(betTeamA, betTeamB, pointsWon, oddScore)}
-      placement="bottom"
-      enterTouchDelay={0}
-      className="points-won-container"
-    >
-      <Typography variant="h3" style={{ fontWeight: 'bold' }}>
-        {pointsWon || 0} pts
-      </Typography>
-    </Tooltip>
-  )
-}
+  const isPositive = pointsWon > 0
 
-PointsWon.propTypes = {
-  pointsWon: PropTypes.number,
-  scores: PropTypes.shape({
-    A: PropTypes.number.isRequired,
-    B: PropTypes.number.isRequired,
-  }),
-  // odds: PropTypes.objectOf(PropTypes.number),
+  return (
+    <div
+      className="match-card__stat"
+      title={getMessage(betTeamA, betTeamB, pointsWon, oddScore)}
+    >
+      <span className="match-card__stat-label">Points</span>
+      <span
+        className="match-card__stat-value"
+        style={{ color: isPositive ? '#22c55e' : undefined }}
+      >
+        {pointsWon > 0 ? '+' : ''}
+        {pointsWon || 0}
+      </span>
+    </div>
+  )
 }
 
 export default PointsWon

@@ -5,7 +5,8 @@ SELECT
   ta.name  AS team_a_name,
   ta.code  AS team_a_code,
   tb.name  AS team_b_name,
-  tb.code  AS team_b_code
+  tb.code  AS team_b_code,
+  ta.group_name AS group_name
 FROM matches m
 LEFT JOIN teams ta ON m.team_a = ta.id
 LEFT JOIN teams tb ON m.team_b = tb.id;

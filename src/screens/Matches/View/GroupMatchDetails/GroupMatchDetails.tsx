@@ -1,20 +1,23 @@
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
-import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
 import orderBy from 'lodash/orderBy'
-import PropTypes from 'prop-types'
 import { useMemo } from 'react'
 import { useAuth } from '../../../../contexts/AuthContext'
 import InlineAvatar from 'components/Avatar'
-import { TableHead } from '@mui/material'
 import { useBetsFromGame } from 'hooks/bets'
 
-const GroupMatchDetails = ({ name, opponents, match }) => {
+interface GroupMatchDetailsProps {
+  name: string
+  opponents?: Array<{
+    id: string
+    display_name?: string | null
+    avatar_url?: string | null
+  }>
+  match: {
+    id: string
+    scores: { A: number; B: number }
+  }
+}
+
+const GroupMatchDetails = ({ name, opponents, match }: GroupMatchDetailsProps) => {
   const { user } = useAuth()
   const uid = user?.id
   const membersIds = opponents?.map((o) => o.id)
@@ -52,82 +55,64 @@ const GroupMatchDetails = ({ name, opponents, match }) => {
   const ScoreB = match.scores.B
 
   return (
-    <Card className="group-ranking-card">
-      <CardContent>
-        <Typography variant="h1" align="center">
-          {name}
-        </Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell padding="normal"></TableCell>
-              <TableCell padding="none" align="center">
-                Nom
-              </TableCell>
-              <TableCell>Prono</TableCell>
-              <TableCell padding="none">Malus</TableCell>
-              <TableCell>Points</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
+    <div className="card mb-4">
+      <h3 className="text-center text-lg font-bold text-navy mb-3">{name}</h3>
+
+      <div className="rules-table-wrapper">
+        <table className="rules-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Nom</th>
+              <th>Prono</th>
+              <th>Malus</th>
+              <th className="text-right">Points</th>
+            </tr>
+          </thead>
+          <tbody>
             {sortedBets.map((bet, index) => {
               const opponent = opponents?.find((o) => o.id === bet.uid)
 
               return (
-                <TableRow
+                <tr
                   key={bet.id}
-                  className={bet.uid === uid ? 'own-ranking-row' : ''}
+                  className={bet.uid === uid ? 'bg-amber-50' : ''}
                 >
-                  <TableCell>
-                    <Typography variant="overline">#{index + 1}</Typography>
-                  </TableCell>
-                  <TableCell padding="none">
+                  <td className="text-xs text-gray-400 font-bold">
+                    #{index + 1}
+                  </td>
+                  <td>
                     <InlineAvatar
-                      avatarUrl={opponent?.avatar_url}
-                      displayName={opponent?.display_name}
+                      avatarUrl={opponent?.avatar_url ?? undefined}
+                      displayName={opponent?.display_name ?? undefined}
+                      size={24}
                     />
-                  </TableCell>
-                  <TableCell
-                    padding="none"
-                    align="center"
-                    className="text-base"
-                  >{`${bet.betTeamA} : ${bet.betTeamB}`}</TableCell>
-                  <TableCell padding="none" align="center" className="italic">
-                    <Tooltip
-                      title={'Écarts de points par rapport au score réel'}
-                      placement="top"
-                      enterTouchDelay={0}
-                    >
-                      <span>
-                        {bet.pointsWon > 0
-                          ? `- ${
-                              Math.abs(ScoreA - bet.betTeamA) +
-                              Math.abs(ScoreB - bet.betTeamB)
-                            }`
-                          : '-'}
-                      </span>
-                    </Tooltip>
-                  </TableCell>
-                  <TableCell
-                    padding="none"
-                    align="right"
-                    className="font-semibold"
+                  </td>
+                  <td className="text-center text-sm">
+                    {`${bet.betTeamA} : ${bet.betTeamB}`}
+                  </td>
+                  <td
+                    className="text-center italic text-sm"
+                    title="Écarts de points par rapport au score réel"
                   >
-                    {(bet.pointsWon || 0).toLocaleString()} points
-                  </TableCell>
-                </TableRow>
+                    {bet.pointsWon && bet.pointsWon > 0
+                      ? `- ${
+                          Math.abs(ScoreA - (bet.betTeamA ?? 0)) +
+                          Math.abs(ScoreB - (bet.betTeamB ?? 0))
+                        }`
+                      : '-'}
+                  </td>
+                  <td className="text-right font-semibold text-sm">
+                    {(bet.pointsWon || 0).toLocaleString()} pts
+                  </td>
+                </tr>
               )
             })}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
-}
-
-GroupMatchDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  opponents: PropTypes.array,
 }
 
 export default GroupMatchDetails

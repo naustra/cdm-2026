@@ -1,15 +1,10 @@
 import React, { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
-import {
-  ThemeProvider as MuiThemeProvider,
-  StyledEngineProvider,
-} from '@mui/material/styles'
-import { SnackbarProvider } from 'notistack'
+import { Toaster } from 'react-hot-toast'
 import { BrowserRouter } from 'react-router-dom'
 
 import App from './screens/App'
 import { AuthProvider } from './contexts/AuthContext'
-import theme from './theme'
 
 import './index.css'
 
@@ -20,13 +15,20 @@ root.render(
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Suspense fallback="Chargement...">
         <AuthProvider>
-          <StyledEngineProvider injectFirst>
-            <MuiThemeProvider theme={theme}>
-              <SnackbarProvider>
-                <App />
-              </SnackbarProvider>
-            </MuiThemeProvider>
-          </StyledEngineProvider>
+          <App />
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                borderRadius: '12px',
+                background: '#1e1e2f',
+                color: '#fff',
+                fontSize: '0.85rem',
+                fontWeight: 500,
+              },
+            }}
+          />
         </AuthProvider>
       </Suspense>
     </BrowserRouter>

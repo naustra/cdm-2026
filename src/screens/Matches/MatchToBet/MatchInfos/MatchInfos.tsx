@@ -1,11 +1,6 @@
-import Tooltip from '@mui/material/Tooltip'
+import { Calendar, MapPin, Tv } from 'lucide-react'
 import { format, formatDistanceToNow } from 'date-fns'
 import { fr } from 'date-fns/locale'
-import {
-  CalendarMonthOutlined,
-  PlaceOutlined,
-  TvOutlined,
-} from '@mui/icons-material'
 
 interface MatchInfosProps {
   match: {
@@ -21,25 +16,20 @@ const MatchInfos = ({ match }: MatchInfosProps) => {
   return (
     <div className="match-infos-container">
       <div className="flex gap-2 items-center">
-        <CalendarMonthOutlined className="text-base" />
-        <Tooltip
-          title={format(dateTime, 'PPPppp', { locale: fr })}
-          enterTouchDelay={0}
-        >
-          <div>
-            {formatDistanceToNow(dateTime, { locale: fr, addSuffix: true })}
-          </div>
-        </Tooltip>
+        <Calendar size={16} className="text-gray-400" />
+        <span title={format(dateTime, 'PPPppp', { locale: fr })}>
+          {formatDistanceToNow(dateTime, { locale: fr, addSuffix: true })}
+        </span>
       </div>
 
       <div className="flex gap-2 items-center">
-        <PlaceOutlined className="text-base" />
-        <div>{match.ville}</div>
+        <MapPin size={16} className="text-gray-400" />
+        <span>{match.ville}</span>
       </div>
 
       <div className="flex gap-2 items-center">
-        <TvOutlined className="text-base" />
-        <div>{match.streaming}</div>
+        <Tv size={16} className="text-gray-400" />
+        <span>{match.streaming}</span>
       </div>
     </div>
   )

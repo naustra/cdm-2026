@@ -1,19 +1,16 @@
-import PropTypes from 'prop-types'
+import type { ReactNode, HTMLAttributes } from 'react'
 
-const Reversible = ({ direction, children, ...rest }) => {
-  const orderedChildren =
-    direction === 'rtl' && children && children.reverse
-      ? children.slice().reverse()
-      : children
-  return <div {...rest}>{orderedChildren}</div>
+interface ReversibleProps extends HTMLAttributes<HTMLDivElement> {
+  direction?: 'rtl' | 'ltr'
+  children?: ReactNode[]
 }
 
-Reversible.propTypes = {
-  direction: PropTypes.oneOf(['rtl', 'ltr']),
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+const Reversible = ({ direction, children, ...rest }: ReversibleProps) => {
+  const orderedChildren =
+    direction === 'rtl' && children && Array.isArray(children)
+      ? [...children].reverse()
+      : children
+  return <div {...rest}>{orderedChildren}</div>
 }
 
 export default Reversible

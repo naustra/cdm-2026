@@ -320,6 +320,7 @@ export type Database = {
           team_b: string | null
           team_b_code: string | null
           team_b_name: string | null
+          group_name: string | null
         }
         Relationships: [
           {

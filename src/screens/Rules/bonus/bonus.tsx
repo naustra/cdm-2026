@@ -1,14 +1,13 @@
-import Typography from '@mui/material/Typography'
 import Section from '../component/section'
 import Table from '../component/table'
 
 const Bonus = () => (
   <Section>
-    <Typography variant="h1">Règles additionnelles</Typography>
+    <h2 className="rules-heading">Règles additionnelles</h2>
     <br />
-    <Typography variant="h2" color="inherit">
+    <h3 className="rules-subheading">
       Vainqueur final
-    </Typography>
+    </h3>
     <p>
       Chaque joueur pronostique également le champion de la Coupe du Monde 2026 avant que
       la compétition commence. Si jamais celui-ci est trouvé par le parieur une
@@ -16,34 +15,36 @@ const Bonus = () => (
       ajouté aux autres points gagnés durant toute la compétition.
     </p>
     <div>
-      <Typography variant="h2">
+      <h3 className="rules-subheading">
         Répartition des points sur toute la durée du concours
-      </Typography>
+      </h3>
       <p>
         On a choisit de répartir le nombre de points de façon la plus équilibrée
         possible, ce qui permet à tous de rester concerné tout au long du
         déroulé du concours. Les retournements de situations sont toujours
         possibles !
       </p>
-      <Typography variant="body1">
+      <p className="text-sm font-medium mt-2">
         Voici le choix de répartition de points par phase
-      </Typography>
+      </p>
       <br />
       <div className="table_section">
         <Table
           header={[
             'Phase',
             'Poules',
-            'Quart de finale',
-            'Demi finale',
-            '3eme place',
+            '16es',
+            '8es',
+            'Quarts',
+            'Demis',
+            '3e place',
             'Finale',
-            'Vainqueur final',
+            'Vainqueur',
           ]}
           rows={[
-            ['Nombres de matchs', '40', '4', '2', '1', '1', 'N/A'],
-            ['Facteur multiplicateur', 'N/A', '2', '4', '6', '10', 'N/A'],
-            ['% points total', '45', '12.5', '9', '5', '7', '10'],
+            ['Nb matchs', '48', '16', '8', '4', '2', '1', '1', 'N/A'],
+            ['Multiplicateur', 'x1', 'x1', 'x2', 'x3', 'x5', 'x7', 'x10', 'N/A'],
+            ['% points total', '35', '12', '12', '9', '7', '5', '7', '10'],
           ]}
         />
       </div>

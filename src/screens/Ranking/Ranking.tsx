@@ -1,6 +1,3 @@
-import AppBar from '@mui/material/AppBar'
-import Tab from '@mui/material/Tab'
-import Tabs from '@mui/material/Tabs'
 import isEmpty from 'lodash/isEmpty'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -25,56 +22,63 @@ const Ranking = () => {
   }, [urlParams])
 
   const groups = useGroupsForUserMember()
-  const handleTabChange = (_, value) => {
+  const handleTabChange = (value: number) => {
     setSelectedTab(value)
     navigate(`${location.pathname}?tab=${value}`)
   }
 
   const allOpponents = useAllOpponents()
 
-  return isEmpty(groups) ? (
-    <div className="ranking-page-div">
-      <p>
-        Pour pouvoir visualiser dans le classement, il vous faut tout
-        d&apos;abord <Link to="/groups">créer ou rejoindre une tribu</Link>.
-      </p>
-    </div>
-  ) : (
-    <>
-      <AppBar position="fixed" className="ranking-tab-bar" color="secondary">
-        <Tabs
-          value={selectedTab}
-          onChange={handleTabChange}
-          centered
-          textColor="inherit"
-        >
-          <Tab label="Général" />
-          {groups.map((group) => (
-            <Tab
-              key={group.id}
-              label={
-                group.name.length > 10
-                  ? `${group.name.slice(0, 7)}...`
-                  : group.name
-              }
-            />
-          ))}
-        </Tabs>
-      </AppBar>
-      <div className="ranking-container">
-        {!isEmpty(groups) && selectedTab === 0 ? (
+  if (isEmpty(groups)) {
+    return (
+      <div className="page-section" style={{ textAlign: 'center', paddingTop: 60 }}>
+        <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>
+          Pour voir le classement, il faut d'abord{' '}
+          <Link to="/groups" style={{ color: '#6366f1', fontWeight: 600 }}>
+            créer ou rejoindre une tribu
+          </Link>
+          .
+        </p>
+      </div>
+    )
+  }
+
+  const tabs = [
+    { label: 'Général', key: 'general' },
+    ...groups.map((g) => ({
+      label: g.name.length > 10 ? `${g.name.slice(0, 8)}…` : g.name,
+      key: g.id,
+    })),
+  ]
+
+  return (
+    <div className="ranking-page">
+      <div className="ranking-tabs">
+        {tabs.map((tab, i) => (
+          <button
+            key={tab.key}
+            className={`matches-tab ${selectedTab === i ? 'matches-tab--active' : ''}`}
+            onClick={() => handleTabChange(i)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="ranking-content">
+        {selectedTab === 0 ? (
           <GroupRanking name="Général" opponentsProvided={allOpponents} />
         ) : (
           <GroupRanking {...groups[selectedTab - 1]} />
         )}
       </div>
-    </>
+    </div>
   )
 }
 
 const RankingWithSuspense = (props: Record<string, unknown>) => {
   return (
-    <Suspense fallback="Loading groups...">
+    <Suspense fallback="Loading...">
       <Ranking {...props} />
     </Suspense>
   )

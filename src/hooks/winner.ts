@@ -1,11 +1,10 @@
 import { useCallback } from 'react'
-import { useSnackbar } from 'notistack'
+import toast from 'react-hot-toast'
 import { supabase } from '../lib/supabase'
 import { useUserProfile } from './user'
 
 export function useSelectedWinner(): [string | null | undefined, (team: string) => Promise<void>] {
   const profile = useUserProfile()
-  const { enqueueSnackbar } = useSnackbar()
 
   const updater = useCallback(
     async (team: string) => {
@@ -16,12 +15,12 @@ export function useSelectedWinner(): [string | null | undefined, (team: string) 
         .eq('id', profile.id)
 
       if (error) {
-        enqueueSnackbar('Mise à jour échouée :(', { variant: 'error' })
+        toast.error('Mise à jour échouée :(')
         return
       }
-      enqueueSnackbar('Équipe mise à jour', { variant: 'success' })
+      toast.success('Équipe mise à jour')
     },
-    [profile?.id, enqueueSnackbar],
+    [profile?.id],
   )
 
   return [profile?.winner_team, updater]

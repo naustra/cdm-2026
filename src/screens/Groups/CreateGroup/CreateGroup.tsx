@@ -1,13 +1,6 @@
-import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { useCreateGroup } from '../../../hooks/groups'
+
 const CreateGroup = () => {
   const [name, setName] = useState('')
   const createGroup = useCreateGroup()
@@ -15,57 +8,44 @@ const CreateGroup = () => {
   const errorMessage =
     name.length > 0 && name.length < 5 ? '5 caractères minimum' : undefined
 
-  const isFormValid = () => name && !errorMessage
-
-  const handleNameChange = (e) => setName(e.target.value)
+  const isFormValid = name.length >= 5 && !errorMessage
 
   return (
-    <Card className="create-group-card">
-      <Typography gutterBottom variant="h1">
-        Créer une tribu
-      </Typography>
-      <br />
-      <Typography gutterBottom variant="h3">
-        Créez une tribu pour vous confrontez à vos amis, collègues, famille...
-      </Typography>
-      <br />
-      <Typography variant="body2">
-        L'inscription aux tribus est gratuite. <br /> Néanmoins, il est
-        conseillé aux tribus de mettre en place une cagnotte pour récompenser
-        les vainqueurs et rajouter de l'enjeu.
-      </Typography>
+    <div className="group-card">
+      <h3 className="group-card__title">Créer une tribu</h3>
+      <p className="group-card__desc">
+        Créez votre tribu et invitez vos proches à vous rejoindre
+      </p>
 
-      <CardContent className="create-group-content">
-        <FormControl className="create-group-field" error={!!errorMessage}>
-          <TextField
-            required
-            label="Nom de la tribu"
+      <div className="flex flex-col gap-3">
+        <div>
+          <label className="form-label" htmlFor="group-name">
+            Nom de la tribu
+          </label>
+          <input
+            id="group-name"
+            className="form-input"
+            placeholder="Ex: Les Bleus 2026"
             value={name}
-            onChange={handleNameChange}
+            onChange={(e) => setName(e.target.value)}
           />
-          {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
-        </FormControl>
-      </CardContent>
+          {errorMessage && <p className="form-error">{errorMessage}</p>}
+        </div>
 
-      <CardActions>
-        <Button
-          disabled={!isFormValid()}
+        <button
+          className="btn btn--primary"
+          disabled={!isFormValid}
           onClick={async () => {
-            await createGroup({
-              name,
-            })
+            await createGroup({ name })
             setName('')
           }}
-          color="primary"
-          variant="contained"
+          style={{ alignSelf: 'flex-start', opacity: isFormValid ? 1 : 0.5 }}
         >
-          Envoyer la demande
-        </Button>
-      </CardActions>
-    </Card>
+          Créer la tribu
+        </button>
+      </div>
+    </div>
   )
 }
-
-CreateGroup.propTypes = {}
 
 export default CreateGroup

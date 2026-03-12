@@ -1,8 +1,4 @@
-import MuiAvatar from '@mui/material/Avatar'
-import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../../contexts/AuthContext'
 import { useLogout } from '../../../../hooks/user'
@@ -11,7 +7,7 @@ const User = () => {
   const { user, profile } = useAuth()
   const logout = useLogout()
   const [isOpen, setIsOpen] = useState(false)
-  const anchorEl = useRef<HTMLButtonElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
 
   const displayName =
@@ -19,33 +15,57 @@ const User = () => {
   const photoURL =
     profile?.avatar_url || user?.user_metadata?.avatar_url || ''
 
-  return (
-    <div className="flex items-center">
-      <IconButton
-        aria-label="Plus"
-        aria-haspopup="true"
-        onClick={() => setIsOpen(true)}
-        ref={anchorEl}
-        color="inherit"
-      >
-        <MuiAvatar src={photoURL} alt={displayName} className="user-avatar" />
-      </IconButton>
+  useEffect(() => {
+    if (!isOpen) return
 
-      <Menu
-        open={isOpen}
-        anchorEl={anchorEl.current}
-        onClose={() => setIsOpen(false)}
+    function handleClickOutside(e: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isOpen])
+
+  return (
+    <div className="relative" ref={menuRef}>
+      <button
+        className="header-icon-btn"
+        aria-label="Menu utilisateur"
+        aria-haspopup="true"
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <MenuItem
-          onClick={() => {
-            navigate('/profile')
-            setIsOpen(false)
-          }}
-        >
-          Profil
-        </MenuItem>
-        <MenuItem onClick={logout}>Se déconnecter</MenuItem>
-      </Menu>
+        {photoURL ? (
+          <img
+            src={photoURL}
+            alt={displayName}
+            className="avatar-img"
+            style={{ width: 32, height: 32 }}
+          />
+        ) : (
+          <div className="avatar-fallback" style={{ width: 32, height: 32, fontSize: 13 }}>
+            {displayName.charAt(0).toUpperCase()}
+          </div>
+        )}
+      </button>
+
+      {isOpen && (
+        <div className="dropdown-menu">
+          <button
+            className="dropdown-menu__item"
+            onClick={() => {
+              navigate('/profile')
+              setIsOpen(false)
+            }}
+          >
+            Profil
+          </button>
+          <button className="dropdown-menu__item" onClick={logout}>
+            Se déconnecter
+          </button>
+        </div>
+      )}
     </div>
   )
 }

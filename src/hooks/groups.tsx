@@ -1,4 +1,4 @@
-import { useSnackbar } from 'notistack'
+import toast from 'react-hot-toast'
 import { useCallback, useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { supabase } from '../lib/supabase'
@@ -9,7 +9,6 @@ type GroupRow = Tables<'groups'>
 
 export function useCreateGroup() {
   const { user } = useAuth()
-  const { enqueueSnackbar } = useSnackbar()
   const [applyInGroup] = useApplyInGroup()
 
   return async (group: { name: string }) => {
@@ -24,26 +23,18 @@ export function useCreateGroup() {
     })
 
     if (error) {
-      enqueueSnackbar('Erreur lors de la création du groupe', {
-        variant: 'error',
-      })
+      toast.error('Erreur lors de la création du groupe')
       return
     }
 
     await applyInGroup(joinKey)
 
-    enqueueSnackbar(
-      <>
-        Groupe {group.name} créé avec le code <b>{joinKey}</b>.
-      </>,
-      { variant: 'success' },
-    )
+    toast.success(`Groupe ${group.name} créé avec le code ${joinKey}`)
   }
 }
 
 export function useApplyInGroup() {
   const { user } = useAuth()
-  const { enqueueSnackbar } = useSnackbar()
 
   const applyFn = useCallback(
     async (joinKey: string) => {
@@ -53,24 +44,14 @@ export function useApplyInGroup() {
         .eq('join_key', joinKey)
 
       if (!groups?.length) {
-        enqueueSnackbar(
-          <>
-            Aucune tribu avec le code <b>{joinKey}</b> n&apos;existe
-          </>,
-          { variant: 'error' },
-        )
+        toast.error(`Aucune tribu avec le code ${joinKey} n'existe`)
         return
       }
 
       const group = groups[0]
 
       if (group.members?.includes(user!.id)) {
-        enqueueSnackbar(
-          <>
-            Vous appartenez déjà à la tribu <b>{group.name}</b>
-          </>,
-          { variant: 'info' },
-        )
+        toast(`Vous appartenez déjà à la tribu ${group.name}`)
         return
       }
 
@@ -81,18 +62,13 @@ export function useApplyInGroup() {
       })
 
       if (error) {
-        enqueueSnackbar("Erreur lors de l'inscription", { variant: 'error' })
+        toast.error("Erreur lors de l'inscription")
         return
       }
 
-      enqueueSnackbar(
-        <>
-          Inscription dans la tribu&nbsp;<b>{group.name}</b> !
-        </>,
-        { variant: 'success' },
-      )
+      toast.success(`Inscription dans la tribu ${group.name} !`)
     },
-    [user?.id, enqueueSnackbar],
+    [user?.id],
   )
 
   return [applyFn] as const
@@ -169,8 +145,6 @@ export function useGroupsContainingAwaitingMembers(): GroupRow[] {
 }
 
 export function useValidApply(groupId: string, userId: string) {
-  const { enqueueSnackbar } = useSnackbar()
-
   return useCallback(async () => {
     const { error } = await supabase.rpc('validate_group_apply', {
       p_group_id: groupId,
@@ -178,10 +152,10 @@ export function useValidApply(groupId: string, userId: string) {
     })
 
     if (error) {
-      enqueueSnackbar(error.message, { variant: 'error' })
+      toast.error(error.message)
       return
     }
 
-    enqueueSnackbar('Joueur validé', { variant: 'success' })
-  }, [groupId, userId, enqueueSnackbar])
+    toast.success('Joueur validé')
+  }, [groupId, userId])
 }

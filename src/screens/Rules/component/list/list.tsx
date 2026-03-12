@@ -1,22 +1,16 @@
-import PropTypes from 'prop-types'
-import map from 'lodash/map'
+import type { ReactNode } from 'react'
 import Item from './item'
-import './list.css'
 
-const List = (props) => (
-  <div className="rule_list">
-    {map(props.dataSource, (donnee, id) => (
+interface ListProps {
+  dataSource?: ReactNode[]
+}
+
+const List = ({ dataSource = [] }: ListProps) => (
+  <ul className="rule_list">
+    {dataSource.map((donnee, id) => (
       <Item donnee={donnee} key={id} />
     ))}
-  </div>
+  </ul>
 )
-
-List.defaultProps = {
-  dataSource: [],
-}
-
-List.propTypes = {
-  dataSource: PropTypes.arrayOf(PropTypes.node),
-}
 
 export default List

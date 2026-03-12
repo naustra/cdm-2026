@@ -1,13 +1,8 @@
-import MenuIcon from '@mui/icons-material/Menu'
-import AppBar from '@mui/material/AppBar'
-import IconButton from '@mui/material/IconButton'
-import Toolbar from '@mui/material/Toolbar'
+import { Menu, X } from 'lucide-react'
 import { Suspense, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Baniere from '../../assets/visuels/bandeauSignature.jpg'
-import BaniereTablette from '../../assets/visuels/baniere_pm.jpg'
-import BaniereMobile from '../../assets/visuels/bandeauTitreMobile.png'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
+import AnalyticsPage from '../Analytics'
 import FAQPage from '../FAQ'
 import GroupsPage from '../Groups'
 import HomePage from '../HomePage'
@@ -27,36 +22,32 @@ const App = () => {
 
   return (
     <>
-      <AppBar>
-        <Toolbar className="app-toolbar">
-          <IconButton
-            color="inherit"
-            aria-label="Menu"
-            onClick={() => setMenuOpen(!menuOpen)}
-            size="large"
-          >
-            <MenuIcon />
-          </IconButton>
-          <div className="app-toolbar-title">
-            <img id="imgDesktop" src={Baniere} alt="Baniere" />
-            <img id="imgTablette" src={BaniereTablette} alt="Baniere" />
-            <img id="imgMobile" src={BaniereMobile} alt="Baniere" />
-          </div>
-          <ConnectionWidget />
-        </Toolbar>
-      </AppBar>
+      <header className="site-header">
+        <button
+          className="header-icon-btn"
+          aria-label="Menu"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+
+        <span className="site-header__logo">Paris Entre Potos</span>
+
+        <ConnectionWidget />
+      </header>
 
       <NavigationMenu
         menuOpen={menuOpen}
         closeMenu={() => setMenuOpen(false)}
       />
 
-      <div className="app-content">
-        <Suspense fallback={<>Loading page...</>}>
+      <main className="site-main">
+        <Suspense fallback={<div className="page-loader">Chargement...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/rules" element={<RulesPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
 
             {signedIn && (
               <>
@@ -73,7 +64,7 @@ const App = () => {
             <Route element={<NotFoundPage />} />
           </Routes>
         </Suspense>
-      </div>
+      </main>
     </>
   )
 }

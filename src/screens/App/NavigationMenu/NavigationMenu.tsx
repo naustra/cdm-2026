@@ -1,106 +1,88 @@
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import HelpIcon from '@mui/icons-material/Help'
-import ListIcon from '@mui/icons-material/List'
-import HomeIcon from '@mui/icons-material/Home'
-import EventAvailableIcon from '@mui/icons-material/EventAvailable'
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
-import GroupsIcon from '@mui/icons-material/Groups'
-import PropTypes from 'prop-types'
-import { Suspense } from 'react'
+import {
+  Home,
+  Trophy,
+  Users,
+  HelpCircle,
+  MessageCircleQuestion,
+  Dribbble,
+  BarChart3,
+} from 'lucide-react'
+import { Suspense, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import SideImg from '../../../assets/visuels/rules-281x310.jpg'
 import { useIsUserConnected } from '../../../hooks/user'
-import { ListItemIcon } from '@mui/material'
 
-const NavigationMenu = ({ closeMenu, menuOpen }) => {
+const menuItems = [
+  { label: 'Accueil', icon: Home, path: '/', auth: false },
+  { label: 'Pronostics', icon: Dribbble, path: '/matches', auth: true },
+  { label: 'Classement', icon: Trophy, path: '/ranking', auth: true },
+  { label: 'Tribus', icon: Users, path: '/groups', auth: true },
+  { label: 'Analytics', icon: BarChart3, path: '/analytics', auth: false },
+  { label: 'Règles', icon: HelpCircle, path: '/rules', auth: false },
+  { label: 'FAQ', icon: MessageCircleQuestion, path: '/faq', auth: false },
+]
+
+interface NavigationMenuProps {
+  closeMenu: () => void
+  menuOpen: boolean
+}
+
+const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
   const isConnected = useIsUserConnected()
-  // const isAdmin = useIsUserAdmin()
   const navigate = useNavigate()
 
-  const goTo = (to) => () => {
+  useEffect(() => {
+    if (!menuOpen) return
+
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') closeMenu()
+    }
+
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [menuOpen, closeMenu])
+
+  const goTo = (to: string) => () => {
     navigate(to)
     closeMenu()
   }
 
+  const visibleItems = menuItems.filter(
+    (item) => !item.auth || isConnected,
+  )
+
   return (
-    <Drawer color="primary" open={menuOpen} onClose={closeMenu}>
-      <List>
-        {/* Route accessibles sans connexion */}
-        <ListItemButton onClick={goTo('/')} sx={{ m: -2, mb: -1 }}>
-          <img src={SideImg} alt="Accueil" />
-        </ListItemButton>
-        <Divider />
+    <>
+      {menuOpen && (
+        <div className="drawer-overlay" onClick={closeMenu} />
+      )}
+      <aside className={`drawer ${menuOpen ? 'drawer--open' : ''}`}>
+        <div className="nav-drawer">
+          <div className="nav-drawer__brand">
+            <span className="nav-drawer__logo">🏆</span>
+            <span className="nav-drawer__title">Paris Entre Potos</span>
+          </div>
 
-        {/* Route accessibles sans connexion (Doublon page d'accueil) */}
-        <ListItemButton onClick={goTo('/')}>
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Accueil" />
-        </ListItemButton>
-
-        {/* Route accessibles avec connexion */}
-        {isConnected && (
-          <ListItemButton onClick={goTo('/matches')}>
-            <ListItemIcon>
-              <EventAvailableIcon />
-            </ListItemIcon>
-            <ListItemText primary="Pariez" />
-          </ListItemButton>
-        )}
-
-        {/* Route accessibles avec connexion */}
-        {isConnected && (
-          <ListItemButton onClick={goTo('/ranking')}>
-            <ListItemIcon>
-              <EmojiEventsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Classement" />
-          </ListItemButton>
-        )}
-
-        {/* Route accessibles avec connexion */}
-        {isConnected && (
-          <ListItemButton onClick={goTo('/groups')}>
-            <ListItemIcon>
-              <GroupsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Gestion des tribus" />
-          </ListItemButton>
-        )}
-
-        {/* Routes accessibles sans connexion */}
-        <ListItemButton onClick={goTo('/rules')}>
-          <ListItemIcon>
-            <HelpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Règles" />
-        </ListItemButton>
-
-        {/* Routes accessibles sans connexion */}
-        <ListItemButton onClick={goTo('/faq')}>
-          <ListItemIcon>
-            <ListIcon />
-          </ListItemIcon>
-          <ListItemText primary="FAQ" />
-        </ListItemButton>
-      </List>
-    </Drawer>
+          <nav className="nav-drawer__links">
+            {visibleItems.map((item) => (
+              <button
+                key={item.path}
+                className="nav-drawer__link"
+                onClick={goTo(item.path)}
+              >
+                <item.icon size={20} className="text-gray-400" />
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+      </aside>
+    </>
   )
 }
 
-NavigationMenu.propTypes = {
-  menuOpen: PropTypes.bool.isRequired,
-  closeMenu: PropTypes.func.isRequired,
-}
-
-const NavigationMenuSuspense = (props) => {
+const NavigationMenuSuspense = (props: NavigationMenuProps) => {
   return (
-    <Suspense fallback="Loading Navigation menu">
+    <Suspense fallback={null}>
       <NavigationMenu {...props} />
     </Suspense>
   )

@@ -1,40 +1,31 @@
-import PropTypes from 'prop-types'
-import map from 'lodash/map'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
+import type { ReactNode } from 'react'
 
-const RuleTable = ({ header, rows }) => (
-  <Table>
-    <TableHead>
-      <TableRow>
-        {map(header, (headerCol, index) => (
-          <TableCell key={index}>{headerCol}</TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-    <TableBody>
-      {map(rows, (row, index) => (
-        <TableRow key={index}>
-          {map(row, (col, id) => (
-            <TableCell key={id}>{col}</TableCell>
+interface RuleTableProps {
+  header?: ReactNode[]
+  rows?: ReactNode[][]
+}
+
+const RuleTable = ({ header = [], rows = [[]] }: RuleTableProps) => (
+  <div className="rules-table-wrapper">
+    <table className="rules-table">
+      <thead>
+        <tr>
+          {header.map((col, i) => (
+            <th key={i}>{col}</th>
           ))}
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr key={i}>
+            {row.map((col, j) => (
+              <td key={j}>{col}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 )
-
-RuleTable.defaultProps = {
-  header: [],
-  rows: [[]],
-}
-
-RuleTable.propTypes = {
-  header: PropTypes.arrayOf(PropTypes.node),
-  rows: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.node)),
-}
 
 export default RuleTable

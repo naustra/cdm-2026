@@ -1,19 +1,31 @@
-# Populate Script
+# Populate — Scripts d'administration
 
-This is a script to populate database based on CSV files.
+Scripts TypeScript pour administrer la base Supabase du projet Euro 2024.
 
-To install dependencies:
+## Setup
 
 ```bash
-cd populate
-yarn
-// or
-npm i
+npm install
 ```
 
-To be able to connect to the database with admin rights, you need to get the firebase admin SDK configuration from Firebase console.
-Go to `Settings/Project/Service account/Firebase admin SDK` in Firebase console. Then click on `Generate new private key`.
+Créer un fichier `.env` à la racine de `populate/` :
 
-Then put the correct link to the generated file in `populate.js`, at the serviceAccount import.
+```env
+SUPABASE_URL=https://xxx.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=eyJ...
+```
 
-Create a dir .ssh_keys and put the private key (Parametres de projet > Comptes de services) in it.
+## Scripts disponibles
+
+| Commande | Description |
+|----------|-------------|
+| `npm run bets:display` | Affiche tous les paris avec scores |
+| `npm run bets:check-scores` | Vérifie la cohérence des scores |
+| `npm run bets:who-dont-bet` | Liste les utilisateurs qui n'ont pas parié |
+| `npm run bets:who-have-no-winner` | Liste les utilisateurs sans vainqueur final |
+| `npm run bets:find-cheaters` | Détecte les paris après le début d'un match |
+| `npm run ranking:global` | Classement global |
+| `npm run ranking:by-groups` | Classement par groupes |
+| `npm run stats:good-bet-strike` | Meilleure série de paris gagnants |
+| `npm run groups:by-user` | Groupes de chaque utilisateur |
+| `npm run groups:who-have-no-group` | Utilisateurs sans groupe |
