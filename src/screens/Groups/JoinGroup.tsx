@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useApplyInGroup } from '../../hooks/groups'
 
-const JoinGroup = () => {
+const JoinGroup = ({ onSuccess }: { onSuccess: () => void }) => {
   const [code, setCode] = useState('')
   const [applyInGroup] = useApplyInGroup()
 
@@ -9,6 +9,7 @@ const JoinGroup = () => {
     if (code) {
       await applyInGroup(code)
       setCode('')
+      onSuccess()
     }
   }
 

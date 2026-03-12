@@ -6,6 +6,9 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 declare global {
+  interface Window {
+    __deferredInstallPrompt?: BeforeInstallPromptEvent
+  }
   interface WindowEventMap {
     beforeinstallprompt: BeforeInstallPromptEvent
   }
@@ -40,6 +43,13 @@ export default function InstallPrompt() {
     if (isIos()) {
       setShowIosPrompt(true)
       return
+    }
+
+    const stored = window.__deferredInstallPrompt
+    if (stored) {
+      setDeferredPrompt(stored)
+      setShowChromePrompt(true)
+      window.__deferredInstallPrompt = undefined
     }
 
     const handler = (e: BeforeInstallPromptEvent) => {

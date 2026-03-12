@@ -73,7 +73,10 @@ const Ranking = () => {
         {selectedTab === 0 ? (
           <GroupRanking name="Général" opponentsProvided={allOpponents} />
         ) : (
-          <GroupRanking {...groups[selectedTab - 1]} />
+          <GroupRanking
+            name={groups[selectedTab - 1]?.name}
+            memberIds={groups[selectedTab - 1]?.memberIds}
+          />
         )}
       </div>
     </div>

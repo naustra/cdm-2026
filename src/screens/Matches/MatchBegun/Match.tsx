@@ -24,7 +24,7 @@ function getCardBgClass(
 ): string {
   const hasBet = isNumber(betTeamA) && isNumber(betTeamB)
 
-  if (!hasBet) return 'bg-gray-50 border border-gray-200'
+  if (!hasBet) return 'bg-gray-100 border border-gray-300'
 
   if (!pointsWon || pointsWon <= 0) return 'bg-red-50 border border-red-200'
 

@@ -75,6 +75,35 @@ export type Database = {
         }
         Relationships: []
       }
+      group_members: {
+        Row: {
+          group_id: string
+          user_id: string
+          status: string
+          joined_at: string | null
+        }
+        Insert: {
+          group_id: string
+          user_id: string
+          status?: string
+          joined_at?: string | null
+        }
+        Update: {
+          group_id?: string
+          user_id?: string
+          status?: string
+          joined_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'group_members_group_id_fkey'
+            columns: ['group_id']
+            isOneToOne: false
+            referencedRelation: 'groups'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       group_apply: {
         Row: {
           group_id: string | null
@@ -109,30 +138,24 @@ export type Database = {
       }
       groups: {
         Row: {
-          awaiting_members: string[] | null
           created_at: string | null
           created_by: string | null
           id: string
           join_key: string | null
-          members: string[] | null
           name: string
         }
         Insert: {
-          awaiting_members?: string[] | null
           created_at?: string | null
           created_by?: string | null
           id?: string
           join_key?: string | null
-          members?: string[] | null
           name: string
         }
         Update: {
-          awaiting_members?: string[] | null
           created_at?: string | null
           created_by?: string | null
           id?: string
           join_key?: string | null
-          members?: string[] | null
           name?: string
         }
         Relationships: []

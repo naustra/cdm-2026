@@ -1,8 +1,11 @@
+import { useGroupsForUser } from '../../hooks/groups'
 import CreateGroup from './CreateGroup/CreateGroup'
 import JoinGroup from './JoinGroup'
 import MyGroups from './MyGroups/MyGroups'
 
 const Groups = () => {
+  const { groups, refetch } = useGroupsForUser()
+
   return (
     <div className="max-w-[600px] mx-auto py-6 px-4 pb-12 flex flex-col gap-5">
       <div className="text-center mb-1">
@@ -11,9 +14,9 @@ const Groups = () => {
           Gérez vos tribus et affrontez vos proches
         </p>
       </div>
-      <MyGroups />
-      <JoinGroup />
-      <CreateGroup />
+      <MyGroups groups={groups} />
+      <JoinGroup onSuccess={refetch} />
+      <CreateGroup onSuccess={refetch} />
     </div>
   )
 }

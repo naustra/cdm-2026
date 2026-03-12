@@ -7,7 +7,7 @@ export type AiProvider = 'openai' | 'deepseek' | 'mistral'
 const MODEL_MAP: Record<AiProvider, string> = {
   openai: 'openai/gpt-4o-mini',
   deepseek: 'deepseek/deepseek-chat',
-  mistral: 'mistralai/mistral-small',
+  mistral: 'mistralai/mistral-small-3.2-24b-instruct',
 }
 
 export interface MatchPrediction {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useCreateGroup } from '../../../hooks/groups'
 
-const CreateGroup = () => {
+const CreateGroup = ({ onSuccess }: { onSuccess: () => void }) => {
   const [name, setName] = useState('')
   const createGroup = useCreateGroup()
 
@@ -44,6 +44,7 @@ const CreateGroup = () => {
           onClick={async () => {
             await createGroup({ name })
             setName('')
+            onSuccess()
           }}
         >
           Créer la tribu

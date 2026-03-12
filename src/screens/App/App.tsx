@@ -2,6 +2,7 @@ import { Menu, X } from 'lucide-react'
 import { Suspense, lazy, useState } from 'react'
 import { Route, Routes, Link } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { useAuth } from '../../contexts/AuthContext'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
 import HomePage from '../HomePage/HomePage'
 import UserPage from '../User'
@@ -21,6 +22,7 @@ const AdminPage = lazy(() => import('../Admin'))
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { loading } = useAuth()
   const signedIn = useIsUserConnected()
   const adminUser = useIsUserAdmin()
 
@@ -57,7 +59,7 @@ const App = () => {
               </>
             )}
 
-            <Route path="*" element={<NotFoundPage />} />
+            {!loading && <Route path="*" element={<NotFoundPage />} />}
           </Routes>
         </Suspense>
       </main>

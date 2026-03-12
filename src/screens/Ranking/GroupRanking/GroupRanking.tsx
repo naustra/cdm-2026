@@ -12,7 +12,7 @@ import Tooltip from 'components/Tooltip'
 
 interface GroupRankingProps {
   name?: string
-  members?: string[] | null
+  memberIds?: string[]
   opponentsProvided?: Array<{
     id: string
     display_name?: string | null
@@ -24,12 +24,12 @@ interface GroupRankingProps {
 
 const GroupRanking = ({
   name,
-  members,
+  memberIds,
   opponentsProvided,
 }: GroupRankingProps) => {
   const { user } = useAuth()
   const uid = user?.id
-  const opponents = useOpponents(members ?? undefined)
+  const opponents = useOpponents(memberIds)
   const navigate = useNavigate()
 
   const opponentsUsed = opponentsProvided || opponents
@@ -43,7 +43,7 @@ const GroupRanking = ({
 
   return (
     <>
-      <OwnRank opponents={sortedOpponents} members={members ?? undefined} />
+      <OwnRank opponents={sortedOpponents} />
 
       <div className="w-full bg-white rounded-[14px] overflow-hidden shadow-card">
         {sortedOpponents.map((opponent, index) => {

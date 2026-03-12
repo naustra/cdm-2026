@@ -83,10 +83,10 @@ const Details = () => {
             />
           ) : (
             <GroupMatchDetails
-              {...groups[selectedTab - 1]}
+              name={groups[selectedTab - 1]?.name ?? ''}
               match={match}
               opponents={allOpponents.filter((opponent) =>
-                groups[selectedTab - 1]?.members?.includes(opponent.id),
+                groups[selectedTab - 1]?.memberIds?.includes(opponent.id),
               )}
             />
           )}

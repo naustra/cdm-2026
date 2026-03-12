@@ -4,7 +4,6 @@ import { useAuth } from '../../../contexts/AuthContext'
 
 interface OwnRankProps {
   opponents: Array<{ id: string; score?: number | null }>
-  members?: string[]
 }
 
 const OwnRank = ({ opponents }: OwnRankProps) => {

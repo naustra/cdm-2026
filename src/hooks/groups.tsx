@@ -7,6 +7,11 @@ import type { Tables } from '../lib/database.types'
 
 type GroupRow = Tables<'groups'>
 
+export interface GroupWithMembers extends GroupRow {
+  memberIds: string[]
+  awaitingIds: string[]
+}
+
 export function useCreateGroup() {
   const { user } = useAuth()
   const [applyInGroup] = useApplyInGroup()
@@ -18,8 +23,6 @@ export function useCreateGroup() {
       created_by: user!.id,
       created_at: new Date().toISOString(),
       join_key: joinKey,
-      members: [],
-      awaiting_members: [],
     })
 
     if (error) {
@@ -50,7 +53,14 @@ export function useApplyInGroup() {
 
       const group = groups[0]
 
-      if (group.members?.includes(user!.id)) {
+      const { data: existing } = await supabase
+        .from('group_members')
+        .select('user_id')
+        .eq('group_id', group.id)
+        .eq('user_id', user!.id)
+        .maybeSingle()
+
+      if (existing) {
         toast(`Vous appartenez déjà à la tribu ${group.name}`)
         return
       }
@@ -74,74 +84,90 @@ export function useApplyInGroup() {
   return [applyFn] as const
 }
 
-export function useGroupsForUserMember(): GroupRow[] {
+function normalizeGroupsWithMembers(
+  groupsWithMembers: Array<{
+    id: string
+    created_at: string | null
+    created_by: string | null
+    join_key: string | null
+    name: string
+    group_members: Array<{ user_id: string; status: string }>
+  }>,
+): GroupWithMembers[] {
+  return groupsWithMembers.map((g) => {
+    const { group_members, ...group } = g
+    return {
+      ...group,
+      memberIds: group_members
+        .filter((m) => m.status === 'member')
+        .map((m) => m.user_id),
+      awaitingIds: group_members
+        .filter((m) => m.status === 'awaiting')
+        .map((m) => m.user_id),
+    }
+  })
+}
+
+export function useGroupsForUserMember(): GroupWithMembers[] {
   const { user } = useAuth()
-  const [groups, setGroups] = useState<GroupRow[]>([])
+  const [groups, setGroups] = useState<GroupWithMembers[]>([])
 
   useEffect(() => {
     if (!user) return
-    supabase
-      .from('groups')
-      .select('*')
-      .contains('members', [user.id])
-      .then(({ data }) => setGroups(data ?? []))
+
+    fetchGroupsForUser(user.id, 'member').then(setGroups)
   }, [user?.id])
 
   return groups
 }
 
-export function useGroupsForUser(): GroupRow[] {
+export function useGroupsForUser(): {
+  groups: GroupWithMembers[]
+  refetch: () => void
+} {
   const { user } = useAuth()
-  const [groups, setGroups] = useState<GroupRow[]>([])
+  const [groups, setGroups] = useState<GroupWithMembers[]>([])
+  const [refreshKey, setRefreshKey] = useState(0)
 
   useEffect(() => {
     if (!user) return
-    Promise.all([
-      supabase.from('groups').select('*').contains('members', [user.id]),
-      supabase
-        .from('groups')
-        .select('*')
-        .contains('awaiting_members', [user.id]),
-    ]).then(([memberRes, awaitingRes]) => {
-      const all = [...(memberRes.data ?? []), ...(awaitingRes.data ?? [])]
-      const unique = all.filter(
-        (g, i, arr) => arr.findIndex((x) => x.id === g.id) === i,
-      )
-      setGroups(unique)
-    })
-  }, [user?.id])
+    fetchGroupsForUser(user.id, null).then(setGroups)
+  }, [user?.id, refreshKey])
 
-  return groups
-}
-
-export function useGroupCreatedByUser(): GroupRow[] {
-  const { user } = useAuth()
-  const [groups, setGroups] = useState<GroupRow[]>([])
-
-  useEffect(() => {
-    if (!user) return
-    supabase
-      .from('groups')
-      .select('*')
-      .eq('created_by', user.id)
-      .then(({ data }) => setGroups(data ?? []))
-  }, [user?.id])
-
-  return groups
-}
-
-export function useGroupsContainingAwaitingMembers(): GroupRow[] {
-  const [groups, setGroups] = useState<GroupRow[]>([])
-
-  useEffect(() => {
-    supabase
-      .from('groups')
-      .select('*')
-      .not('awaiting_members', 'eq', '{}')
-      .then(({ data }) => setGroups(data ?? []))
+  const refetch = useCallback(() => {
+    setRefreshKey((k) => k + 1)
   }, [])
 
-  return groups
+  return { groups, refetch }
+}
+
+async function fetchGroupsForUser(
+  userId: string,
+  status: 'member' | 'awaiting' | null,
+): Promise<GroupWithMembers[]> {
+  let query = supabase
+    .from('group_members')
+    .select('group_id')
+    .eq('user_id', userId)
+
+  if (status) {
+    query = query.eq('status', status)
+  }
+
+  const { data: myMemberships } = await query
+
+  if (!myMemberships?.length) return []
+
+  const groupIds = myMemberships.map((m) => m.group_id)
+
+  const { data: groupsWithMembers } = await supabase
+    .from('groups')
+    .select('*, group_members(user_id, status)')
+    .in('id', groupIds)
+
+  if (!groupsWithMembers) return []
+
+  return normalizeGroupsWithMembers(groupsWithMembers)
 }
 
 export function useValidApply(groupId: string, userId: string) {

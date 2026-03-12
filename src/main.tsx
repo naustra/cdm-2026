@@ -5,6 +5,11 @@ import App from './screens/App/App'
 import { AuthProvider } from './contexts/AuthContext'
 import './index.css'
 
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault()
+  window.__deferredInstallPrompt = e
+})
+
 const root = createRoot(document.getElementById('root')!)
 
 root.render(
