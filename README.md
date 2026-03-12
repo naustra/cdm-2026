@@ -1,4 +1,4 @@
-# Paris Entre Potos - Coupe du Monde 2026
+# Make Prono Great Again - Coupe du Monde 2026
 
 Application de pronostics entre amis pour la Coupe du Monde 2026.
 

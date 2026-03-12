@@ -1,4 +1,4 @@
-# AGENTS.md — Paris Entre Potos
+# AGENTS.md — Make Prono Great Again
 
 Instructions pour les agents IA travaillant sur ce projet.
 

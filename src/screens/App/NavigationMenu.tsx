@@ -133,7 +133,7 @@ const NavigationMenu = ({ closeMenu, menuOpen }: NavigationMenuProps) => {
             <span className="text-2xl">🏆</span>
             <div>
               <span className="block text-base font-extrabold text-navy leading-tight">
-                Paris Entre Potos
+                Make Prono Great Again
               </span>
               <span className="block text-[0.65rem] text-gray-400 mt-0.5">
                 Coupe du Monde 2026

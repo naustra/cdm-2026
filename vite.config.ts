@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'icon-192x192.png', 'icon-256x256.png', 'icon-384x384.png', 'icon-512x512.png'],
       manifest: {
-        short_name: 'Paris entre potos',
-        name: 'Paris entre potos - Coupe du Monde 2026',
+        short_name: 'Make Prono Great Again',
+        name: 'Make Prono Great Again - Coupe du Monde 2026',
         icons: [
           {
             src: 'favicon.ico',
@@ -44,15 +44,15 @@ export default defineConfig({
         background_color: '#bcffff',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/cdm-2026/',
-        start_url: '/cdm-2026/'
+        scope: '/',
+        start_url: '/'
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       }
     })
   ],
-  base: '/cdm-2026/',
+  base: '/',
   resolve: {
     alias: {
       components: path.resolve(__dirname, 'src/components'),

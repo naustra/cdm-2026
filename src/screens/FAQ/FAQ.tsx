@@ -9,7 +9,7 @@ function FAQPage() {
           Questions fréquentes
         </h1>
         <p className="text-sm text-gray-500 m-0 mb-5">
-          Tout ce qu'il faut savoir sur Paris Entre Potos
+          Tout ce qu'il faut savoir sur Make Prono Great Again
         </p>
       </div>
 

@@ -32,7 +32,7 @@ const App = () => {
         <button type="button" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)} className="p-2 -ml-2 rounded-full text-navy hover:bg-navy/[0.06] transition-colors">
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-        <Link to="/" className="text-[1.05rem] font-extrabold text-navy tracking-tight hover:opacity-80 active:scale-95 transition-all inline-block" title="Retour à l'accueil">Paris Entre Potos</Link>
+        <Link to="/" className="text-[1.05rem] font-extrabold text-navy tracking-tight hover:opacity-80 active:scale-95 transition-all inline-block" title="Retour à l'accueil">Make Prono Great Again</Link>
         <div className="shrink-0">
           <ConnectionWidget />
         </div>
