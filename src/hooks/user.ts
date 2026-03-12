@@ -31,3 +31,8 @@ export function useIsUserAdmin(): boolean {
   const { profile } = useAuth()
   return profile?.role === 'admin'
 }
+
+export function useUpdateProfile(): (updates: Partial<Tables<'profiles'>>) => void {
+  const { updateProfile } = useAuth()
+  return updateProfile
+}

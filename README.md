@@ -191,7 +191,7 @@ cp .env.example .env
 
 # Remplir les variables dans .env :
 # VITE_SUPABASE_URL=https://xxxxx.supabase.co
-# VITE_SUPABASE_ANON_KEY=eyJhbGci...
+# VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 
 # Installer les dépendances
 npm install
@@ -223,7 +223,7 @@ Le projet est configuré pour se déployer automatiquement sur GitHub Pages via 
 2. Source : **GitHub Actions**
 3. Ajouter les secrets du repo (`Settings > Secrets > Actions`) :
    - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_SUPABASE_PUBLISHABLE_KEY`
 4. Pusher sur `main` → déploiement automatique
 
 ---

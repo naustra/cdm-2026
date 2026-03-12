@@ -26,9 +26,10 @@ const ConnectionModal = () => {
 
   return (
     <div className="connection-modal">
-      <h2 className="connection-modal__title">Bienvenue</h2>
+      <div className="connection-modal__emoji">⚽</div>
+      <h2 className="connection-modal__title">Bienvenue !</h2>
       <p className="connection-modal__subtitle">
-        Connectez-vous pour accéder à vos pronostics
+        Connectez-vous pour pronostiquer les matchs de la Coupe du Monde 2026
       </p>
 
       <button className="google-btn" onClick={authenticateWithGoogle}>

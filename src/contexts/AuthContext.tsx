@@ -12,6 +12,7 @@ interface AuthContextValue {
   loading: boolean
   signInWithGoogle: () => Promise<void>
   signOut: () => Promise<void>
+  updateProfile: (updates: Partial<Profile>) => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -87,6 +88,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  function updateProfile(updates: Partial<Profile>) {
+    setProfile((prev) => (prev ? { ...prev, ...updates } : null))
+  }
+
   async function signInWithGoogle() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -108,6 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       loading,
       signInWithGoogle,
       signOut,
+      updateProfile,
     }),
     [session, profile, loading],
   )
