@@ -96,14 +96,15 @@ function normalizeGroupsWithMembers(
 ): GroupWithMembers[] {
   return groupsWithMembers.map((g) => {
     const { group_members, ...group } = g
+    const membersList = group_members || []
     return {
       ...group,
-      memberIds: group_members
-        .filter((m) => m.status === 'member')
-        .map((m) => m.user_id),
-      awaitingIds: group_members
-        .filter((m) => m.status === 'awaiting')
-        .map((m) => m.user_id),
+      memberIds: membersList
+        .filter((m: any) => m.status === 'member')
+        .map((m: any) => m.user_id),
+      awaitingIds: membersList
+        .filter((m: any) => m.status === 'awaiting')
+        .map((m: any) => m.user_id),
     }
   })
 }
@@ -154,16 +155,31 @@ async function fetchGroupsForUser(
     query = query.eq('status', status)
   }
 
-  const { data: myMemberships } = await query
+  const { data: myMemberships, error } = await query
 
-  if (!myMemberships?.length) return []
+  if (error) {
+    console.error('Error fetching group_members:', error)
+  }
+
+  console.log('MY MEMBERSHIPS:', myMemberships)
+
+  if (!myMemberships || myMemberships.length === 0) return []
 
   const groupIds = myMemberships.map((m) => m.group_id)
 
-  const { data: groupsWithMembers } = await supabase
+  const { data: groupsWithMembers, error: groupsError } = await supabase
     .from('groups')
-    .select('*, group_members(user_id, status)')
+    .select(`
+      *,
+      group_members(user_id, status)
+    `)
     .in('id', groupIds)
+
+  if (groupsError) {
+    console.error('Error fetching groups with members:', groupsError)
+  }
+
+  console.log('GROUPS WITH MEMBERS:', groupsWithMembers)
 
   if (!groupsWithMembers) return []
 
