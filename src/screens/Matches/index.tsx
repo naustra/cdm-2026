@@ -1,6 +1,8 @@
+import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import View from './View'
 import Matches from './Matches'
+
+const View = lazy(() => import('./View/Details'))
 
 export default function Index() {
   return (

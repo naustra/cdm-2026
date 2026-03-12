@@ -2,16 +2,17 @@ import { Menu, X } from 'lucide-react'
 import { Suspense, lazy, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { useIsUserConnected, useIsUserAdmin } from '../../hooks/user'
-import AnalyticsPage from '../Analytics'
-import FAQPage from '../FAQ'
-import GroupsPage from '../Groups'
 import HomePage from '../HomePage/HomePage'
 import UserPage from '../User'
 import MatchesPage from '../Matches'
 import NotFoundPage from '../NotFoundPage'
-import Profile from '../Profile'
-import RankingPage from '../Ranking'
-import RulesPage from '../Rules'
+
+const AnalyticsPage = lazy(() => import('../Analytics/Analytics'))
+const FAQPage = lazy(() => import('../FAQ/FAQ'))
+const GroupsPage = lazy(() => import('../Groups/Groups'))
+const Profile = lazy(() => import('../Profile/Profile'))
+const RankingPage = lazy(() => import('../Ranking/Ranking'))
+const RulesPage = lazy(() => import('../Rules/rules'))
 import ConnectionWidget from './ConnectionWidget/ConnectionWidget'
 import NavigationMenu from './NavigationMenu/NavigationMenu'
 import InstallPrompt from 'components/InstallPrompt/InstallPrompt'

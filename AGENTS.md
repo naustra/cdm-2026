@@ -37,8 +37,7 @@ supabase/
 ├── functions/       # Edge Functions (update-results, update-odds)
 └── migrations/      # Migrations SQL (schema, RLS, triggers, vues, cron)
 
-populate/            # Scripts admin (peuplement DB, ranking, stats) — legacy Firebase, reference pour migration
-functions/           # Cloud Functions Firebase — legacy, non utilise
+populate/            # Scripts admin
 ```
 
 ## Conventions de code
