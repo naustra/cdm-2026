@@ -56,17 +56,7 @@ function FAQPage() {
         answer={
           <>
             Les données personnelles collectées le sont uniquement dans le but
-            du jeu. <b>Aucune donnée ne sera réutilisée pour un autre objectif.</b>{' '}
-            Consultez la{' '}
-            <a
-              href="https://github.com/naustra/euro-2024/blob/master/confidentialite.md"
-              target="_blank"
-              rel="noreferrer"
-              style={{ color: '#6366f1' }}
-            >
-              politique de confidentialité
-            </a>
-            .
+            du jeu. <b>Aucune donnée ne sera réutilisée pour un autre objectif.</b>
           </>
         }
       />

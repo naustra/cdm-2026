@@ -15,6 +15,25 @@ const facteurMultiplicateurPhase = {
   1: 10,
 }
 
+function getCardBgClass(
+  betTeamA: number | null | undefined,
+  betTeamB: number | null | undefined,
+  pointsWon: number | null | undefined,
+  scoreA: number | null,
+  scoreB: number | null,
+): string {
+  const hasBet = isNumber(betTeamA) && isNumber(betTeamB)
+
+  if (!hasBet) return 'bg-gray-50 border border-gray-200'
+
+  if (!pointsWon || pointsWon <= 0) return 'bg-red-50 border border-red-200'
+
+  const isExactScore = betTeamA === scoreA && betTeamB === scoreB
+  if (isExactScore) return 'bg-green-50 border border-green-200'
+
+  return 'bg-amber-50 border border-amber-200'
+}
+
 const Match = ({ match, clickable = true }: { match: any; clickable?: boolean }) => {
   const [currentBet] = useBet(match.id)
   const navigate = useNavigate()
@@ -37,9 +56,17 @@ const Match = ({ match, clickable = true }: { match: any; clickable?: boolean })
 
   if (!match.display) return null
 
+  const cardBg = getCardBgClass(
+    currentBet?.betTeamA,
+    currentBet?.betTeamB,
+    currentBet?.pointsWon,
+    match.scores.A,
+    match.scores.B,
+  )
+
   return (
     <div
-      className={`w-full bg-white rounded-[14px] py-3.5 px-4 shadow-card border-none text-left flex flex-col gap-2.5 transition-all duration-150 ${clickable ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-px' : ''}`}
+      className={`w-full rounded-[14px] py-3.5 px-4 shadow-card text-left flex flex-col gap-2.5 transition-all duration-150 ${cardBg} ${clickable ? 'cursor-pointer hover:shadow-card-hover hover:-translate-y-px' : ''}`}
       onClick={clickable ? () => navigate(`/matches/${match.id}`) : undefined}
       role={clickable ? 'button' : undefined}
     >

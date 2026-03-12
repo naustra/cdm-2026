@@ -20,7 +20,7 @@ const Tooltip = ({ children, content }: TooltipProps) => {
     >
       {children}
       {isVisible && (
-        <div className="absolute z-50 px-2.5 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md shadow-lg bottom-full mb-2 whitespace-nowrap pointer-events-none">
+        <div className="absolute z-[9999] px-2.5 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md shadow-lg bottom-full mb-2 whitespace-nowrap pointer-events-none">
           {content}
           <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-gray-900" />
         </div>

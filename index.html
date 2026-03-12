@@ -16,12 +16,21 @@
       content="Paris Entre Potos - Pronostics Coupe du Monde 2026"
     />
     <link rel="apple-touch-icon" href="/icon-192x192.png" />
-    <link rel="manifest" href="/manifest.json" />
     <title>Coupe du Monde 2026</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      // SPA redirect handler for GitHub Pages
+      (function() {
+        var redirect = sessionStorage.getItem('spa-redirect')
+        if (redirect) {
+          sessionStorage.removeItem('spa-redirect')
+          window.history.replaceState(null, '', '/cdm-2026/' + redirect)
+        }
+      })()
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

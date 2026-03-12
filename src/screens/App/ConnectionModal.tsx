@@ -41,18 +41,6 @@ const ConnectionModal = () => {
         <span>Continuer avec Google</span>
       </button>
 
-      <p className="text-[0.7rem] text-gray-400 mt-1">
-        En vous connectant, vous acceptez la{' '}
-        <a
-          href="https://github.com/naustra/euro-2024/blob/master/confidentialite.md"
-          target="_blank"
-          rel="noreferrer"
-          className="underline hover:text-gray-600"
-        >
-          politique de confidentialité
-        </a>
-        .
-      </p>
     </div>
   )
 }
