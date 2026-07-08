@@ -148,8 +148,8 @@ const GroupRanking = ({
                       style={{
                         width: 28,
                         height: 28,
-                        opacity: 0.4,
-                        filter: 'grayscale(1)',
+                        opacity: 0.6,
+                        filter: 'saturate(0.35)',
                       }}
                     />
                   ) : team.unveiled ? (
@@ -171,7 +171,12 @@ const GroupRanking = ({
                   <Tooltip content={t.ranking.noFinalWinner}>
                     <img
                       src={forgotBetImgUrl}
-                      style={{ width: 28, height: 28, opacity: 0.4 }}
+                      style={{
+                        width: 28,
+                        height: 28,
+                        opacity: 0.6,
+                        filter: 'saturate(0.35)',
+                      }}
                       alt={t.common.noWinner}
                     />
                   </Tooltip>

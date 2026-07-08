@@ -1331,7 +1331,7 @@ function AdminTeamEliminationRow({
       <Flag
         country={team.code}
         className={`h-8 w-8 rounded object-contain ${
-          isEliminated ? 'opacity-40 grayscale' : ''
+          isEliminated ? 'opacity-60 saturate-[0.35]' : ''
         }`}
       />
       <div className="min-w-0 flex-1">

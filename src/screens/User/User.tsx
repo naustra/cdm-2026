@@ -133,7 +133,7 @@ function UserWinnerStatus({
           <Flag
             country={team.code}
             className={`h-full w-full rounded-full object-cover ${
-              isEliminated ? 'opacity-40 grayscale' : ''
+              isEliminated ? 'opacity-60 saturate-[0.35]' : ''
             }`}
           />
         ) : (
